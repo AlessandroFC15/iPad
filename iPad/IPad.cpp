@@ -1,4 +1,5 @@
-#include "IPad.h"
+# include "IPad.h"
+# include <iostream>
 
 IPad::IPad()
 {
@@ -31,6 +32,34 @@ void IPad::turnOff()
 bool IPad::isOn()
 {
     return isTurnedOn;
+}
+
+bool IPad::installApp(string name)
+{
+    // Check to see if the app isn't already installed
+    if (not isAppInstalled(name))
+    {
+        cout << "Will be." << endl;
+        return true;
+    } else {
+        cout << "App already installed." << endl;
+        return false;
+    }
+    
+}
+
+bool IPad::isAppInstalled(string name)
+{
+    for (int i = 0, n = appsInstalled.size(); i < n; i++)
+    {
+        if (name == appsInstalled[i])
+        {
+            return true;
+        }
+    }
+    
+    return false;
+    
 }
 
 IPad::~IPad()

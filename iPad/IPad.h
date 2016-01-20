@@ -24,6 +24,7 @@ public:
     bool openApp(string);
     bool closeApp();
     bool closeApp(string);
+    bool isAppInstalled(string);
     
 private:
     bool isTurnedOn;
