@@ -5,18 +5,18 @@
 ## Debug
 ProjectName            :=iPad
 ConfigurationName      :=Debug
-WorkspacePath          := "C:\Users\Alessandro\Desktop\Alessandro\Pendrive\Personal Growth\Areas\Education\4º Semestre\Programação II\Workspace\IPad"
-ProjectPath            := "C:\Users\Alessandro\Desktop\Alessandro\Pendrive\Personal Growth\Areas\Education\4º Semestre\Programação II\Work\iPad\iPad"
+WorkspacePath          := "C:\Users\FACOMP\Documents\iPad"
+ProjectPath            := "C:\Users\FACOMP\git\iPad\iPad"
 IntermediateDirectory  :=./Debug
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
-User                   :=Alessandro
+User                   :=FACOMP
 Date                   :=20/01/2016
 CodeLitePath           :="C:\Program Files\CodeLite"
-LinkerName             :="C:/Program Files (x86)/CodeBlocks/MinGW/bin/g++.exe"
-SharedObjectLinkerName :="C:/Program Files (x86)/CodeBlocks/MinGW/bin/g++.exe" -shared -fPIC
+LinkerName             :=C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe
+SharedObjectLinkerName :=C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe -shared -fPIC
 ObjectSuffix           :=.o
 DependSuffix           :=.o.d
 PreprocessSuffix       :=.i
@@ -36,7 +36,7 @@ ObjectsFileList        :="iPad.txt"
 PCHCompileFlags        :=
 MakeDirCommand         :=makedir
 RcCmpOptions           := 
-RcCompilerName         :="C:/Program Files (x86)/CodeBlocks/MinGW/bin/windres.exe"
+RcCompilerName         :=windres
 LinkOptions            :=  
 IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). 
 IncludePCH             := 
@@ -49,20 +49,20 @@ LibPath                := $(LibraryPathSwitch).
 ## Common variables
 ## AR, CXX, CC, AS, CXXFLAGS and CFLAGS can be overriden using an environment variables
 ##
-AR       := "C:/Program Files (x86)/CodeBlocks/MinGW/bin/ar.exe" rcu
-CXX      := "C:/Program Files (x86)/CodeBlocks/MinGW/bin/g++.exe"
-CC       := "C:/Program Files (x86)/CodeBlocks/MinGW/bin/gcc.exe"
+AR       := C:/cygwin64/bin/x86_64-pc-cygwin-ar.exe rcu
+CXX      := C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe
+CC       := C:/cygwin64/bin/x86_64-pc-cygwin-gcc.exe
 CXXFLAGS :=  -g -O0 -Wall $(Preprocessors)
 CFLAGS   :=  -g -O0 -Wall $(Preprocessors)
 ASFLAGS  := 
-AS       := "C:/Program Files (x86)/CodeBlocks/MinGW/bin/as.exe"
+AS       := C:/cygwin64/bin/x86_64-pc-cygwin-as.exe
 
 
 ##
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) 
 
 
 
@@ -94,12 +94,20 @@ PreBuild:
 ## Objects
 ##
 $(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp $(IntermediateDirectory)/main.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Alessandro/Desktop/Alessandro/Pendrive/Personal Growth/Areas/Education/4º Semestre/Programação II/Work/iPad/iPad/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/FACOMP/git/iPad/iPad/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/main.cpp$(DependSuffix) -MM "main.cpp"
 
 $(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) "main.cpp"
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) "main.cpp"
+
+$(IntermediateDirectory)/IPad.cpp$(ObjectSuffix): IPad.cpp $(IntermediateDirectory)/IPad.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/FACOMP/git/iPad/iPad/IPad.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/IPad.cpp$(DependSuffix): IPad.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/IPad.cpp$(DependSuffix) -MM "IPad.cpp"
+
+$(IntermediateDirectory)/IPad.cpp$(PreprocessSuffix): IPad.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/IPad.cpp$(PreprocessSuffix) "IPad.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

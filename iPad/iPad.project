@@ -92,5 +92,7 @@
   </Settings>
   <VirtualDirectory Name="src">
     <File Name="main.cpp"/>
+    <File Name="IPad.h"/>
+    <File Name="IPad.cpp"/>
   </VirtualDirectory>
 </CodeLite_Project>
