@@ -3,7 +3,7 @@
 
 IPad::IPad()
 {
-    // Como não foi fornecido nenhum parâmetro, os dados serão inicializados com valores padrões.
+    // Como não foi fornecido nenhum parametro, os dados serão inicializados com valores padrões.
     setSpecsToDefault();
  
     installDefaultApps();
