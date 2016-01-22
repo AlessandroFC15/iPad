@@ -1,4 +1,3 @@
-# include <stdio.h>
 # include <string>
 # include <iostream>
 # include "IPad.h"
@@ -13,7 +12,7 @@ int main(int argc, char **argv)
     
     menu(myiPad);
     
-	return 0;
+    return 0;
 }
 
 void menu(IPad& iPad)
@@ -94,5 +93,4 @@ void menu(IPad& iPad)
         }
         
     } while (op != 11);
-    
 }
