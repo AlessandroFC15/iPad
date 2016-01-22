@@ -2,8 +2,10 @@
 #define IPAD_H
 
 # include <string>
+# include <tr1/unordered_map>
 # include <vector>
 
+using namespace std::tr1;
 using namespace std;
 
 class IPad
@@ -15,7 +17,7 @@ public:
     void turnOn();
     void turnOff();
     bool isOn();
-    bool installApp(string);
+    bool installApp(string, float);
     bool uninstallApp();
     bool uninstallApp(string);
     void checkAppsInstalled();
@@ -32,10 +34,11 @@ private:
     string operatingSystem;
     float displaySize;
     float storageCapacity; // Em GB
+    float freeMemory;
     float rearCamera;
     float frontCamera;
     string color;
-    vector<string> appsInstalled;
+    unordered_map<string, float> appsInstalled;
     vector<string> activeApps;
 };
 

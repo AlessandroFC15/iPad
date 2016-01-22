@@ -1,4 +1,4 @@
-#include <stdio.h>
+# include <stdio.h>
 # include <string>
 # include <iostream>
 # include "IPad.h"
@@ -9,7 +9,11 @@ int main(int argc, char **argv)
 {
     IPad myiPad;
     
-    myiPad.installApp("iTunes");
+    myiPad.installApp("iTunes", 30);
     
+    myiPad.installApp("Instagram", 30);
+    
+    myiPad.uninstallApp("iTunes");
+
 	return 0;
 }
