@@ -5,8 +5,8 @@
 ## Debug
 ProjectName            :=iPad
 ConfigurationName      :=Debug
-WorkspacePath          := "C:\Users\Alessandro\Documents\CodeLite\ProgII\iPad"
-ProjectPath            := "C:\Users\Alessandro\Documents\CodeLite\ProgII\iPad\iPad\iPad"
+WorkspacePath          := "C:\Users\Alessandro\Documents\CodeLite\ProgII\aula"
+ProjectPath            := "C:\Users\Alessandro\git\iPad\iPad"
 IntermediateDirectory  :=./Debug
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
@@ -94,7 +94,7 @@ PreBuild:
 ## Objects
 ##
 $(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp $(IntermediateDirectory)/main.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Alessandro/Documents/CodeLite/ProgII/iPad/iPad/iPad/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Alessandro/git/iPad/iPad/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/main.cpp$(DependSuffix) -MM "main.cpp"
 
@@ -102,7 +102,7 @@ $(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) "main.cpp"
 
 $(IntermediateDirectory)/IPad.cpp$(ObjectSuffix): IPad.cpp $(IntermediateDirectory)/IPad.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Alessandro/Documents/CodeLite/ProgII/iPad/iPad/iPad/IPad.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Alessandro/git/iPad/iPad/IPad.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/IPad.cpp$(DependSuffix): IPad.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/IPad.cpp$(DependSuffix) -MM "IPad.cpp"
 

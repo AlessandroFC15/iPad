@@ -3,21 +3,58 @@
 
 IPad::IPad()
 {
+    // Como não foi fornecido nenhum parâmetro, os dados serão inicializados com valores padrões.
+    setSpecsToDefault();
+ 
+    installDefaultApps();
+}
+
+IPad::IPad(int storage)
+{
+    setSpecsToDefault();
+    
+    validateStorageValue(storage);
+    
+    installDefaultApps();
+}
+
+void IPad::validateStorageValue(int storage)
+{
+    while (true)
+    {
+        if (storage >= 16 && storage <= 128)
+        {
+            break;
+        }
+        
+        cout << "\n>> Invalid value for storage capacity. Must be between 16GB and 128GB.";
+        cout << "\n>> Enter a new value: ";
+        cin >> (storage);
+    }
+    
+    storageCapacity = storage;
+}
+
+void IPad::setSpecsToDefault()
+{
     // Por padrão, quando o objeto é inicializado, o iPad será considerado como ligado.
     isTurnedOn = true;
-    
-    // Como não foi fornecido nenhum parâmetro, os dados serão inicializados com 0.
-    processorSpeed = 0.0;
-    operatingSystem = "";
-    displaySize = 0.0;
-    
-    // Para a capacidade de armazenamento, será fornecido um valor arbitrário de 32GB.
+    processorSpeed = 1;
+    operatingSystem = 9.2;
+    displaySize = 7.9;
     storageCapacity = 32;
     freeMemory = storageCapacity;
-    
-    rearCamera = 0;
-    frontCamera = 0;
+    rearCamera = 5;
+    frontCamera = 1.2;
     color =  "white";
+}
+
+void IPad::installDefaultApps()
+{
+    installApp("Google", 0.2);
+    installApp("Safari", 0.1);
+    installApp("Youtube", 0.05);
+    installApp("Clock", 0.01);
 }
 
 void IPad::turnOn()
@@ -35,16 +72,16 @@ bool IPad::isOn()
     return isTurnedOn;
 }
 
-bool IPad::installApp(string name, float size)
+bool IPad::installApp(string name, float sizeOfApp)
 {
     // Check to see if the app isn't already installed
     if (not isAppInstalled(name))
     {
         // Proceed to check if there is enough space to install the app
-        if (size <= freeMemory)
+        if (sizeOfApp <= freeMemory)
         {
-            appsInstalled[name] = size;
-            freeMemory -= size;
+            appsInstalled[name] = sizeOfApp;
+            freeMemory -= sizeOfApp;
             cout << "\nThe app " << name << " was successfully installed.";
             return true;
         } else
@@ -61,11 +98,15 @@ bool IPad::installApp(string name, float size)
 
 bool IPad::uninstallApp(string name)
 {
-    // 1st Step = Check to see if the app is indeed installed
+    // Check to see if the app is indeed installed
     if (isAppInstalled(name))
     {
+        // Find the app in the appsInstalled unordered map.
         auto position = appsInstalled.find(name);
+        
+        // Proceed to erase the app.
         appsInstalled.erase(position);
+        
         cout << "\nThe app " << name << " was successfully uninstalled.";
         return true;
     } else 
@@ -73,6 +114,32 @@ bool IPad::uninstallApp(string name)
         cout << "\nThe app isn't installed.";
         return false;
     }
+}
+
+void IPad::checkAppsInstalled()
+{
+    // Check to see if the iPad isn't empty.
+    if (not appsInstalled.empty())
+    {
+        cout << "\n\n.: APPS INSTALLED :.\n";
+        
+        // Iterate through the appsInstalled
+        // app holds the pair <name, sizeOfApp>
+        for (auto app : appsInstalled)
+        {
+            cout << "\nName: " << app.first << "\t\t Size: " << app.second << "GB" << endl;
+        }
+        
+    } else 
+    {
+        cout << "\n>> There are no apps installed <<";
+    }
+}
+
+void IPad::getInformation()
+{
+    
+    
 }
 
 bool IPad::isAppInstalled(string name)

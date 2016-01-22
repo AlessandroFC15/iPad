@@ -7,13 +7,9 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-    IPad myiPad;
+    IPad myiPad(10);
     
-    myiPad.installApp("iTunes", 30);
-    
-    myiPad.installApp("Instagram", 30);
-    
-    myiPad.uninstallApp("iTunes");
+    myiPad.checkAppsInstalled();
 
 	return 0;
 }
