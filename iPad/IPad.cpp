@@ -48,7 +48,7 @@ void IPad::turnOn()
 
 void IPad::turnOff()
 {
-    //closeAllApps();
+    closeAllApps();
     isTurnedOn = false;
 }
 
