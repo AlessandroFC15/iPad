@@ -12,7 +12,8 @@ class IPad
 {
 public:
     IPad();
-    IPad(int storage, float cpuSpeed = 1, float versionOS = 9.2, float display = 7.9, float backCam = 5, float frontCam = 1.2, string iPadColor = "WHITE");
+    IPad(int storage, float cpuSpeed = 1, float versionOS = 9.2, float display = 7.9, 
+         float backCam = 5, float frontCam = 1.2, string iPadColor = "WHITE");
     ~IPad();
     
     void turnOn();
