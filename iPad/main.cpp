@@ -34,74 +34,92 @@ void menu(IPad& iPad)
         cout << "\t\t6 => Open App";
         cout << "\n\n7 => Close App";
         cout << "\t\t\t8 => Close All Apps";
-        cout << "\n\n9 => Turn On";
-        cout << "\t\t\t10 => Turn Off";
-        cout << "\n\n11 => Quit";
-        cout << "\t\t\t12 => Uninstall All Apps";
+        cout << "\n\n9 => Uninstall All Apps";
+        cout << "\t\t10 => Turn On";
+        cout << "\n\n11 => Turn Off";
+        cout << "\t\t\t12 => Quit";
         cout << "\n\n>> Enter your option: ";
         cin >> op;
         
-        switch (op)
+        if (op >= 1 && op <= 9)
         {
-            case 1:
-                iPad.showAppsOpened();
-                break;
-            case 2:
-                chooseAppToInstall(iPad);
-                break;
-            case 3:
-                chooseAppToUninstall(iPad);
-                break;
-            case 4:
-                iPad.showAppsInstalled();
-                break;
-            case 5:
-                iPad.getInformation();
-                break;
-            case 6:
-                chooseAppToOpen(iPad);
-                break;
-            case 7:
-                chooseAppToClose(iPad);
-                break;
-            case 8:
-                iPad.closeAllApps();
-                break;
-            case 9:
-                if (iPad.isOn())
+            // For the options between 1 and 9, the iPad
+            // must be turned on.
+            if (not iPad.isOn())
+            {
+                cout << "\n# Turn the iPad on firstt #\n";
+            } else 
+            {
+                switch (op)
                 {
-                    cout << "\n\n# iPad is already turned on.";
-                } else
-                {
-                    iPad.turnOn();
-                    cout << "\n\n# iPad is now turned on.";
+                    case 1:
+                        iPad.showAppsOpened();
+                        break;
+                    case 2:
+                        chooseAppToInstall(iPad);
+                        break;
+                    case 3:
+                        chooseAppToUninstall(iPad);
+                        break;
+                    case 4:
+                        iPad.showAppsInstalled();
+                        break;
+                    case 5:
+                        iPad.getInformation();
+                        break;
+                    case 6:
+                        chooseAppToOpen(iPad);
+                        break;
+                    case 7:
+                        chooseAppToClose(iPad);
+                        break;
+                    case 8:
+                        iPad.closeAllApps();
+                        break;
+                    case 9:
+                        iPad.uninstallAllApps();
+                        break;
                 }
-                
-                break;
-            case 10:
-                if (not iPad.isOn())
-                {
-                    cout << "\n\n# iPad is already turned off.\n\n";
-                } else
-                {
-                    iPad.turnOff();
-                    cout << "\n\n# iPad is now turned off.\n\n";
-                }
-            
-                break;
-            case 11:
-                cout << "\n\n# PROGRAM FINISHED #";
-                break;
-            case 12:
-                iPad.uninstallAllApps();
-                break;
-            default:
-                cout <<"\n\n# Invalid option. Try again.";
-                break;
-        }
+            }
         
-    } while (op != 11);
+        } else {
+            switch (op)
+            {
+                case 10:
+                    if (iPad.isOn())
+                    {
+                        cout << "\n# iPad is already turned on.\n";
+                    } else
+                    {
+                        iPad.turnOn();
+                        cout << "\n# iPad is now turned on.\n";
+                    }
+                
+                    break;
+                case 11:
+                    if (not iPad.isOn())
+                    {
+                        cout << "\n\n# iPad is already turned off.\n\n";
+                    } else
+                    {
+                        iPad.turnOff();
+                        cout << "\n# iPad is now turned off.\n";
+                    }
+                    break;
+                    
+                case 12:
+                    cout << "\n\n# PROGRAM FINISHED #";
+                    break;
+                    
+                default:
+                    cout <<"\n\n# Invalid option. Try again.";
+                    break;
+            }
+        }
+    } while (op != 12);
 }
+
+// FUNCTIONS
 
 void chooseAppToInstall(IPad& iPad)
 {
@@ -118,7 +136,7 @@ void chooseAppToInstall(IPad& iPad)
         cout << "\n\t\t.: App Store :.\n";
         int i;
         
-        // Present every app in the array
+        // Present every app of the array declared above
         for (i = 0; i < 10; i++)
         {
             cout << "\n" << i + 1 << " => " << appsToInstall[i].first << " (" << appsToInstall[i].second << "MB)"; 
@@ -137,6 +155,7 @@ void chooseAppToInstall(IPad& iPad)
             string nameOfApp;
             float sizeOfApp;
             
+            // Validate the name of the app.
             while (true)
             {
                 cout << "\n\n>> Enter name of app (Max 25 chars): ";
@@ -152,6 +171,7 @@ void chooseAppToInstall(IPad& iPad)
                 cout << "\n# Invalid name. Try again.";
             }
             
+            // Validate the size of the app.
             while (true)
             {
                 cout << "\n\n>> Enter size of app in MB: ";
@@ -175,12 +195,12 @@ void chooseAppToInstall(IPad& iPad)
             cout << "\n# Invalid option. Try again #\n";
         }
     } while (op != 12);
-    
 }
 
 void chooseAppToUninstall(IPad& iPad)
 {
     cin.ignore();
+    
     // Show apps that are installed
     if(iPad.showAppsInstalled())
     {
@@ -204,6 +224,7 @@ void chooseAppToUninstall(IPad& iPad)
 void chooseAppToOpen(IPad& iPad)
 {
     cin.ignore();
+    
     // Show apps that are installed
     if(iPad.showAppsInstalled())
     {
@@ -227,6 +248,8 @@ void chooseAppToOpen(IPad& iPad)
 void chooseAppToClose(IPad& iPad)
 {
     cin.ignore();
+    
+    // Show apps that are open.
     if(iPad.showAppsOpened())
     {
         while (true)

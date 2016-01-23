@@ -70,23 +70,27 @@ public:
     bool openApp(string);
  
     /**
-        Closes an specific app in the iPad.
+        Closes an app in the iPad, given its name.
         
-        @return boolean value, indicating if the app was successfully closed.
+        @return boolean value, returning true only if the app was open and after the
+        function is closed. Any other case will return false.
     */
     bool closeApp(string);
     
     /**
         Closes all active apps.
         
-        @return boolean value, indicating if alls apps were successfully closed.
+        @return boolean value, returning true if there was n (n > 0) apps open and
+        now there are 0 apps open. The function will return false if there were no 
+        apps open before its execution.
     */
     bool closeAllApps();
     
     /**
         Uninstall all apps.
         
-        @return boolean value, indicating if alls apps were successfully uninstalled.
+        @return boolean value, returning true if the iPad wasn't empty and all apps were uninstalled.
+        The function will return false if the iPad was empty before the execution.
     */
     bool uninstallAllApps();
     
@@ -97,12 +101,22 @@ public:
      
     bool isOn();
     bool isAppInstalled(string);
-    bool isAppOpened(string name);
+    bool isAppOpened(string);
     
     // At the construction of the object, the attributes get set to default values, if no parameters were given.
     void setSpecsToDefault();
     void installDefaultApps();
-    float validateValue(float, float, float, string);
+    
+    /**
+        Helper function designed to validate the values passed as parameters to the constructor.
+        
+        @param value: value to be validated.
+               min: The value to be analyzed can't be lower than the mininum.
+               max: The value to be analyzed can't be higher than the maximum.
+               name: String to help identify which attribute is being validated.
+        @return float value already validated acording to the max and min limits provided in the arguments.
+    */
+    float validateValue(float value, float min , float max, string name);
     
 private:
     bool isTurnedOn;
