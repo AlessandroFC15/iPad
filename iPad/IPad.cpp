@@ -9,16 +9,7 @@ IPad::IPad()
     installDefaultApps();
 }
 
-IPad::IPad(int storage)
-{
-    setSpecsToDefault();
-    
-    storageCapacity = validateValue(storage, 16, 128, "storage capacity");
-    
-    installDefaultApps();
-}
-
-IPad::IPad(float cpuSpeed, float versionOS, float display, int storage, float backCam, float frontCam, string iPadColor)
+IPad::IPad(int storage, float cpuSpeed, float versionOS, float display, float backCam, float frontCam, string iPadColor)
 {
     isTurnedOn = true;
     
@@ -363,26 +354,26 @@ void IPad::setSpecsToDefault()
     freeMemory = storageCapacity;
     rearCamera = 5;
     frontCamera = 1.2;
-    color =  "white";
+    color =  "WHITE";
 }
 
 void IPad::installDefaultApps()
 {
     // Installing Google
     appsInstalled["Google"] = 200;
-    freeMemory -= 0.2;
+    freeMemory -= 200/1000.0;
     
     // Installing Safari
     appsInstalled["Safari"] = 100;
-    freeMemory -= 0.1;
+    freeMemory -= 100/1000.0;
     
     // Installing Youtube
     appsInstalled["YouTube"] = 50;
-    freeMemory -= 0.05;
+    freeMemory -= 50/1000.0;
     
     // Installing iTunes
     appsInstalled["iTunes"] = 100;
-    freeMemory -= 0.01;
+    freeMemory -= 100/1000.0;
 }
 
 float IPad::validateValue(float value, float min, float max, string name)

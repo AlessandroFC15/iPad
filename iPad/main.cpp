@@ -12,7 +12,7 @@ void chooseAppToClose(IPad& iPad);
 
 int main(int argc, char **argv)
 {
-    IPad myiPad(1.4, 9, 7, 64, 5, 1.4, "white");
+    IPad myiPad(64);
     
     menu(myiPad);
     
