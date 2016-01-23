@@ -23,7 +23,7 @@ public:
         Installs an app in the iPad.
 
         @param name of the app.
-        @param size of the app in GB.
+        @param size of the app in MB.
         @return boolean value, indicating if the app was successfully installed.
     */
     bool installApp(string, float);
@@ -38,8 +38,17 @@ public:
     
     /**
         Prints a list of the apps installed in the iPad.
+        
+        @return boolean value. Returns true if there is any app installed, false otherwise.
     */
-    void showAppsInstalled();
+    bool showAppsInstalled();
+    
+    /**
+        Prints a list of the apps opened in the iPad.
+        
+        @return boolean value. Returns true if there is any app open, false otherwise.
+    */
+    bool showAppsOpened();
     
     /**
         Prints to the screen information about the iPad, including:
@@ -67,13 +76,19 @@ public:
     */
     bool closeApp(string);
     
-     /**
+    /**
         Closes all active apps.
         
         @return boolean value, indicating if alls apps were successfully closed.
     */
-    
     bool closeAllApps();
+    
+    /**
+        Uninstall all apps.
+        
+        @return boolean value, indicating if alls apps were successfully uninstalled.
+    */
+    bool uninstallAllApps();
     
     /** HELPER FUNCTIONS
      * 

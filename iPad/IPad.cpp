@@ -30,7 +30,7 @@ IPad::IPad(float cpuSpeed, float versionOS, float display, int storage, float ba
     
     storageCapacity = validateValue(storage, 16, 128, "storage capacity");
     
-    freeMemory = storage;
+    freeMemory = storageCapacity;
     
     rearCamera = validateValue(backCam, 5, 8, "rear camera quality");
     
@@ -62,11 +62,11 @@ bool IPad::installApp(string name, float sizeOfApp)
         if (not isAppInstalled(name))
         {
             // Proceed to check if there is enough space to install the app
-            if (sizeOfApp <= freeMemory)
+            if (sizeOfApp/1000 <= freeMemory)
             {
                 appsInstalled[name] = sizeOfApp;
-                freeMemory -= sizeOfApp;
-                cout << "\nThe app " << name << " was successfully installed.";
+                freeMemory -= sizeOfApp/1000;
+                cout << "\n\n || The app " << name << " was successfully installed. ||\n";
                 return true;
             } else
             {
@@ -83,8 +83,6 @@ bool IPad::installApp(string name, float sizeOfApp)
         cout << "\n# Turn the iPad on first #";
         return false;
     }
-    
-    
 }
 
 bool IPad::uninstallApp(string name)
@@ -95,17 +93,23 @@ bool IPad::uninstallApp(string name)
         // Check to see if the app is indeed installed
         if (isAppInstalled(name))
         {
+            // Close the app, in case it is open
+            closeApp(name);
+            
             // Find the app in the appsInstalled unordered map.
-            auto position = appsInstalled.find(name);
+            auto app = appsInstalled.find(name);
+            
+            // The memory the app held is set free.
+            freeMemory += (app->second)/1000;
             
             // Proceed to erase the app.
-            appsInstalled.erase(position);
+            appsInstalled.erase(app);
             
-            cout << "\nThe app " << name << " was successfully uninstalled.";
+            cout << "\n|| The app " << name << " was successfully uninstalled. ||\n";
             return true;
         } else 
         {
-            cout << "\nThe app isn't installed.";
+            cout << "\n# The app " << name <<" isn't installed. #\n";
             return false;
         }
     } else
@@ -115,7 +119,7 @@ bool IPad::uninstallApp(string name)
     }
 }
 
-void IPad::showAppsInstalled()
+bool IPad::showAppsInstalled()
 {
     // Check to see if the iPad is on
     if (isOn())
@@ -129,17 +133,41 @@ void IPad::showAppsInstalled()
             // app holds the pair <name, sizeOfApp>
             for (auto app : appsInstalled)
             {
-                cout << "\nName: " << app.first << "\t\t Size: " << app.second << "GB" << endl;
+                cout << "\nName: " << app.first << " | " << app.second << "MB" << endl;
             }
             
+            return true;
         } else 
         {
-            cout << "\n>> There are no apps installed <<";
+            cout << "\n>> There are no apps installed <<\n";
+            return false;
         }
     } else
     {
         cout << "\n# Turn the iPad on first #";
+        return false;
     }
+}
+
+bool IPad::showAppsOpened()
+{
+    // Check to see if there is any app active.
+    if (not activeApps.empty())
+    {
+        cout << "\n\n.: ACTIVE APPS :.\n";
+        for (string nameOfApp : activeApps)
+        {
+            cout << "\n>> " << nameOfApp;
+        }
+        
+        return true;
+        
+    } else
+    {
+        cout << "\n>> There are no apps open <<\n";
+        return false;
+    }
+    
 }
 
 void IPad::getInformation()
@@ -177,21 +205,21 @@ bool IPad::openApp(string name)
             {
                 activeApps.push_back(name);
                 
-                cout << "\nApp " << name << " was successfully opened.";
+                cout << "\n|| App " << name << " was successfully opened. ||\n";
                 return true;
             } else
             {
-                cout << "\n# App " << name <<" is already opened.";
+                cout << "\n# App " << name <<" is already opened. #\n";
                 return false;
             }
         } else
         {
-            cout << "\n# Couldn't open app " << name <<", because it isn't installed.";
+            cout << "\n# Couldn't open app " << name <<", because it isn't installed. #\n";
             return false;
         }
     } else
     {
-        cout << "\n# Turn the iPad on first #";
+        cout << "\n# Turn the iPad on first #\n";
         return false;
     }
 }
@@ -201,24 +229,30 @@ bool IPad::closeApp(string name)
     // Check to see if the iPad is on
     if (isOn())
     {
-        // Check to see if the app is open.
-        if (isAppOpened(name))
+        if (isAppInstalled(name))
         {
-            for (int i = 0, n = activeApps.size(); i < n; i++)
+            // Check to see if the app is open.
+            if (isAppOpened(name))
             {
-                if (name == activeApps[i])
+                for (int i = 0, n = activeApps.size(); i < n; i++)
                 {
-                    activeApps.erase(activeApps.begin() + i);
-                    cout << "\nApp " << name << " was successfully closed.";
-                    return true;
-                }    
+                    if (name == activeApps[i])
+                    {
+                        activeApps.erase(activeApps.begin() + i);
+                        cout << "\n|| App " << name << " was successfully closed. ||\n";
+                        return true;
+                    }    
+                }
+            } else
+            {
+                cout << "\n# App " << name <<" was already closed. #\n";
+                return true;
             }
         } else
         {
-            cout << "\nApp " << name <<" isn't open.";
-            return false;
+            cout << "\n# App " << name <<" isn't even installed. #\n";
+            return true;
         }
-        
     } 
     
     cout << "\n# Turn the iPad on first #";
@@ -227,11 +261,56 @@ bool IPad::closeApp(string name)
 
 bool IPad::closeAllApps()
 {
-    activeApps.clear();
-    cout << "\nAll apps were closed.";
-    return true;
+    if (isOn())
+    {
+        // Check to see if there is any app open.
+        if (not activeApps.empty())
+        {
+            activeApps.clear();
+            cout << "\n\n|| All apps were closed. ||\n\n";
+            return true;
+        } else
+        {
+            cout << "\n\n|| All apps were already closed. ||\n\n";
+            return true;
+        }
+    } else
+    {
+        cout << "\n# Turn the iPad on first #";
+        return false;
+    }
 }
 
+bool IPad::uninstallAllApps()
+{
+    if (isOn())
+    {
+        // Check to see if there is any app in the device
+        if (not appsInstalled.empty())
+        {
+            // Close all apps
+            activeApps.clear();
+            
+            // Uninstall all apps
+            appsInstalled.clear();
+            
+            // Reset memory to its initial state.
+            freeMemory = storageCapacity;
+            
+            cout << "\n\n|| All apps were uninstalled ||\n\n";
+            return true;
+        } else
+        {
+            cout << "\n\n|| There are no apps in the iPad. ||\n\n";
+            return false;
+        }
+        
+    } else
+    {
+        cout << "\n# Turn the iPad on first #";
+        return false;
+    }
+}
 
 /* HELPERS */
 
@@ -289,10 +368,21 @@ void IPad::setSpecsToDefault()
 
 void IPad::installDefaultApps()
 {
-    installApp("Google", 0.2);
-    installApp("Safari", 0.1);
-    installApp("Youtube", 0.05);
-    installApp("Clock", 0.01);
+    // Installing Google
+    appsInstalled["Google"] = 200;
+    freeMemory -= 0.2;
+    
+    // Installing Safari
+    appsInstalled["Safari"] = 100;
+    freeMemory -= 0.1;
+    
+    // Installing Youtube
+    appsInstalled["YouTube"] = 50;
+    freeMemory -= 0.05;
+    
+    // Installing iTunes
+    appsInstalled["iTunes"] = 100;
+    freeMemory -= 0.01;
 }
 
 float IPad::validateValue(float value, float min, float max, string name)
