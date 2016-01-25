@@ -99,6 +99,7 @@ bool IPad::uninstallApp(string name)
     // Check to see if the app is indeed installed
     if (isAppInstalled(name))
     {
+        cout << "\n|| Uninstalling " << name << "... ||\n";
         // Close the app, in case it is open
         closeApp(name);
         
@@ -120,7 +121,7 @@ bool IPad::uninstallApp(string name)
     }
 }
 
-bool IPad::showAppsInstalled()
+void IPad::showAppsInstalled()
 {
     // Check to see if the iPad isn't empty.
     if (not appsInstalled.empty())
@@ -133,12 +134,9 @@ bool IPad::showAppsInstalled()
         {
             cout << "\nName: " << app.first << " | " << app.second << "MB" << endl;
         }
-        
-        return true;
     } else 
     {
         cout << "\n>> There are no apps installed <<\n";
-        return false;
     }
 }
 
@@ -301,6 +299,11 @@ bool IPad::isAppOpened(string name)
     }
     
     return false;
+}
+
+bool IPad::isIPadEmpty()
+{
+    return appsInstalled.empty();
 }
 
 void IPad::setSpecsToDefault()

@@ -214,9 +214,13 @@ void chooseAppToUninstall(IPad& iPad)
 {
     cin.ignore();
     
-    // Show apps that are installed
-    if(iPad.showAppsInstalled())
+    // Check to see if the iPad is not empty
+    if (not iPad.isIPadEmpty())
     {
+        // Show a list of installed apps
+        iPad.showAppsInstalled();
+        
+        // Ask the user to select an app
         while (true)
         {
             string nameOfApp;
@@ -231,6 +235,10 @@ void chooseAppToUninstall(IPad& iPad)
             
             iPad.uninstallApp(nameOfApp);
         }
+        
+    } else 
+    {
+        cout << "\n>> There are no apps installed <<\n";
     }
 }
 
@@ -238,9 +246,13 @@ void chooseAppToOpen(IPad& iPad)
 {
     cin.ignore();
     
-    // Show apps that are installed
-    if(iPad.showAppsInstalled())
+    // Check to see there are apps installed to open
+    if (not iPad.isIPadEmpty())
     {
+        // Show a list of installed apps
+        iPad.showAppsInstalled();
+        
+        // Ask the user to select an app to open
         while (true)
         {
             string nameOfApp;
@@ -255,6 +267,7 @@ void chooseAppToOpen(IPad& iPad)
             
             iPad.openApp(nameOfApp);
         }
+        
     }
 }
 

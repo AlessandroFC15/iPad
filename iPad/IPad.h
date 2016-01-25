@@ -29,7 +29,7 @@ public:
     bool installApp(string, float);
 
     /**
-        Uninstalls an specific app in the iPad.
+        Uninstalls an app in the iPad.
         
         @param name of the app.
         @return boolean value, indicating if the app was successfully uninstalled.
@@ -38,10 +38,8 @@ public:
     
     /**
         Prints a list of the apps installed in the iPad.
-        
-        @return boolean value. Returns true if there is any app installed, false otherwise.
     */
-    bool showAppsInstalled();
+    void showAppsInstalled();
     
     /**
         Prints a list of the apps opened in the iPad.
@@ -107,6 +105,7 @@ public:
     bool isOn();
     bool isAppInstalled(string);
     bool isAppOpened(string);
+    bool isIPadEmpty();
     
     // At the construction of the object, the attributes get set to default values, if no parameters were given.
     void setSpecsToDefault();
