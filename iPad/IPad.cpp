@@ -3,14 +3,19 @@
 
 IPad::IPad()
 {
+    cout << ".:. iPad Creation .:.\n";
     // Como não foi fornecido nenhum parametro, os dados serão inicializados com valores padrões.
     setSpecsToDefault();
- 
+    
     installDefaultApps();
+    
+    setLockScreenPassword();
 }
 
 IPad::IPad(int storage, float cpuSpeed, float versionOS, float display, float backCam, float frontCam, string iPadColor)
 {
+    cout << ".:. iPad Creation .:.\n";
+    
     isTurnedOn = true;
     
     processorSpeed = validateValue(cpuSpeed, 0, 5, "processor speed");
@@ -29,20 +34,39 @@ IPad::IPad(int storage, float cpuSpeed, float versionOS, float display, float ba
     
     color = iPadColor.substr(0, 25);
     
+    screenLocked = false;
+    
     installDefaultApps();
+    
+    setLockScreenPassword();
 }
 
 void IPad::turnOn()
 {
-    isTurnedOn = true;
+    if (isOn())
+    {
+        cout << "\n# iPad is already turned on.\n";
+    } else
+    {
+        isTurnedOn = true;
+        cout << "\n# iPad is now turned on.\n";
+    }
 }
 
 void IPad::turnOff()
 {
-    cout << "\n>> Turning iPad off..."; 
-    cout << "\n\t>> Closing all apps..."; 
-    closeAllApps();
-    isTurnedOn = false;
+    // Check to see if the iPad isn't already turned off.
+    if (not isOn())
+    {
+        cout << "\n\n# iPad is already turned off.\n\n";
+    } else
+    {
+        cout << "\n>> Turning iPad off..."; 
+        cout << "\n\t>> Closing all apps..."; 
+        closeAllApps();
+        isTurnedOn = false;
+        cout << "\n# iPad is now turned off.\n";
+    }
 }
 
 
@@ -291,6 +315,7 @@ void IPad::setSpecsToDefault()
     rearCamera = 5;
     frontCamera = 1.2;
     color =  "WHITE";
+    screenLocked = false;
 }
 
 void IPad::installDefaultApps()
@@ -327,6 +352,83 @@ float IPad::validateValue(float value, float min, float max, string name)
     }
     
     return value;
+}
+
+void IPad::setLockScreenPassword()
+{
+    int password;
+    while (true)
+    {
+        cout << "\n>> Set initial password to lock screen (4 digits): ";
+        cin >> password;
+        if ((password >= 1000) & (password <= 9999))
+        {
+            lockScreenPassword = password;
+            cout << "\n|| Lock screen password set successfully ||\n";
+            break;
+        }
+        
+        cout << "\n# Password must be 4 digits. Try again. #\n";
+    }
+}
+
+bool IPad::isScreenUnlocked()
+{
+    return not screenLocked;
+}
+
+bool IPad::unlockScreen()
+{
+    // Check to see if the screen is indeed locked
+    if (not isScreenUnlocked())
+    {
+        int password;
+        while (true)
+        {
+            cout << "\n>> Enter password to unlock screen (0 to Quit): ";
+            cin >> password;
+            
+            if (password == 0)
+            {
+                cout << "\n|| Unlock process was cancelled. iPad remains locked. ||\n";
+                return false;
+            } else if ((password >= 1000) & (password <= 9999))
+            {
+                if (password == lockScreenPassword)
+                {
+                    screenLocked = false;
+                    cout << "\n|| Screen is now unlocked ||\n";
+                    return true;
+                } else 
+                {
+                    cout << "\n# Wrong password. Try again #\n";
+                }
+            } else 
+            {
+                cout << "\n# Password must be 4 digits. Try again #\n";
+            }
+        }
+        
+    } else
+    {
+        cout << "\n| Screen was already unlocked. |\n";
+        return false;
+    }
+}
+
+bool IPad::lockScreen()
+{
+    // Check to see if the screen is indeed unlocked.
+    if (isScreenUnlocked())
+    {
+        screenLocked = true;
+        cout << "\n|| Screen is now locked ||\n";
+        return true;
+    } else 
+    {
+        cout << "\n| Screen was already locked. |\n";
+        return false;
+    }
 }
 
 IPad::~IPad()

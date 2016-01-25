@@ -94,6 +94,11 @@ public:
     */
     bool uninstallAllApps();
     
+    bool unlockScreen();
+    
+    bool lockScreen();
+    
+    
     /** HELPER FUNCTIONS
      * 
      * The following functions were designed to help the main functions perfomr
@@ -118,6 +123,10 @@ public:
     */
     float validateValue(float value, float min , float max, string name);
     
+    void setLockScreenPassword();
+
+    bool isScreenUnlocked();
+    
 private:
     bool isTurnedOn;
     float processorSpeed; // Measured in GHz
@@ -130,6 +139,8 @@ private:
     string color;
     unordered_map<string, float> appsInstalled;
     vector<string> activeApps;
+    int lockScreenPassword;
+    bool screenLocked;
 };
 
 #endif // IPAD_H

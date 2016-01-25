@@ -35,88 +35,101 @@ void menu(IPad& iPad)
         cout << "\n\n7 => Close App";
         cout << "\t\t\t8 => Close All Apps";
         cout << "\n\n9 => Uninstall All Apps";
-        cout << "\t\t10 => Turn On";
-        cout << "\n\n11 => Turn Off";
-        cout << "\t\t\t12 => Quit";
+        cout << "\t\t10 => Unlock Screen";
+        cout << "\n\n11 => Lock Screen";
+        cout << "\t\t12 => Turn On";
+        cout << "\n\n13 => Turn Off";
+        cout << "\t\t\t14 => Quit";
         cout << "\n\n>> Enter your option: ";
         cin >> op;
         
+        // For the options between 1 and 9, the program will only proceed if the iPad is turned on 
+        // and also if it is unlocked.
+        
         if (op >= 1 && op <= 9)
         {
-            // For the options between 1 and 9, the iPad
-            // must be turned on.
-            if (not iPad.isOn())
+            if (iPad.isOn())
             {
-                cout << "\n# Turn the iPad on firstt #\n";
+                if (iPad.isScreenUnlocked())
+                {
+                    // With the iPad on and unlocked, we can proceed to perform the option choosen.
+                    switch (op)
+                    {
+                        case 1:
+                            iPad.showAppsOpened();
+                            break;
+                        case 2:
+                            chooseAppToInstall(iPad);
+                            break;
+                        case 3:
+                            chooseAppToUninstall(iPad);
+                            break;
+                        case 4:
+                            iPad.showAppsInstalled();
+                            break;
+                        case 5:
+                            iPad.getInformation();
+                            break;
+                        case 6:
+                            chooseAppToOpen(iPad);
+                            break;
+                        case 7:
+                            chooseAppToClose(iPad);
+                            break;
+                        case 8:
+                            iPad.closeAllApps();
+                            break;
+                        case 9:
+                            iPad.uninstallAllApps();
+                            break;
+                    }
+                } else 
+                {
+                    cout << "\n# Unlock the iPad screen first #\n";
+                }
             } else 
+            {
+                cout << "\n# Turn the iPad on first #\n";
+            }
+            
+        } else if (op >= 10 && op <= 11)
+        {
+            // For the options 10 and 11, we will only check if the iPad is on.
+            if (iPad.isOn())
             {
                 switch (op)
                 {
-                    case 1:
-                        iPad.showAppsOpened();
+                    case 10:
+                        iPad.unlockScreen();
                         break;
-                    case 2:
-                        chooseAppToInstall(iPad);
-                        break;
-                    case 3:
-                        chooseAppToUninstall(iPad);
-                        break;
-                    case 4:
-                        iPad.showAppsInstalled();
-                        break;
-                    case 5:
-                        iPad.getInformation();
-                        break;
-                    case 6:
-                        chooseAppToOpen(iPad);
-                        break;
-                    case 7:
-                        chooseAppToClose(iPad);
-                        break;
-                    case 8:
-                        iPad.closeAllApps();
-                        break;
-                    case 9:
-                        iPad.uninstallAllApps();
+                    case 11:
+                        iPad.lockScreen();
                         break;
                 }
+            } else 
+            {
+                 cout << "\n# Turn the iPad on first #\n";
             }
-        
-        } else {
+        } else 
+        {
+            // For the other options, there are no pre-conditions that the iPad must be in.
             switch (op)
             {
-                case 10:
-                    if (iPad.isOn())
-                    {
-                        cout << "\n# iPad is already turned on.\n";
-                    } else
-                    {
-                        iPad.turnOn();
-                        cout << "\n# iPad is now turned on.\n";
-                    }
-                
-                    break;
-                case 11:
-                    if (not iPad.isOn())
-                    {
-                        cout << "\n\n# iPad is already turned off.\n\n";
-                    } else
-                    {
-                        iPad.turnOff();
-                        cout << "\n# iPad is now turned off.\n";
-                    }
-                    break;
-                    
                 case 12:
-                    cout << "\n\n# PROGRAM FINISHED #";
+                    iPad.turnOn();
                     break;
-                    
+                case 13:
+                    iPad.turnOff();
+                    break;
+                case 14:
+                    cout << "\n# PROGRAM FINISHED #\n";
+                    break;
                 default:
                     cout <<"\n\n# Invalid option. Try again.";
                     break;
             }
         }
-    } while (op != 12);
+    } while (op != 14);
 }
 
 // FUNCTIONS
