@@ -107,7 +107,7 @@ bool IPad::uninstallApp(string name)
         auto app = appsInstalled.find(name);
         
         // The memory the app held is set free.
-        freeMemory += (app->second)/1000;
+        freeMemory += appsInstalled[name]/1000;
         
         // Proceed to erase the app.
         appsInstalled.erase(app);
