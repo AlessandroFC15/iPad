@@ -56,7 +56,7 @@ void menu(IPad& iPad)
                     switch (op)
                     {
                         case 1:
-                            iPad.showAppsOpened();
+                            iPad.showActiveApps();
                             break;
                         case 2:
                             chooseAppToInstall(iPad);
@@ -276,7 +276,7 @@ void chooseAppToClose(IPad& iPad)
     cin.ignore();
     
     // Show apps that are open.
-    if(iPad.showAppsOpened())
+    if(iPad.showActiveApps())
     {
         while (true)
         {

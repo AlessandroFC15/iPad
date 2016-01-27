@@ -140,7 +140,7 @@ void IPad::showAppsInstalled()
     }
 }
 
-bool IPad::showAppsOpened()
+bool IPad::showActiveApps()
 {
     // Check to see if there is any active app.
     if (not activeApps.empty())

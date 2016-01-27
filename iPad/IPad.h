@@ -46,7 +46,7 @@ public:
         
         @return boolean value. Returns true if there is any app open, false otherwise.
     */
-    bool showAppsOpened();
+    bool showActiveApps();
     
     /**
         Prints to the screen information about the iPad, including:

@@ -5,7 +5,7 @@
 ## Debug
 ProjectName            :=iPad
 ConfigurationName      :=Debug
-WorkspacePath          := "C:\Users\FACOMP\Documents\ipad"
+WorkspacePath          := "C:\Users\FACOMP\Documents\asd"
 ProjectPath            := "C:\Users\FACOMP\Documents\GitHub\iPad\iPad"
 IntermediateDirectory  :=./Debug
 OutDir                 := $(IntermediateDirectory)
@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=FACOMP
-Date                   :=25/01/2016
+Date                   :=27/01/2016
 CodeLitePath           :="C:\Program Files\CodeLite"
 LinkerName             :=C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe
 SharedObjectLinkerName :=C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe -shared -fPIC
