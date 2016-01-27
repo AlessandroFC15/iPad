@@ -103,14 +103,11 @@ bool IPad::uninstallApp(string name)
         // Close the app, in case it is open
         closeApp(name);
         
-        // Find the app in the appsInstalled unordered map.
-        auto app = appsInstalled.find(name);
-        
         // The memory the app held is set free.
         freeMemory += appsInstalled[name]/1000;
         
         // Proceed to erase the app.
-        appsInstalled.erase(app);
+        appsInstalled.erase(name);
         
         cout << "\n|| The app " << name << " was successfully uninstalled. ||\n";
         return true;
