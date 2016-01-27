@@ -103,7 +103,7 @@ bool IPad::uninstallApp(string name)
         // Close the app, in case it is open
         closeApp(name);
         
-        // The memory the app held is set free.
+        // The memory the app held is set free. Needs to convert to GB.
         freeMemory += appsInstalled[name]/1000;
         
         // Proceed to erase the app.
