@@ -12,7 +12,7 @@ class IPad
 {
 public:
     IPad();
-    IPad(int storage, float cpuSpeed = 1, float versionOS = 9.2, float display = 7.9, string iPadColor = "WHITE");
+    IPad(int storage, string iPadColor = "WHITE");
     ~IPad();
     
     void turnOn();
@@ -25,7 +25,7 @@ public:
         @param size of the app in MB.
         @return boolean value, indicating if the app was successfully installed.
     */
-    bool installApp(string, float);
+    bool installApp(const string &, float);
 
     /**
         Uninstalls an app in the iPad.
@@ -33,7 +33,23 @@ public:
         @param name of the app.
         @return boolean value, indicating if the app was successfully uninstalled.
     */
-    bool uninstallApp(string);
+    bool uninstallApp(const string &);
+    
+     /**
+        Opens an specific app in the iPad.
+        
+        @param name of the app.
+        @return boolean value, indicating if the app was successfully opened.
+    */
+    bool openApp(const string &);
+ 
+    /**
+        Closes an app in the iPad, given its name.
+        
+        @return boolean value, returning true only if the app was open and after the
+        function is closed. Any other case will return false.
+    */
+    bool closeApp(const string &);
     
     /**
         Prints a list of the apps installed in the iPad.
@@ -47,31 +63,14 @@ public:
     
     /**
         Prints to the screen information about the iPad, including:
-         * processorSpeed
-         * operatingSystem
-         * displaySize
          * storageCapacity
          * freeMemory
-         * rearCamera, frontCamera
+         * color
+         * num of apps installed
+         * num of apps open
     */
     void getInformation();
 
-    /**
-        Opens an specific app in the iPad.
-        
-        @param name of the app.
-        @return boolean value, indicating if the app was successfully opened.
-    */
-    bool openApp(string);
- 
-    /**
-        Closes an app in the iPad, given its name.
-        
-        @return boolean value, returning true only if the app was open and after the
-        function is closed. Any other case will return false.
-    */
-    bool closeApp(string);
-    
     /**
         Closes all active apps.
         
@@ -93,6 +92,13 @@ public:
     
     bool lockScreen();
     
+    void turnWiFiOn();
+    
+    void turnWiFiOff();
+    
+    void turnMobileDataOn();
+    
+    void turnMobileDataOff();
     
     /** HELPER FUNCTIONS
      * 
@@ -100,8 +106,8 @@ public:
      */
      
     bool isOn();
-    bool isAppInstalled(string);
-    bool isAppOpened(string);
+    bool isAppInstalled(const string &);
+    bool isAppOpened(const string &);
     bool isIPadEmpty();
     
     // At the construction of the object, the attributes get set to default values, if no parameters were given.
@@ -117,19 +123,15 @@ public:
                name: String to help identify which attribute is being validated.
         @return float value already validated acording to the max and min limits provided in the arguments.
     */
-    float validateValue(float value, float min , float max, string name);
+    float validateValue(float, float, float, const string &);
     
     void setLockScreenPassword();
-
     bool isScreenUnlocked();
-    
     bool isAnyAppOpen();
+    bool isInternetAvailable();
     
 private:
     bool isTurnedOn;
-    float processorSpeed; // Measured in GHz
-    float operatingSystem; // Indicate the version of the iOS.
-    float displaySize; // Measured in inches
     float storageCapacity; // Measured in GB
     float freeMemory; // Measured in GB
     string color;
@@ -137,6 +139,8 @@ private:
     vector<string> activeApps;
     int lockScreenPassword;
     bool screenLocked;
+    bool wiFiOn;
+    bool mobileDataOn;
 };
 
 #endif // IPAD_H

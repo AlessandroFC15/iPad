@@ -4,7 +4,7 @@
 IPad::IPad()
 {
     cout << ".:. iPad Creation .:.\n";
-    // Como não foi fornecido nenhum parametro, os dados serão inicializados com valores padrões.
+    
     setSpecsToDefault();
     
     installDefaultApps();
@@ -12,17 +12,11 @@ IPad::IPad()
     setLockScreenPassword();
 }
 
-IPad::IPad(int storage, float cpuSpeed, float versionOS, float display, string iPadColor)
+IPad::IPad(int storage, string iPadColor)
 {
     cout << ".:. iPad Creation .:.\n";
     
     isTurnedOn = true;
-    
-    processorSpeed = validateValue(cpuSpeed, 0, 5, "processor speed");
-    
-    operatingSystem = validateValue(versionOS, 1, 10, "operating system");
-    
-    displaySize = validateValue(display, 5, 13, "display size");
     
     storageCapacity = validateValue(storage, 16, 128, "storage capacity");
     
@@ -32,14 +26,23 @@ IPad::IPad(int storage, float cpuSpeed, float versionOS, float display, string i
     
     screenLocked = false;
     
+    wiFiOn = false;
+    
+    mobileDataOn = false;
+    
     installDefaultApps();
     
     setLockScreenPassword();
 }
 
+IPad::~IPad()
+{
+}
+
+
 void IPad::turnOn()
 {
-    if (isOn())
+    if (isTurnedOn)
     {
         cout << "\n# iPad is already turned on.\n";
     } else
@@ -52,21 +55,21 @@ void IPad::turnOn()
 void IPad::turnOff()
 {
     // Check to see if the iPad isn't already turned off.
-    if (not isOn())
+    if (not isTurnedOn)
     {
         cout << "\n\n# iPad is already turned off.\n\n";
     } else
     {
-        cout << "\n>> Turning iPad off..."; 
-        cout << "\n\t>> Closing all apps..."; 
-        closeAllApps();
+        // Close all apps
+        activeApps.clear();
+        
         isTurnedOn = false;
+        
         cout << "\n# iPad is now turned off.\n";
     }
 }
 
-
-bool IPad::installApp(string name, float sizeOfApp)
+bool IPad::installApp(const string &name, float sizeOfApp)
 {
     // Check to see if the app isn't already installed
     if (not isAppInstalled(name))
@@ -90,7 +93,7 @@ bool IPad::installApp(string name, float sizeOfApp)
     }
 }
 
-bool IPad::uninstallApp(string name)
+bool IPad::uninstallApp(const string &name)
 {
     // Check to see if the app is indeed installed
     if (isAppInstalled(name))
@@ -110,6 +113,59 @@ bool IPad::uninstallApp(string name)
     } else 
     {
         cout << "\n# The app " << name <<" isn't installed. #\n";
+        return false;
+    }
+}
+
+bool IPad::openApp(const string &name)
+{
+    // Check to see if the app is installed
+    if (isAppInstalled(name))
+    {
+        // Check to see if the app isn't already open
+        if (not isAppOpened(name))
+        {
+            activeApps.push_back(name);
+            
+            cout << "\n|| App " << name << " was successfully opened. ||\n";
+            return true;
+        } else
+        {
+            cout << "\n# App " << name <<" is already opened. #\n";
+            return false;
+        }
+    } else
+    {
+        cout << "\n# Couldn't open app " << name <<", because it isn't installed. #\n";
+        return false;
+    }
+}
+
+bool IPad::closeApp(const string &name)
+{
+    // Check to see if the app is installed.
+    if (isAppInstalled(name))
+    {
+        // Check to see if the app is open.
+        if (isAppOpened(name))
+        {
+            for (int i = 0, n = activeApps.size(); i < n; i++)
+            {
+                if (name == activeApps[i])
+                {
+                    activeApps.erase(activeApps.begin() + i);
+                    cout << "\n|| App " << name << " was successfully closed. ||\n";
+                    return true;
+                }    
+            }
+        } else
+        {
+            cout << "\n# App " << name <<" wasn't open. #\n";
+            return false;
+        }
+    } else
+    {
+        cout << "\n# App " << name <<" isn't even installed. #\n";
         return false;
     }
 }
@@ -152,68 +208,12 @@ void IPad::showActiveApps()
 void IPad::getInformation()
 {
     cout << "\n\n.: iPad Specs :.\n";
-    cout << "\n>> CPU SPEED = " << processorSpeed << "GHz";
-    cout << "\n>> OPERATING SYSTEM = iOS " << operatingSystem;
-    cout << "\n>> DISPLAY SIZE = " << displaySize << "\"";
     cout << "\n>> STORAGE CAPACITY = " << storageCapacity << "GB";
     cout << "\n>> FREE MEMORY = " << freeMemory << "GB";
     cout << "\n>> COLOR = " << color;
     cout << "\n>> NUM OF APPS INSTALLED = " << appsInstalled.size();
     cout << "\n>> NUM OF ACTIVE APPS = " << activeApps.size();
     cout << "\n\n";
-}
-
-bool IPad::openApp(string name)
-{
-    // Check to see if the app is installed
-    if (isAppInstalled(name))
-    {
-        // Check to see if the app isn't already open
-        if (not isAppOpened(name))
-        {
-            activeApps.push_back(name);
-            
-            cout << "\n|| App " << name << " was successfully opened. ||\n";
-            return true;
-        } else
-        {
-            cout << "\n# App " << name <<" is already opened. #\n";
-            return false;
-        }
-    } else
-    {
-        cout << "\n# Couldn't open app " << name <<", because it isn't installed. #\n";
-        return false;
-    }
-}
-
-bool IPad::closeApp(string name)
-{
-    // Check to see if the app is installed.
-    if (isAppInstalled(name))
-    {
-        // Check to see if the app is open.
-        if (isAppOpened(name))
-        {
-            for (int i = 0, n = activeApps.size(); i < n; i++)
-            {
-                if (name == activeApps[i])
-                {
-                    activeApps.erase(activeApps.begin() + i);
-                    cout << "\n|| App " << name << " was successfully closed. ||\n";
-                    return true;
-                }    
-            }
-        } else
-        {
-            cout << "\n# App " << name <<" wasn't open. #\n";
-            return false;
-        }
-    } else
-    {
-        cout << "\n# App " << name <<" isn't even installed. #\n";
-        return false;
-    }
 }
 
 bool IPad::closeAllApps()
@@ -253,123 +253,6 @@ bool IPad::uninstallAllApps()
         cout << "\n\n|| There are no apps in the iPad. ||\n\n";
         return false;
     }
-}
-
-/* HELPERS */
-
-bool IPad::isOn()
-{
-    return isTurnedOn;
-}
-
-bool IPad::isAppInstalled(string name)
-{
-    // Find the app in the unordered map appsInstalled.
-    auto lookup = appsInstalled.find(name);
-
-    // If the function "find" above returns something other than an iterator to the end of the map,
-    // that means the element was found and therefore, is installed.
-    if (lookup != appsInstalled.end())
-    {
-        return true;
-    }
-    
-    return false;
-}
-
-bool IPad::isAppOpened(string name)
-{
-    for (string nameOfApp : activeApps)
-    {
-        if (nameOfApp == name)
-        {
-            return true;
-        }
-    }
-    
-    return false;
-}
-
-bool IPad::isIPadEmpty()
-{
-    return appsInstalled.empty();
-}
-
-bool IPad::isAnyAppOpen()
-{
-    return not activeApps.empty();
-}
-
-void IPad::setSpecsToDefault()
-{
-    // The following values were chosen arbitrarily.
-    isTurnedOn = true;
-    processorSpeed = 1;
-    operatingSystem = 9.2;
-    displaySize = 7.9;
-    storageCapacity = 32;
-    freeMemory = storageCapacity;
-    color =  "WHITE";
-    screenLocked = false;
-}
-
-void IPad::installDefaultApps()
-{
-    // Installing Google
-    appsInstalled["Google"] = 200;
-    freeMemory -= 200/1000.0;
-    
-    // Installing Safari
-    appsInstalled["Safari"] = 100;
-    freeMemory -= 100/1000.0;
-    
-    // Installing Youtube
-    appsInstalled["YouTube"] = 50;
-    freeMemory -= 50/1000.0;
-    
-    // Installing iTunes
-    appsInstalled["iTunes"] = 100;
-    freeMemory -= 100/1000.0;
-}
-
-float IPad::validateValue(float value, float min, float max, string name)
-{
-    while (true)
-    {
-        if (value >= min && value <= max)
-        {
-            break;
-        }
-        
-        cout << "\n>> Invalid value for " << name << ". Must be between " << min << " and " << max << ".";
-        cout << "\n>> Enter a new value: ";
-        cin >> (value);
-    }
-    
-    return value;
-}
-
-void IPad::setLockScreenPassword()
-{
-    int password;
-    while (true)
-    {
-        cout << "\n>> Set initial password to lock screen (4 digits): ";
-        cin >> password;
-        if ((password >= 1000) & (password <= 9999))
-        {
-            lockScreenPassword = password;
-            cout << "\n|| Lock screen password set successfully ||\n";
-            break;
-        }
-        
-        cout << "\n# Password must be 4 digits. Try again. #\n";
-    }
-}
-
-bool IPad::isScreenUnlocked()
-{
-    return not screenLocked;
 }
 
 bool IPad::unlockScreen()
@@ -426,6 +309,173 @@ bool IPad::lockScreen()
     }
 }
 
-IPad::~IPad()
+void IPad::turnWiFiOn()
 {
+    if (wiFiOn)
+    {
+        cout << "\n# WiFi is already turned on.\n";
+    } else
+    {
+        wiFiOn = true;
+        cout << "\n# WiFi is now turned on.\n";
+    }
 }
+
+void IPad::turnWiFiOff()
+{
+    if (not wiFiOn)
+    {
+        cout << "\n# WiFi is already turned off.\n";
+    } else
+    {
+        wiFiOn = false;
+        cout << "\n# WiFi is now turned off.\n";
+    }
+}
+
+void IPad::turnMobileDataOn()
+{
+    if (mobileDataOn)
+    {
+        cout << "\n# Mobile data network is already turned on.\n";
+    } else
+    {
+        mobileDataOn = true;
+        cout << "\n# Mobile data network is now turned on.\n";
+    }
+}
+    
+void IPad::turnMobileDataOff()
+{
+    if (not mobileDataOn)
+    {
+        cout << "\n# Mobile data network is already turned off.\n";
+    } else
+    {
+        mobileDataOn = false;
+        cout << "\n# Mobile data network is now turned off.\n";
+    }
+}
+
+
+/* HELPERS */
+
+bool IPad::isOn()
+{
+    return isTurnedOn;
+}
+
+bool IPad::isAppInstalled(const string &name)
+{
+    // Find the app in the unordered map appsInstalled.
+    auto lookup = appsInstalled.find(name);
+
+    // If the function "find" above returns something other than an iterator to the end of the map,
+    // that means the element was found and therefore, is installed.
+    if (lookup != appsInstalled.end())
+    {
+        return true;
+    }
+    
+    return false;
+}
+
+bool IPad::isAppOpened(const string &name)
+{
+    for (string nameOfApp : activeApps)
+    {
+        if (nameOfApp == name)
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+bool IPad::isIPadEmpty()
+{
+    return appsInstalled.empty();
+}
+
+bool IPad::isAnyAppOpen()
+{
+    return not activeApps.empty();
+}
+
+void IPad::setSpecsToDefault()
+{
+    // The following values were chosen arbitrarily.
+    isTurnedOn = true;
+    storageCapacity = 32;
+    freeMemory = storageCapacity;
+    color =  "WHITE";
+    screenLocked = false;
+    wiFiOn = true;
+    mobileDataOn = false;
+}
+
+void IPad::installDefaultApps()
+{
+    // Installing Google
+    appsInstalled["Google"] = 200;
+    freeMemory -= 200/1000.0;
+    
+    // Installing Safari
+    appsInstalled["Safari"] = 100;
+    freeMemory -= 100/1000.0;
+    
+    // Installing Youtube
+    appsInstalled["YouTube"] = 50;
+    freeMemory -= 50/1000.0;
+    
+    // Installing iTunes
+    appsInstalled["iTunes"] = 100;
+    freeMemory -= 100/1000.0;
+}
+
+float IPad::validateValue(float value, float min, float max, const string &name)
+{
+    while (true)
+    {
+        if (value >= min && value <= max)
+        {
+            break;
+        }
+        
+        cout << "\n>> Invalid value for " << name << ". Must be between " << min << " and " << max << ".";
+        cout << "\n>> Enter a new value: ";
+        cin >> (value);
+    }
+    
+    return value;
+}
+
+void IPad::setLockScreenPassword()
+{
+    int password;
+    while (true)
+    {
+        cout << "\n>> Set initial password to lock screen (4 digits): ";
+        cin >> password;
+        if ((password >= 1000) & (password <= 9999))
+        {
+            lockScreenPassword = password;
+            cout << "\n|| Lock screen password set successfully ||\n";
+            break;
+        }
+        
+        cout << "\n# Password must be 4 digits. Try again. #\n";
+    }
+}
+
+bool IPad::isScreenUnlocked()
+{
+    return not screenLocked;
+}
+
+bool IPad::isInternetAvailable()
+{
+    return wiFiOn || mobileDataOn;
+}
+

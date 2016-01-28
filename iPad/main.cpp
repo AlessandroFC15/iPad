@@ -35,18 +35,22 @@ void menu(IPad& iPad)
         cout << "\n\n7 => Close App";
         cout << "\t\t\t8 => Close All Apps";
         cout << "\n\n9 => Uninstall All Apps";
-        cout << "\t\t10 => Unlock Screen";
-        cout << "\n\n11 => Lock Screen";
-        cout << "\t\t12 => Turn On";
-        cout << "\n\n13 => Turn Off";
-        cout << "\t\t\t14 => Quit";
+        cout << "\t\t10 => Turn Wi-Fi On";
+        cout << "\n\n11 => Turn Wi-Fi Off";
+        cout << "\t\t12 => Turn Mobile Data On";
+        cout << "\n\n13 => Turn Mobile Data Off";
+        cout << "\t14 => Unlock Screen";
+        cout << "\n\n15 => Lock Screen";
+        cout << "\t\t16 => Turn On";
+        cout << "\n\n17 => Turn Off";
+        cout << "\t\t\t18 => Quit";
         cout << "\n\n>> Enter your option: ";
         cin >> op;
         
-        // For the options between 1 and 9, the program will only proceed if the iPad is turned on 
+        // For the options between 1 and 13, the program will only proceed if the iPad is turned on 
         // and also if it is unlocked.
         
-        if (op >= 1 && op <= 9)
+        if (op >= 1 && op <= 13)
         {
             if (iPad.isOn())
             {
@@ -59,7 +63,14 @@ void menu(IPad& iPad)
                             iPad.showActiveApps();
                             break;
                         case 2:
-                            chooseAppToInstall(iPad);
+                            // To download any app, internet must be available
+                            if (iPad.isInternetAvailable())
+                            {
+                                chooseAppToInstall(iPad);
+                            } else
+                            {
+                                cout << "\n# There is no internet connection to download apps. \n# Turn WiFi or mobile data on. \n";
+                            }
                             break;
                         case 3:
                             chooseAppToUninstall(iPad);
@@ -82,6 +93,18 @@ void menu(IPad& iPad)
                         case 9:
                             iPad.uninstallAllApps();
                             break;
+                        case 10:
+                            iPad.turnWiFiOn();
+                            break;
+                        case 11:
+                            iPad.turnWiFiOff();
+                            break;
+                        case 12:
+                            iPad.turnMobileDataOn();
+                            break;
+                        case 13:
+                            iPad.turnMobileDataOff();
+                            break;
                     }
                 } else 
                 {
@@ -92,17 +115,17 @@ void menu(IPad& iPad)
                 cout << "\n# Turn the iPad on first #\n";
             }
             
-        } else if (op >= 10 && op <= 11)
+        } else if (op >= 14 && op <= 15)
         {
-            // For the options 10 and 11, we will only check if the iPad is on.
+            // For the options 14 and 15, we will only check if the iPad is on.
             if (iPad.isOn())
             {
                 switch (op)
                 {
-                    case 10:
+                    case 14:
                         iPad.unlockScreen();
                         break;
-                    case 11:
+                    case 15:
                         iPad.lockScreen();
                         break;
                 }
@@ -115,13 +138,13 @@ void menu(IPad& iPad)
             // For the other options, there are no pre-conditions that the iPad must be in.
             switch (op)
             {
-                case 12:
+                case 16:
                     iPad.turnOn();
                     break;
-                case 13:
+                case 17:
                     iPad.turnOff();
                     break;
-                case 14:
+                case 18:
                     cout << "\n# PROGRAM FINISHED #\n";
                     break;
                 default:
@@ -129,7 +152,7 @@ void menu(IPad& iPad)
                     break;
             }
         }
-    } while (op != 14);
+    } while (op != 18);
 }
 
 // FUNCTIONS
@@ -267,7 +290,9 @@ void chooseAppToOpen(IPad& iPad)
             
             iPad.openApp(nameOfApp);
         }
-        
+    } else 
+    {
+        cout << "\n|| There are no apps installed ||\n";
     }
 }
 
