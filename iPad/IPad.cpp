@@ -12,7 +12,7 @@ IPad::IPad()
     setLockScreenPassword();
 }
 
-IPad::IPad(int storage, float cpuSpeed, float versionOS, float display, float backCam, float frontCam, string iPadColor)
+IPad::IPad(int storage, float cpuSpeed, float versionOS, float display, string iPadColor)
 {
     cout << ".:. iPad Creation .:.\n";
     
@@ -27,10 +27,6 @@ IPad::IPad(int storage, float cpuSpeed, float versionOS, float display, float ba
     storageCapacity = validateValue(storage, 16, 128, "storage capacity");
     
     freeMemory = storageCapacity;
-    
-    rearCamera = validateValue(backCam, 5, 8, "rear camera quality");
-    
-    frontCamera = validateValue(frontCam, 1, 2, "front camera quality");
     
     color = iPadColor.substr(0, 25);
     
@@ -137,7 +133,7 @@ void IPad::showAppsInstalled()
     }
 }
 
-bool IPad::showActiveApps()
+void IPad::showActiveApps()
 {
     // Check to see if there is any active app.
     if (not activeApps.empty())
@@ -147,12 +143,9 @@ bool IPad::showActiveApps()
         {
             cout << "\n>> " << nameOfApp;
         }
-        
-        return true;
     } else
     {
         cout << "\n>> There are no apps open <<\n";
-        return false;
     }
 }
 
@@ -164,10 +157,9 @@ void IPad::getInformation()
     cout << "\n>> DISPLAY SIZE = " << displaySize << "\"";
     cout << "\n>> STORAGE CAPACITY = " << storageCapacity << "GB";
     cout << "\n>> FREE MEMORY = " << freeMemory << "GB";
-    cout << "\n>> REAR CAMERA = " << rearCamera << "MP";
-    cout << "\n>> FRONT CAMERA = " << frontCamera << "MP";
     cout << "\n>> COLOR = " << color;
     cout << "\n>> NUM OF APPS INSTALLED = " << appsInstalled.size();
+    cout << "\n>> NUM OF ACTIVE APPS = " << activeApps.size();
     cout << "\n\n";
 }
 
@@ -303,6 +295,11 @@ bool IPad::isIPadEmpty()
     return appsInstalled.empty();
 }
 
+bool IPad::isAnyAppOpen()
+{
+    return not activeApps.empty();
+}
+
 void IPad::setSpecsToDefault()
 {
     // The following values were chosen arbitrarily.
@@ -312,8 +309,6 @@ void IPad::setSpecsToDefault()
     displaySize = 7.9;
     storageCapacity = 32;
     freeMemory = storageCapacity;
-    rearCamera = 5;
-    frontCamera = 1.2;
     color =  "WHITE";
     screenLocked = false;
 }

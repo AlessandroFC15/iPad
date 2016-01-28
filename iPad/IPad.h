@@ -12,8 +12,7 @@ class IPad
 {
 public:
     IPad();
-    IPad(int storage, float cpuSpeed = 1, float versionOS = 9.2, float display = 7.9, 
-         float backCam = 5, float frontCam = 1.2, string iPadColor = "WHITE");
+    IPad(int storage, float cpuSpeed = 1, float versionOS = 9.2, float display = 7.9, string iPadColor = "WHITE");
     ~IPad();
     
     void turnOn();
@@ -42,11 +41,9 @@ public:
     void showAppsInstalled();
     
     /**
-        Prints a list of the apps opened in the iPad.
-        
-        @return boolean value. Returns true if there is any app open, false otherwise.
+        Prints a list of the apps open in the iPad.
     */
-    bool showActiveApps();
+    void showActiveApps();
     
     /**
         Prints to the screen information about the iPad, including:
@@ -126,6 +123,8 @@ public:
 
     bool isScreenUnlocked();
     
+    bool isAnyAppOpen();
+    
 private:
     bool isTurnedOn;
     float processorSpeed; // Measured in GHz
@@ -133,8 +132,6 @@ private:
     float displaySize; // Measured in inches
     float storageCapacity; // Measured in GB
     float freeMemory; // Measured in GB
-    float rearCamera; // Measured in MP
-    float frontCamera; // Measured in MP
     string color;
     unordered_map<string, float> appsInstalled;
     vector<string> activeApps;

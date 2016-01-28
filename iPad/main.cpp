@@ -238,7 +238,7 @@ void chooseAppToUninstall(IPad& iPad)
         
     } else 
     {
-        cout << "\n>> There are no apps installed <<\n";
+        cout << "\n|| There are no apps installed ||\n";
     }
 }
 
@@ -275,9 +275,12 @@ void chooseAppToClose(IPad& iPad)
 {
     cin.ignore();
     
-    // Show apps that are open.
-    if(iPad.showActiveApps())
+    // Check to see if there are any apps active
+    if (iPad.isAnyAppOpen())
     {
+        // Show apps that are open.
+        iPad.showActiveApps();
+        
         while (true)
         {
             string nameOfApp;
@@ -292,5 +295,8 @@ void chooseAppToClose(IPad& iPad)
             
             iPad.closeApp(nameOfApp);
         }
+    } else 
+    {
+        cout << "\n|| There are no apps open ||\n";
     }
 }
