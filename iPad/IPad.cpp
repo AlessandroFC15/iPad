@@ -12,24 +12,14 @@ IPad::IPad()
     setLockScreenPassword();
 }
 
-IPad::IPad(int storage, string iPadColor)
+IPad::IPad(int storage)
 {
     cout << ".:. iPad Creation .:.\n";
     
-    isTurnedOn = true;
+    setSpecsToDefault();
     
     storageCapacity = validateValue(storage, 16, 128, "storage capacity");
-    
-    freeMemory = storageCapacity;
-    
-    color = iPadColor.substr(0, 25);
-    
-    screenLocked = false;
-    
-    wiFiOn = false;
-    
-    mobileDataOn = false;
-    
+
     installDefaultApps();
     
     setLockScreenPassword();
@@ -123,7 +113,7 @@ bool IPad::openApp(const string &name)
     if (isAppInstalled(name))
     {
         // Check to see if the app isn't already open
-        if (not isAppOpened(name))
+        if (not isAppOpen(name))
         {
             activeApps.push_back(name);
             
@@ -147,7 +137,7 @@ bool IPad::closeApp(const string &name)
     if (isAppInstalled(name))
     {
         // Check to see if the app is open.
-        if (isAppOpened(name))
+        if (isAppOpen(name))
         {
             for (int i = 0, n = activeApps.size(); i < n; i++)
             {
@@ -210,7 +200,6 @@ void IPad::getInformation()
     cout << "\n\n.: iPad Specs :.\n";
     cout << "\n>> STORAGE CAPACITY = " << storageCapacity << "GB";
     cout << "\n>> FREE MEMORY = " << freeMemory << "GB";
-    cout << "\n>> COLOR = " << color;
     cout << "\n>> NUM OF APPS INSTALLED = " << appsInstalled.size();
     cout << "\n>> NUM OF ACTIVE APPS = " << activeApps.size();
     cout << "\n\n";
@@ -257,20 +246,22 @@ bool IPad::uninstallAllApps()
 
 bool IPad::unlockScreen()
 {
+    cin.ignore();
     // Check to see if the screen is indeed locked
     if (not isScreenUnlocked())
     {
-        int password;
+        string password;
         while (true)
         {
             cout << "\n>> Enter password to unlock screen (0 to Quit): ";
-            cin >> password;
             
-            if (password == 0)
+            getline(cin, password);
+            
+            if (password == "0")
             {
                 cout << "\n|| Unlock process was cancelled. iPad remains locked. ||\n";
                 return false;
-            } else if ((password >= 1000) & (password <= 9999))
+            } else if ((password.length() >= 4) & (password.length() <= 32))
             {
                 if (password == lockScreenPassword)
                 {
@@ -283,7 +274,7 @@ bool IPad::unlockScreen()
                 }
             } else 
             {
-                cout << "\n# Password must be 4 digits. Try again #\n";
+                cout << "\n# Password must be 4 to 32 chars. Try again #\n";
             }
         }
         
@@ -380,7 +371,7 @@ bool IPad::isAppInstalled(const string &name)
     return false;
 }
 
-bool IPad::isAppOpened(const string &name)
+bool IPad::isAppOpen(const string &name)
 {
     for (string nameOfApp : activeApps)
     {
@@ -409,7 +400,6 @@ void IPad::setSpecsToDefault()
     isTurnedOn = true;
     storageCapacity = 32;
     freeMemory = storageCapacity;
-    color =  "WHITE";
     screenLocked = false;
     wiFiOn = true;
     mobileDataOn = false;
@@ -453,19 +443,20 @@ float IPad::validateValue(float value, float min, float max, const string &name)
 
 void IPad::setLockScreenPassword()
 {
-    int password;
+    string password;
     while (true)
     {
-        cout << "\n>> Set initial password to lock screen (4 digits): ";
-        cin >> password;
-        if ((password >= 1000) & (password <= 9999))
+        cout << "\n>> Set initial password to lock screen (4-32 chars): ";
+        getline(cin, password);
+        
+        if ((password.length() >= 4) & (password.length() <= 32))
         {
             lockScreenPassword = password;
             cout << "\n|| Lock screen password set successfully ||\n";
             break;
         }
         
-        cout << "\n# Password must be 4 digits. Try again. #\n";
+        cout << "\n# Password must be 4 to 32 chars. Try again. #\n";
     }
 }
 

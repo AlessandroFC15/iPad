@@ -12,7 +12,7 @@ class IPad
 {
 public:
     IPad();
-    IPad(int storage, string iPadColor = "WHITE");
+    IPad(int storage);
     ~IPad();
     
     void turnOn();
@@ -107,7 +107,7 @@ public:
      
     bool isOn();
     bool isAppInstalled(const string &);
-    bool isAppOpened(const string &);
+    bool isAppOpen(const string &);
     bool isIPadEmpty();
     
     // At the construction of the object, the attributes get set to default values, if no parameters were given.
@@ -134,13 +134,12 @@ private:
     bool isTurnedOn;
     float storageCapacity; // Measured in GB
     float freeMemory; // Measured in GB
-    string color;
-    unordered_map<string, float> appsInstalled;
-    vector<string> activeApps;
-    int lockScreenPassword;
+    string lockScreenPassword;
     bool screenLocked;
     bool wiFiOn;
     bool mobileDataOn;
+    unordered_map<string, float> appsInstalled;
+    vector<string> activeApps;
 };
 
 #endif // IPAD_H
