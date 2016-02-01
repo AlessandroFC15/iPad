@@ -126,12 +126,8 @@ private:
      * 
      * The following functions were designed to help the main functions perfomr
      */
-     
     bool isAppInstalled(const string &);
     bool isAppOpen(const string &);
-    
-    
-    // At the construction of the object, the attributes get set to default values, if no parameters were given.
     void setSpecsToDefault();
     void installDefaultApps();
     
@@ -146,6 +142,7 @@ private:
     */
     float validateValue(float, float, float, const string &);
     void setLockScreenPassword();
+    
 
 };
 
