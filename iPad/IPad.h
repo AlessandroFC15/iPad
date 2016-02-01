@@ -106,9 +106,30 @@ public:
      */
      
     bool isOn();
+    bool isScreenUnlocked();
+    bool isInternetAvailable();
+    bool isIPadEmpty();
+    bool isAnyAppOpen();
+    
+private:
+    bool isTurnedOn;
+    float storageCapacity; // Measured in GB
+    float freeMemory; // Measured in GB
+    string lockScreenPassword;
+    bool screenLocked;
+    bool wiFiOn;
+    bool mobileDataOn;
+    unordered_map<string, float> appsInstalled;
+    vector<string> activeApps;
+    
+    /** HELPER FUNCTIONS
+     * 
+     * The following functions were designed to help the main functions perfomr
+     */
+     
     bool isAppInstalled(const string &);
     bool isAppOpen(const string &);
-    bool isIPadEmpty();
+    
     
     // At the construction of the object, the attributes get set to default values, if no parameters were given.
     void setSpecsToDefault();
@@ -124,22 +145,8 @@ public:
         @return float value already validated acording to the max and min limits provided in the arguments.
     */
     float validateValue(float, float, float, const string &);
-    
     void setLockScreenPassword();
-    bool isScreenUnlocked();
-    bool isAnyAppOpen();
-    bool isInternetAvailable();
-    
-private:
-    bool isTurnedOn;
-    float storageCapacity; // Measured in GB
-    float freeMemory; // Measured in GB
-    string lockScreenPassword;
-    bool screenLocked;
-    bool wiFiOn;
-    bool mobileDataOn;
-    unordered_map<string, float> appsInstalled;
-    vector<string> activeApps;
+
 };
 
 #endif // IPAD_H
