@@ -449,7 +449,7 @@ void IPad::setLockScreenPassword()
         cout << "\n>> Set initial password to lock screen (4-32 chars): ";
         getline(cin, password);
         
-        if ((password.length() >= 4) & (password.length() <= 32))
+        if ((password.length() >= 4) && (password.length() <= 32))
         {
             lockScreenPassword = password;
             cout << "\n|| Lock screen password set successfully ||\n";
