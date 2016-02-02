@@ -12,6 +12,8 @@ void chooseAppToClose(IPad& iPad);
 
 int main(int argc, char **argv)
 {
+    cout << "\n";
+    
     IPad myiPad(64);
     
     menu(myiPad);
