@@ -5,18 +5,18 @@
 ## Debug
 ProjectName            :=iPad
 ConfigurationName      :=Debug
-WorkspacePath          := "C:\Users\Alessandro\Documents\CodeLite\ProgII\aula"
-ProjectPath            := "C:\Users\Alessandro\Documents\GitHub\iPad\iPad"
+WorkspacePath          := "C:\Users\FACOMP\Documents\ProgII"
+ProjectPath            := "C:\Users\FACOMP\git\iPad\iPad"
 IntermediateDirectory  :=./Debug
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
-User                   :=Alessandro
-Date                   :=01/02/2016
+User                   :=FACOMP
+Date                   :=17/02/2016
 CodeLitePath           :="C:\Program Files\CodeLite"
-LinkerName             :=C:/TDM-GCC-64/bin/g++.exe
-SharedObjectLinkerName :=C:/TDM-GCC-64/bin/g++.exe -shared -fPIC
+LinkerName             :=C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe
+SharedObjectLinkerName :=C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe -shared -fPIC
 ObjectSuffix           :=.o
 DependSuffix           :=.o.d
 PreprocessSuffix       :=.i
@@ -36,7 +36,7 @@ ObjectsFileList        :="iPad.txt"
 PCHCompileFlags        :=
 MakeDirCommand         :=makedir
 RcCmpOptions           := 
-RcCompilerName         :=C:/TDM-GCC-64/bin/windres.exe
+RcCompilerName         :=windres
 LinkOptions            :=  
 IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). 
 IncludePCH             := 
@@ -49,13 +49,13 @@ LibPath                := $(LibraryPathSwitch).
 ## Common variables
 ## AR, CXX, CC, AS, CXXFLAGS and CFLAGS can be overriden using an environment variables
 ##
-AR       := C:/TDM-GCC-64/bin/ar.exe rcu
-CXX      := C:/TDM-GCC-64/bin/g++.exe
-CC       := C:/TDM-GCC-64/bin/gcc.exe
+AR       := C:/cygwin64/bin/x86_64-pc-cygwin-ar.exe rcu
+CXX      := C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe
+CC       := C:/cygwin64/bin/x86_64-pc-cygwin-gcc.exe
 CXXFLAGS :=  -g -O0 -Wall $(Preprocessors)
 CFLAGS   :=  -g -O0 -Wall $(Preprocessors)
 ASFLAGS  := 
-AS       := C:/TDM-GCC-64/bin/as.exe
+AS       := C:/cygwin64/bin/x86_64-pc-cygwin-as.exe
 
 
 ##
@@ -94,7 +94,7 @@ PreBuild:
 ## Objects
 ##
 $(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp $(IntermediateDirectory)/main.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Alessandro/Documents/GitHub/iPad/iPad/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/FACOMP/git/iPad/iPad/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/main.cpp$(DependSuffix) -MM "main.cpp"
 
@@ -102,7 +102,7 @@ $(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) "main.cpp"
 
 $(IntermediateDirectory)/IPad.cpp$(ObjectSuffix): IPad.cpp $(IntermediateDirectory)/IPad.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Alessandro/Documents/GitHub/iPad/iPad/IPad.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/FACOMP/git/iPad/iPad/IPad.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/IPad.cpp$(DependSuffix): IPad.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/IPad.cpp$(DependSuffix) -MM "IPad.cpp"
 

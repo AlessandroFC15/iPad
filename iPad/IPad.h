@@ -54,12 +54,12 @@ public:
     /**
         Prints a list of the apps installed in the iPad.
     */
-    void showAppsInstalled();
+    void showAppsInstalled() const;
     
     /**
         Prints a list of the apps open in the iPad.
     */
-    void showActiveApps();
+    void showActiveApps() const;
     
     /**
         Prints to the screen information about the iPad, including:
@@ -69,7 +69,7 @@ public:
          * num of apps installed
          * num of apps open
     */
-    void getInformation();
+    void getInformation() const;
 
     /**
         Closes all active apps.
@@ -105,11 +105,14 @@ public:
      * The following functions were designed to help the main functions perfomr
      */
      
-    bool isOn();
-    bool isScreenUnlocked();
-    bool isInternetAvailable();
-    bool isIPadEmpty();
-    bool isAnyAppOpen();
+    bool isOn() const;
+    bool isScreenUnlocked() const;
+    bool isInternetAvailable() const;
+    bool isIPadEmpty() const;
+    bool isAnyAppOpen() const;
+    
+    static void updateIOSVersion();
+    static int getNumberOfiPads();
     
 private:
     bool isTurnedOn;
@@ -121,13 +124,15 @@ private:
     bool mobileDataOn;
     unordered_map<string, float> appsInstalled;
     vector<string> activeApps;
+    static float latestIOSVersion;
+    static int numberOfiPads;
     
     /** HELPER FUNCTIONS
      * 
      * The following functions were designed to help the main functions perfomr
      */
-    bool isAppInstalled(const string &);
-    bool isAppOpen(const string &);
+    bool isAppInstalled(const string &) const;
+    bool isAppOpen(const string &) const;
     void setSpecsToDefault();
     void installDefaultApps();
     
@@ -140,7 +145,7 @@ private:
                name: String to help identify which attribute is being validated.
         @return float value already validated acording to the max and min limits provided in the arguments.
     */
-    float validateValue(float, float, float, const string &);
+    float validateValue(float, float, float, const string &) const;
     void setLockScreenPassword();
     
 

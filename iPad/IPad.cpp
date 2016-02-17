@@ -1,6 +1,9 @@
 # include "IPad.h"
 # include <iostream>
 
+float IPad::latestIOSVersion = 9;
+int IPad::numberOfiPads = 0;
+
 IPad::IPad()
 {
     cout << ".:. iPad Creation .:.\n";
@@ -10,6 +13,8 @@ IPad::IPad()
     installDefaultApps();
     
     setLockScreenPassword();
+    
+    numberOfiPads++;
 }
 
 IPad::IPad(int storage)
@@ -23,6 +28,8 @@ IPad::IPad(int storage)
     installDefaultApps();
     
     setLockScreenPassword();
+    
+    numberOfiPads++;
 }
 
 IPad::~IPad()
@@ -160,7 +167,7 @@ bool IPad::closeApp(const string &name)
     }
 }
 
-void IPad::showAppsInstalled()
+void IPad::showAppsInstalled() const
 {
     // Check to see if the iPad isn't empty.
     if (not appsInstalled.empty())
@@ -179,7 +186,7 @@ void IPad::showAppsInstalled()
     }
 }
 
-void IPad::showActiveApps()
+void IPad::showActiveApps() const
 {
     // Check to see if there is any active app.
     if (not activeApps.empty())
@@ -195,11 +202,12 @@ void IPad::showActiveApps()
     }
 }
 
-void IPad::getInformation()
+void IPad::getInformation() const
 {
     cout << "\n\n.: iPad Specs :.\n";
     cout << "\n>> STORAGE CAPACITY = " << storageCapacity << "GB";
     cout << "\n>> FREE MEMORY = " << freeMemory << "GB";
+    cout << "\n>> iOS VERSION = " << latestIOSVersion;
     cout << "\n>> NUM OF APPS INSTALLED = " << appsInstalled.size();
     cout << "\n>> NUM OF ACTIVE APPS = " << activeApps.size();
     cout << "\n\n";
@@ -351,12 +359,12 @@ void IPad::turnMobileDataOff()
 
 /* HELPERS */
 
-bool IPad::isOn()
+bool IPad::isOn() const
 {
     return isTurnedOn;
 }
 
-bool IPad::isAppInstalled(const string &name)
+bool IPad::isAppInstalled(const string &name) const
 {
     // Find the app in the unordered map appsInstalled.
     auto lookup = appsInstalled.find(name);
@@ -371,7 +379,7 @@ bool IPad::isAppInstalled(const string &name)
     return false;
 }
 
-bool IPad::isAppOpen(const string &name)
+bool IPad::isAppOpen(const string &name) const
 {
     for (string nameOfApp : activeApps)
     {
@@ -384,12 +392,12 @@ bool IPad::isAppOpen(const string &name)
     return false;
 }
 
-bool IPad::isIPadEmpty()
+bool IPad::isIPadEmpty() const
 {
     return appsInstalled.empty();
 }
 
-bool IPad::isAnyAppOpen()
+bool IPad::isAnyAppOpen() const
 {
     return not activeApps.empty();
 }
@@ -424,7 +432,7 @@ void IPad::installDefaultApps()
     freeMemory -= 100/1000.0;
 }
 
-float IPad::validateValue(float value, float min, float max, const string &name)
+float IPad::validateValue(float value, float min, float max, const string &name) const
 {
     while (true)
     {
@@ -460,13 +468,22 @@ void IPad::setLockScreenPassword()
     }
 }
 
-bool IPad::isScreenUnlocked()
+bool IPad::isScreenUnlocked() const
 {
     return not screenLocked;
 }
 
-bool IPad::isInternetAvailable()
+bool IPad::isInternetAvailable() const
 {
     return wiFiOn || mobileDataOn;
 }
 
+int IPad::getNumberOfiPads()
+{
+    return numberOfiPads;
+}
+
+void IPad::updateIOSVersion()
+{
+    latestIOSVersion += 0.1;
+}

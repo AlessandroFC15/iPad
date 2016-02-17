@@ -14,9 +14,11 @@ int main(int argc, char **argv)
 {
     cout << "\n";
     
-    IPad myiPad(64);
+    IPad myiPad, ale, alsis;
     
     menu(myiPad);
+    
+    cout << IPad::getNumberOfiPads();
     
     return 0;
 }
