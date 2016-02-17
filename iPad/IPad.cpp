@@ -44,7 +44,7 @@ IPad::IPad(const IPad &oldIPad)
     mobileDataOn = oldIPad.mobileDataOn;
     appsInstalled = oldIPad.appsInstalled;
     activeApps = oldIPad.activeApps;
-    
+
     numberOfiPads++;
 }
 
@@ -223,7 +223,7 @@ void IPad::getInformation() const
     cout << "\n>> STORAGE CAPACITY = " << storageCapacity << "GB";
     cout << "\n>> FREE MEMORY = " << freeMemory << "GB";
     cout << "\n>> iOS VERSION = " << latestIOSVersion;
-    initialDate.print();
+    InitialDate.print();
     cout << "\n>> NUM OF APPS INSTALLED = " << appsInstalled.size();
     cout << "\n>> NUM OF ACTIVE APPS = " << activeApps.size();
     cout << "\n\n";
@@ -427,6 +427,7 @@ void IPad::setSpecsToDefault()
     screenLocked = false;
     wiFiOn = true;
     mobileDataOn = false;
+    Data InitialDate(17, 2, 2016);
 }
 
 void IPad::installDefaultApps()

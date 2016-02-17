@@ -128,7 +128,7 @@ private:
     vector<string> activeApps;
     static float latestIOSVersion;
     static int numberOfiPads;
-    const Data initialDate;
+    const Data InitialDate;
     
     /** HELPER FUNCTIONS
      * 
