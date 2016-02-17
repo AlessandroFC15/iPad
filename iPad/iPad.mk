@@ -62,7 +62,7 @@ AS       := C:/cygwin64/bin/x86_64-pc-cygwin-as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) $(IntermediateDirectory)/Data.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) $(IntermediateDirectory)/Data.cpp$(ObjectSuffix) $(IntermediateDirectory)/Keypad.cpp$(ObjectSuffix) 
 
 
 
@@ -116,6 +116,14 @@ $(IntermediateDirectory)/Data.cpp$(DependSuffix): Data.cpp
 
 $(IntermediateDirectory)/Data.cpp$(PreprocessSuffix): Data.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Data.cpp$(PreprocessSuffix) "Data.cpp"
+
+$(IntermediateDirectory)/Keypad.cpp$(ObjectSuffix): Keypad.cpp $(IntermediateDirectory)/Keypad.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/FACOMP/git/iPad/iPad/Keypad.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Keypad.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Keypad.cpp$(DependSuffix): Keypad.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Keypad.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Keypad.cpp$(DependSuffix) -MM "Keypad.cpp"
+
+$(IntermediateDirectory)/Keypad.cpp$(PreprocessSuffix): Keypad.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Keypad.cpp$(PreprocessSuffix) "Keypad.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

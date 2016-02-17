@@ -96,5 +96,7 @@
     <File Name="IPad.cpp"/>
     <File Name="Data.h"/>
     <File Name="Data.cpp"/>
+    <File Name="Keypad.h"/>
+    <File Name="Keypad.cpp"/>
   </VirtualDirectory>
 </CodeLite_Project>
