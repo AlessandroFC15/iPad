@@ -32,10 +32,25 @@ IPad::IPad(int storage)
     numberOfiPads++;
 }
 
+// Construtor de cópia
+IPad::IPad(const IPad &oldIPad)
+{
+    isTurnedOn = oldIPad.isTurnedOn;
+    storageCapacity = oldIPad.storageCapacity;
+    freeMemory = oldIPad.freeMemory;
+    lockScreenPassword = oldIPad.lockScreenPassword;
+    screenLocked = oldIPad.screenLocked;
+    wiFiOn = oldIPad.wiFiOn;
+    mobileDataOn = oldIPad.mobileDataOn;
+    appsInstalled = oldIPad.appsInstalled;
+    activeApps = oldIPad.activeApps;
+    
+    numberOfiPads++;
+}
+
 IPad::~IPad()
 {
 }
-
 
 void IPad::turnOn()
 {
@@ -208,6 +223,7 @@ void IPad::getInformation() const
     cout << "\n>> STORAGE CAPACITY = " << storageCapacity << "GB";
     cout << "\n>> FREE MEMORY = " << freeMemory << "GB";
     cout << "\n>> iOS VERSION = " << latestIOSVersion;
+    initialDate.print();
     cout << "\n>> NUM OF APPS INSTALLED = " << appsInstalled.size();
     cout << "\n>> NUM OF ACTIVE APPS = " << activeApps.size();
     cout << "\n\n";

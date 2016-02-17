@@ -2,6 +2,7 @@
 # include <iostream>
 # include "IPad.h"
 
+
 using namespace std;
 
 void menu(IPad& iPad);
@@ -14,12 +15,10 @@ int main(int argc, char **argv)
 {
     cout << "\n";
     
-    IPad myiPad, ale, alsis;
-    
+    IPad myiPad;
+
     menu(myiPad);
-    
-    cout << IPad::getNumberOfiPads();
-    
+
     return 0;
 }
 
@@ -47,7 +46,9 @@ void menu(IPad& iPad)
         cout << "\n\n15 => Lock Screen";
         cout << "\t\t16 => Turn On";
         cout << "\n\n17 => Turn Off";
-        cout << "\t\t\t18 => Quit";
+        cout << "\t\t\t18 => Get Number of iPads Created";
+        cout << "\n\n19 => Update iOS Version";
+        cout << "\t20 => Quit";
         cout << "\n\n>> Enter your option: ";
         cin >> op;
         
@@ -149,6 +150,13 @@ void menu(IPad& iPad)
                     iPad.turnOff();
                     break;
                 case 18:
+                    cout << ">> NUMBER OF IPADS = " << IPad::getNumberOfiPads();
+                    break;
+                case 19:
+                    IPad::updateIOSVersion();
+                    cout << ">> IOS Version update for all iPads. ";
+                    break;
+                case 20:
                     cout << "\n# PROGRAM FINISHED #\n";
                     break;
                 default:
@@ -156,7 +164,7 @@ void menu(IPad& iPad)
                     break;
             }
         }
-    } while (op != 18);
+    } while (op != 20);
 }
 
 // FUNCTIONS

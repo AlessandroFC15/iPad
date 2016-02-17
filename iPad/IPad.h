@@ -4,6 +4,7 @@
 # include <string>
 # include <tr1/unordered_map>
 # include <vector>
+# include "Data.h"
 
 using namespace std::tr1;
 using namespace std;
@@ -13,6 +14,7 @@ class IPad
 public:
     IPad();
     IPad(int storage);
+    IPad(const IPad &);
     ~IPad();
     
     void turnOn();
@@ -126,6 +128,7 @@ private:
     vector<string> activeApps;
     static float latestIOSVersion;
     static int numberOfiPads;
+    const Data initialDate;
     
     /** HELPER FUNCTIONS
      * 
