@@ -98,5 +98,7 @@
     <File Name="Data.cpp"/>
     <File Name="Keypad.h"/>
     <File Name="Keypad.cpp"/>
+    <File Name="TouchID.h"/>
+    <File Name="TouchID.cpp"/>
   </VirtualDirectory>
 </CodeLite_Project>

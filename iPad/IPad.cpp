@@ -12,7 +12,7 @@ IPad::IPad()
     
     installDefaultApps();
     
-    setLockScreenPassword();
+    setInitialSecuritySystem();
     
     numberOfiPads++;
 }
@@ -27,7 +27,7 @@ IPad::IPad(int storage)
 
     installDefaultApps();
     
-    setLockScreenPassword();
+    setInitialSecuritySystem();
     
     numberOfiPads++;
 }
@@ -175,11 +175,10 @@ bool IPad::closeApp(const string &name)
             cout << "\n# App " << name <<" wasn't open. #\n";
             return false;
         }
-    } else
-    {
-        cout << "\n# App " << name <<" isn't even installed. #\n";
-        return false;
-    }
+    } 
+    
+    cout << "\n# App " << name <<" isn't even installed. #\n";
+    return false;
 }
 
 void IPad::showAppsInstalled() const
@@ -274,34 +273,14 @@ bool IPad::unlockScreen()
     // Check to see if the screen is indeed locked
     if (not isScreenUnlocked())
     {
-        string password;
-        while (true)
+        // Depending of the type of lock screen selected, the procedures are different
+        if (typeOfLockScreen == PASSWORD)
         {
-            cout << "\n>> Enter password to unlock screen (0 to Quit): ";
-            
-            getline(cin, password);
-            
-            if (password == "0")
-            {
-                cout << "\n|| Unlock process was cancelled. iPad remains locked. ||\n";
-                return false;
-            } else if ((password.length() >= 4) & (password.length() <= 32))
-            {
-                if (password == lockScreenPassword)
-                {
-                    screenLocked = false;
-                    cout << "\n|| Screen is now unlocked ||\n";
-                    return true;
-                } else 
-                {
-                    cout << "\n# Wrong password. Try again #\n";
-                }
-            } else 
-            {
-                cout << "\n# Password must be 4 to 32 chars. Try again #\n";
-            }
+            return unlockPassword();
+        } else if (typeOfLockScreen == TOUCH_ID)
+        {
+            return unlockTouchID();
         }
-        
     } else
     {
         cout << "\n| Screen was already unlocked. |\n";
@@ -466,6 +445,55 @@ float IPad::validateValue(float value, float min, float max, const string &name)
     return value;
 }
 
+bool IPad::isScreenUnlocked() const
+{
+    return not screenLocked;
+}
+
+bool IPad::isInternetAvailable() const
+{
+    return wiFiOn || mobileDataOn;
+}
+
+int IPad::getNumberOfiPads()
+{
+    return numberOfiPads;
+}
+
+void IPad::updateIOSVersion()
+{
+    latestIOSVersion += 0.1;
+}
+
+void IPad::setInitialSecuritySystem()
+{
+    int choice;
+    cout << "\n|| CHOICE OF SECURITY SYSTEM ||";
+    cout << "\n| 1 - TouchID";
+    cout << "\n| 2 - Regular Password";
+    
+    while (true)
+    {
+        cout << "\n>> Enter your choice: ";
+        cin >> choice;
+        
+        if (choice == 1)
+        {
+            typeOfLockScreen = TOUCH_ID;
+            setTouchID();
+            break;
+        } else if (choice == 2)
+        {
+            typeOfLockScreen = PASSWORD;
+            setLockScreenPassword();
+            break;
+        } else
+        {
+            cout << "\n# Invalid choice. Try again! #";
+        }
+    }
+}
+
 void IPad::setLockScreenPassword()
 {
     string password;
@@ -485,22 +513,49 @@ void IPad::setLockScreenPassword()
     }
 }
 
-bool IPad::isScreenUnlocked() const
+void IPad::setTouchID()
 {
-    return not screenLocked;
+    touchID.addFingerPrint();
 }
 
-bool IPad::isInternetAvailable() const
+bool IPad::unlockPassword()
 {
-    return wiFiOn || mobileDataOn;
+    string password;
+    while (true)
+    {
+        cout << "\n>> Enter password to unlock screen (0 to Quit): ";
+        
+        getline(cin, password);
+        
+        if (password == "0")
+        {
+            cout << "\n|| Unlock process was cancelled. iPad remains locked. ||\n";
+            return false;
+        } else if ((password.length() >= 4) & (password.length() <= 32))
+        {
+            if (password == lockScreenPassword)
+            {
+                screenLocked = false;
+                cout << "\n|| Screen is now unlocked ||\n";
+                return true;
+            } else 
+            {
+                cout << "\n# Wrong password. Try again #\n";
+            }
+        } else 
+        {
+            cout << "\n# Password must be 4 to 32 chars. Try again #\n";
+        }
+    }
 }
 
-int IPad::getNumberOfiPads()
+bool IPad::unlockTouchID()
 {
-    return numberOfiPads;
-}
-
-void IPad::updateIOSVersion()
-{
-    latestIOSVersion += 0.1;
+    if (touchID.unlockScreen())
+    {
+        screenLocked = false;
+        return true;
+    }
+    
+    return false;
 }

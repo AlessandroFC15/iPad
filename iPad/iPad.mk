@@ -5,18 +5,18 @@
 ## Debug
 ProjectName            :=iPad
 ConfigurationName      :=Debug
-WorkspacePath          := "C:\Users\FACOMP\Documents\ProgII"
-ProjectPath            := "C:\Users\FACOMP\git\iPad\iPad"
+WorkspacePath          := "C:\Users\Alessandro\Documents\Main"
+ProjectPath            := "C:\Users\Alessandro\Documents\GitHub\iPad\iPad"
 IntermediateDirectory  :=./Debug
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
-User                   :=FACOMP
-Date                   :=17/02/2016
+User                   :=Alessandro
+Date                   :=22/02/2016
 CodeLitePath           :="C:\Program Files\CodeLite"
-LinkerName             :=C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe
-SharedObjectLinkerName :=C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe -shared -fPIC
+LinkerName             :=C:/TDM-GCC-64/bin/g++.exe
+SharedObjectLinkerName :=C:/TDM-GCC-64/bin/g++.exe -shared -fPIC
 ObjectSuffix           :=.o
 DependSuffix           :=.o.d
 PreprocessSuffix       :=.i
@@ -36,7 +36,7 @@ ObjectsFileList        :="iPad.txt"
 PCHCompileFlags        :=
 MakeDirCommand         :=makedir
 RcCmpOptions           := 
-RcCompilerName         :=windres
+RcCompilerName         :=C:/TDM-GCC-64/bin/windres.exe
 LinkOptions            :=  
 IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). 
 IncludePCH             := 
@@ -49,20 +49,20 @@ LibPath                := $(LibraryPathSwitch).
 ## Common variables
 ## AR, CXX, CC, AS, CXXFLAGS and CFLAGS can be overriden using an environment variables
 ##
-AR       := C:/cygwin64/bin/x86_64-pc-cygwin-ar.exe rcu
-CXX      := C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe
-CC       := C:/cygwin64/bin/x86_64-pc-cygwin-gcc.exe
+AR       := C:/TDM-GCC-64/bin/ar.exe rcu
+CXX      := C:/TDM-GCC-64/bin/g++.exe
+CC       := C:/TDM-GCC-64/bin/gcc.exe
 CXXFLAGS :=  -g -O0 -Wall $(Preprocessors)
 CFLAGS   :=  -g -O0 -Wall $(Preprocessors)
 ASFLAGS  := 
-AS       := C:/cygwin64/bin/x86_64-pc-cygwin-as.exe
+AS       := C:/TDM-GCC-64/bin/as.exe
 
 
 ##
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) $(IntermediateDirectory)/Data.cpp$(ObjectSuffix) $(IntermediateDirectory)/Keypad.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) $(IntermediateDirectory)/Data.cpp$(ObjectSuffix) $(IntermediateDirectory)/Keypad.cpp$(ObjectSuffix) $(IntermediateDirectory)/TouchID.cpp$(ObjectSuffix) 
 
 
 
@@ -94,7 +94,7 @@ PreBuild:
 ## Objects
 ##
 $(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp $(IntermediateDirectory)/main.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/FACOMP/git/iPad/iPad/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Alessandro/Documents/GitHub/iPad/iPad/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/main.cpp$(DependSuffix) -MM "main.cpp"
 
@@ -102,7 +102,7 @@ $(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) "main.cpp"
 
 $(IntermediateDirectory)/IPad.cpp$(ObjectSuffix): IPad.cpp $(IntermediateDirectory)/IPad.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/FACOMP/git/iPad/iPad/IPad.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Alessandro/Documents/GitHub/iPad/iPad/IPad.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/IPad.cpp$(DependSuffix): IPad.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/IPad.cpp$(DependSuffix) -MM "IPad.cpp"
 
@@ -110,7 +110,7 @@ $(IntermediateDirectory)/IPad.cpp$(PreprocessSuffix): IPad.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/IPad.cpp$(PreprocessSuffix) "IPad.cpp"
 
 $(IntermediateDirectory)/Data.cpp$(ObjectSuffix): Data.cpp $(IntermediateDirectory)/Data.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/FACOMP/git/iPad/iPad/Data.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Data.cpp$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Alessandro/Documents/GitHub/iPad/iPad/Data.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Data.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/Data.cpp$(DependSuffix): Data.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Data.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Data.cpp$(DependSuffix) -MM "Data.cpp"
 
@@ -118,12 +118,20 @@ $(IntermediateDirectory)/Data.cpp$(PreprocessSuffix): Data.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Data.cpp$(PreprocessSuffix) "Data.cpp"
 
 $(IntermediateDirectory)/Keypad.cpp$(ObjectSuffix): Keypad.cpp $(IntermediateDirectory)/Keypad.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/FACOMP/git/iPad/iPad/Keypad.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Keypad.cpp$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Alessandro/Documents/GitHub/iPad/iPad/Keypad.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Keypad.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/Keypad.cpp$(DependSuffix): Keypad.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Keypad.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Keypad.cpp$(DependSuffix) -MM "Keypad.cpp"
 
 $(IntermediateDirectory)/Keypad.cpp$(PreprocessSuffix): Keypad.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Keypad.cpp$(PreprocessSuffix) "Keypad.cpp"
+
+$(IntermediateDirectory)/TouchID.cpp$(ObjectSuffix): TouchID.cpp $(IntermediateDirectory)/TouchID.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Alessandro/Documents/GitHub/iPad/iPad/TouchID.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/TouchID.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/TouchID.cpp$(DependSuffix): TouchID.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/TouchID.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/TouchID.cpp$(DependSuffix) -MM "TouchID.cpp"
+
+$(IntermediateDirectory)/TouchID.cpp$(PreprocessSuffix): TouchID.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/TouchID.cpp$(PreprocessSuffix) "TouchID.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

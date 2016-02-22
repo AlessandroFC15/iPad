@@ -5,6 +5,7 @@
 # include <tr1/unordered_map>
 # include <vector>
 # include "Data.h"
+# include "TouchID.h"
 
 using namespace std::tr1;
 using namespace std;
@@ -120,7 +121,6 @@ private:
     bool isTurnedOn;
     float storageCapacity; // Measured in GB
     float freeMemory; // Measured in GB
-    string lockScreenPassword;
     bool screenLocked;
     bool wiFiOn;
     bool mobileDataOn;
@@ -129,6 +129,13 @@ private:
     static float latestIOSVersion;
     static int numberOfiPads;
     const Data InitialDate;
+    int typeOfLockScreen;
+    string lockScreenPassword;
+    TouchID touchID;
+    
+    /* CONSTANTS */
+    const static int TOUCH_ID = 1;
+    const static int PASSWORD = 2;
     
     /** HELPER FUNCTIONS
      * 
@@ -149,9 +156,15 @@ private:
         @return float value already validated acording to the max and min limits provided in the arguments.
     */
     float validateValue(float, float, float, const string &) const;
-    void setLockScreenPassword();
-    
 
+    /*
+     * Make a choice if your system of lock screen will be through Touch ID or regular password
+     * */
+    void setInitialSecuritySystem();
+    void setLockScreenPassword();
+    void setTouchID();
+    bool unlockPassword();
+    bool unlockTouchID();
 };
 
 #endif // IPAD_H
