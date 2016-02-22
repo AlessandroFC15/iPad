@@ -96,8 +96,6 @@
     <File Name="IPad.cpp"/>
     <File Name="Data.h"/>
     <File Name="Data.cpp"/>
-    <File Name="Keypad.h"/>
-    <File Name="Keypad.cpp"/>
     <File Name="TouchID.h"/>
     <File Name="TouchID.cpp"/>
   </VirtualDirectory>

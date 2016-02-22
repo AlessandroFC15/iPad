@@ -1,1 +1,1 @@
-./Debug/main.cpp.o ./Debug/IPad.cpp.o ./Debug/Data.cpp.o ./Debug/Keypad.cpp.o ./Debug/TouchID.cpp.o   
+./Debug/main.cpp.o ./Debug/IPad.cpp.o ./Debug/Data.cpp.o ./Debug/TouchID.cpp.o   

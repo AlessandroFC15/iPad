@@ -269,11 +269,11 @@ bool IPad::uninstallAllApps()
 
 bool IPad::unlockScreen()
 {
-    cin.ignore();
     // Check to see if the screen is indeed locked
     if (not isScreenUnlocked())
     {
-        // Depending of the type of lock screen selected, the procedures are different
+        // Depending of the type of lock screen selected, 
+        // the procedures are different.
         if (typeOfLockScreen == PASSWORD)
         {
             return unlockPassword();

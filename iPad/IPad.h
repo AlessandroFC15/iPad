@@ -126,12 +126,14 @@ private:
     bool mobileDataOn;
     unordered_map<string, float> appsInstalled;
     vector<string> activeApps;
-    static float latestIOSVersion;
-    static int numberOfiPads;
     const Data InitialDate;
     int typeOfLockScreen;
     string lockScreenPassword;
     TouchID touchID;
+    
+    /* STATIC VARIABLES */
+    static float latestIOSVersion;
+    static int numberOfiPads;
     
     /* CONSTANTS */
     const static int TOUCH_ID = 1;

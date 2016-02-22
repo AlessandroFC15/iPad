@@ -15,7 +15,6 @@ public:
     bool addFingerPrint();
     bool removeFingerPrint();
     bool removeAllFingerPrints();
-    bool checkForFingerPrint(const string &);
     bool unlockScreen();
 private:
     // unordered_map<string, pair <int, float >> registeredFingerprints;
@@ -23,6 +22,8 @@ private:
     unordered_map<string, int> registeredFingerprints;
     void showFingerPrintsRegistered();
     bool isAnyFingerPrintRegistered();
+    bool checkForFingerPrint(const string &);
 };
+
 
 #endif // TOUCHID_H

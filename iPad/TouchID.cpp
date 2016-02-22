@@ -72,8 +72,9 @@ bool TouchID::checkForFingerPrint(const string &name)
     // Find the user in the unordered map registeredFingerPrints;
     auto lookup = registeredFingerprints.find(name);
 
-    // If the function "find" above returns something other than an iterator to the end of the map,
-    // that means the element was found and therefore, is installed.
+    /* If the function "find" above returns something other than an 
+     * iterator to the end of the map, that means the element was 
+     * found and therefore, is installed.*/
     if (lookup != registeredFingerprints.end())
     {
         return true;
