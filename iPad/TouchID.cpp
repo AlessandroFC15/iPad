@@ -41,7 +41,7 @@ bool TouchID::addFingerPrint()
     }
     
     // 2nd Step = Get the finger used by the user
-    cout << "\n|| CHOICE OF FINGER ||";
+    cout << "\n|| FINGERPRINT ||\n";
     cout << "\n| 1 - Left Thumb" << "\t| 6 - Right Thumb"
          << "\n| 2 - Left Index" << "\t| 7 - Right Index"
          << "\n| 3 - Left Middle" << "\t| 8 - Right Middle"
@@ -50,7 +50,7 @@ bool TouchID::addFingerPrint()
     
     while (true)
     {
-        cout << "\n>> Choose finger to be your TouchID: ";
+        cout << "\n\n>> Choose finger to be your TouchID: ";
         cin >> fingerUsed;
         if (fingerUsed >= 1 && fingerUsed <= 10)
         {

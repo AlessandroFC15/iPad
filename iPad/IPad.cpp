@@ -468,9 +468,9 @@ void IPad::updateIOSVersion()
 void IPad::setInitialSecuritySystem()
 {
     int choice;
-    cout << "\n|| CHOICE OF SECURITY SYSTEM ||";
+    cout << "\n|| CHOICE OF SECURITY SYSTEM ||\n";
     cout << "\n| 1 - TouchID";
-    cout << "\n| 2 - Regular Password";
+    cout << "\n| 2 - Regular Password\n";
     
     while (true)
     {
