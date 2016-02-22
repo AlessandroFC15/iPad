@@ -67,7 +67,7 @@ bool TouchID::addFingerPrint()
     return true;
 }
 
-bool TouchID::checkForFingerPrint(const string &name)
+bool TouchID::checkForFingerPrint(const string &name) const
 {
     // Find the user in the unordered map registeredFingerPrints;
     auto lookup = registeredFingerprints.find(name);
@@ -85,6 +85,7 @@ bool TouchID::checkForFingerPrint(const string &name)
 
 bool TouchID::unlockScreen()
 {
+    cin.ignore();
     string nameOfUser;
     int fingerUsed;
     
@@ -152,7 +153,7 @@ bool TouchID::removeFingerPrint()
     }
 }
 
-void TouchID::showFingerPrintsRegistered()
+void TouchID::showFingerPrintsRegistered() const
 {
     // Check to see if the iPad isn't empty.
     if (isAnyFingerPrintRegistered())
@@ -171,7 +172,7 @@ void TouchID::showFingerPrintsRegistered()
     }
 }
 
-bool TouchID::isAnyFingerPrintRegistered()
+bool TouchID::isAnyFingerPrintRegistered() const
 {
     return not registeredFingerprints.empty();
 }
