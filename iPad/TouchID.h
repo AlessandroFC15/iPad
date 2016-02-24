@@ -16,6 +16,8 @@ public:
     bool removeFingerPrint();
     bool removeAllFingerPrints();
     bool unlockScreen(); 
+    
+    const TouchID &operator=(const TouchID &);
 private:
     // unordered_map<string, pair <int, float >> registeredFingerprints;
     // string nameOfUser => pair <int fingerUsed, float timeToHold>

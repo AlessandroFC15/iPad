@@ -4,6 +4,64 @@
 float IPad::latestIOSVersion = 9;
 int IPad::numberOfiPads = 0;
 
+ostream &operator<<(ostream &output, const IPad &iPad)
+{
+    output << "\n\n.: iPad Specs :.\n"
+    << "\n>> STORAGE CAPACITY = " << iPad.storageCapacity << "GB"
+    << "\n>> FREE MEMORY = " << iPad.freeMemory << "GB"
+    << "\n>> NUM OF APPS INSTALLED = " << iPad.appsInstalled.size()
+    << "\n>> NUM OF ACTIVE APPS = " << iPad.activeApps.size();
+    
+    iPad.showAppsInstalled();
+    
+    return output;
+}
+
+bool IPad::operator==(const IPad &iPad) const
+{
+    // Must have the same storage capacity
+    if (storageCapacity != iPad.storageCapacity)
+        return false;
+        
+    // Must have the same security system
+    if ((typeOfLockScreen != iPad.typeOfLockScreen) || (lockScreenPassword != iPad.lockScreenPassword))
+        return false;
+        
+    if (compareAppsInstalled(iPad))
+        return false;
+        
+    //if (appsInstalled != iPad.appsInstalled)
+      //  return false;
+
+        
+    return true;
+}
+
+bool IPad::compareAppsInstalled(const IPad &iPad) const
+{
+    if (appsInstalled.size() != iPad.appsInstalled.size())
+        return false;
+    
+    return true;
+}
+
+const IPad & IPad::operator=(const IPad &iPad)
+{
+    isTurnedOn = iPad.isTurnedOn;
+    storageCapacity = iPad.storageCapacity;
+    freeMemory = iPad.freeMemory;
+    screenLocked = iPad.screenLocked;
+    wiFiOn = iPad.wiFiOn;
+    mobileDataOn = iPad.mobileDataOn;
+    appsInstalled = iPad.appsInstalled;
+    activeApps = iPad.activeApps;
+    typeOfLockScreen = iPad.typeOfLockScreen;
+    lockScreenPassword = iPad.lockScreenPassword;
+    touchID = iPad.touchID;
+    
+    return *this;
+}
+
 IPad::IPad()
 {
     cout << ".:. iPad Creation .:.\n";

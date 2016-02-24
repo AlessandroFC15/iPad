@@ -15,7 +15,23 @@ int main(int argc, char **argv)
 {
     cout << "\n";
     
-    IPad myiPad;
+    IPad myiPad, iPad2;
+    
+    if (myiPad == iPad2)
+    {
+        cout << "\n Equal to each other";
+    } else
+    {
+        cout << "\n NOT EQUAL";
+    }
+    
+    cout << myiPad;
+    
+    iPad2 = myiPad;
+    
+    cout << myiPad;
+    
+    cout << iPad2;
     
     menu(myiPad);
 

@@ -9,6 +9,13 @@ TouchID::~TouchID()
 {
 }
 
+const TouchID & TouchID::operator=(const TouchID &touchID)
+{
+    registeredFingerprints = touchID.registeredFingerprints;
+    
+    return *this;
+}
+
 bool TouchID::addFingerPrint()
 {
     cin.ignore();

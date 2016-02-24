@@ -12,11 +12,18 @@ using namespace std;
 
 class IPad
 {
+    friend ostream &operator<<(ostream &, const IPad &);
+    
 public:
     IPad();
     IPad(int storage);
     IPad(const IPad &);
     ~IPad();
+    
+    bool operator==(const IPad &) const;
+    const IPad &operator=(const IPad &);
+    
+    bool compareAppsInstalled(const IPad &) const;
     
     void turnOn();
     void turnOff();
@@ -81,7 +88,7 @@ public:
         now there are 0 apps open. The function will return false if there were no 
         apps open before its execution.
     */
-    bool closeAllApps();
+    bool closeAllApps(); 
     
     /**
         Uninstall all apps.

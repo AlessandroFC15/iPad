@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=FACOMP
-Date                   :=22/02/2016
+Date                   :=24/02/2016
 CodeLitePath           :="C:\Program Files\CodeLite"
 LinkerName             :=C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe
 SharedObjectLinkerName :=C:/cygwin64/bin/x86_64-pc-cygwin-g++.exe -shared -fPIC
@@ -26,7 +26,7 @@ LibrarySwitch          :=-l
 OutputSwitch           :=-o 
 LibraryPathSwitch      :=-L
 PreprocessorSwitch     :=-D
-SourceSwitch           :=-c -std=c++11
+SourceSwitch           :=-c -std=gnu++11
 OutputFile             :=$(IntermediateDirectory)/$(ProjectName)
 Preprocessors          :=
 ObjectSwitch           :=-o 
