@@ -3,27 +3,6 @@
 
 using namespace std;
 
-ostream &operator<<(ostream &output, const Data &data)
-{
-    output << "\n>> DATE OF CREATION = " << data.dia << "//" << data.mes << "//" << data.ano;
-    
-    return output;
-}
-
-const Data & Data::operator=(const Data &data)
-{
-    dia = data.dia;
-    mes = data.mes;
-    ano = data.ano;
-    
-    return *this;
-}
-
-bool Data::operator==(const Data &data) const
-{
-    return (dia == data.dia) && (mes == data.mes) && (ano == data.ano);
-}
-
 Data::Data(int day, int month, int year)
 {
     dia = day;
@@ -70,3 +49,25 @@ int Data::checarDia(int dia) const
     return 1;
 }
 
+// OVERLOAD OF OPERATORS
+
+ostream &operator<<(ostream &output, const Data &data)
+{
+    output << "\n>> DATE OF CREATION = " << data.dia << "//" << data.mes << "//" << data.ano;
+    
+    return output;
+}
+
+const Data & Data::operator=(const Data &data)
+{
+    dia = data.dia;
+    mes = data.mes;
+    ano = data.ano;
+    
+    return *this;
+}
+
+bool Data::operator==(const Data &data) const
+{
+    return (dia == data.dia) && (mes == data.mes) && (ano == data.ano);
+}

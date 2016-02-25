@@ -22,6 +22,13 @@ ostream &operator<<(ostream &output, const IPad &iPad)
     return output;
 }
 
+// The + operator will sum the storage capacities of iPads
+
+float operator+(const IPad &iPad1, const IPad &iPad)
+{
+    return iPad1.storageCapacity + iPad.storageCapacity;
+}
+
 const IPad & IPad::operator=(const IPad &iPad)
 {
     isTurnedOn = iPad.isTurnedOn;
@@ -40,6 +47,7 @@ const IPad & IPad::operator=(const IPad &iPad)
     return *this;
 }
 
+/* For the equality operator, every single attribute must be equal to each other. Any difference will result in returning false. */
 
 bool IPad::operator==(const IPad &iPad) const
 {
@@ -88,6 +96,8 @@ bool IPad::operator<=(const IPad &iPad) const
 {
     return ((*this < iPad) || (storageCapacity == iPad.storageCapacity));
 }
+
+// END OF OVERLOADING OPERATORS
 
 IPad::IPad()
 {

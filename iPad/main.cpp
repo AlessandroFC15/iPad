@@ -13,17 +13,21 @@ void chooseAppToClose(IPad& iPad);
 
 int main(int argc, char **argv)
 {
-    cout << "\n";
+    IPad iPad1(64), iPad2(64);
     
-    IPad myiPad, iPad2;
+    // Uso do cout
+    cout << iPad1;
     
-    menu(myiPad);
+    // Teste da igualdade
+    cout << (iPad1 == iPad2? "\nEQUAL":"\nDIFFERENT");
     
-    iPad2 = myiPad;
+    // Atribuição
+    iPad2 = iPad1;
     
-    menu(myiPad);
+    // Teste de igualdade, novamente
+    cout << (iPad1 == iPad2? "\nEQUAL":"\nDIFFERENT");
     
-    cout << (iPad2 == myiPad? "\nEQUAL":"\nDIFFERENT");
+    cout << (iPad1 <= iPad2? "\n1ST LOWER":"\n2ND LOWER");
 
     return 0;
 }

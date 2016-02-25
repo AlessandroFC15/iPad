@@ -13,14 +13,15 @@ public:
     Data(const Data &);
     ~Data();
     
+    void setDate(int, int, int);
+    
+    // Overload of operators
     const Data &operator=(const Data &);
     bool operator==(const Data &) const;
     bool operator!=(const Data &data) const
     {
         return ! (*this == data);
     }
-    
-    void setDate(int, int, int);
 private:
     int mes;
     int dia;

@@ -9,17 +9,7 @@ TouchID::~TouchID()
 {
 }
 
-const TouchID & TouchID::operator=(const TouchID &touchID)
-{
-    registeredFingerprints = touchID.registeredFingerprints;
-    
-    return *this;
-}
 
-bool TouchID::operator==(const TouchID &touchID) const
-{
-    return registeredFingerprints == touchID.registeredFingerprints;
-}
 
 bool TouchID::addFingerPrint()
 {
@@ -135,6 +125,21 @@ bool TouchID::unlockScreen()
         return false;
     }
 }
+
+// OVERLOAD OF OPERATORS
+
+const TouchID & TouchID::operator=(const TouchID &touchID)
+{
+    registeredFingerprints = touchID.registeredFingerprints;
+    
+    return *this;
+}
+
+bool TouchID::operator==(const TouchID &touchID) const
+{
+    return registeredFingerprints == touchID.registeredFingerprints;
+}
+
 
 bool TouchID::removeFingerPrint()
 {

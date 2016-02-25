@@ -12,25 +12,27 @@ using namespace std;
 class IPad
 {
     friend ostream &operator<<(ostream &, const IPad &);
+    friend float operator+(const IPad &, const IPad &);
 public:
-    IPad();
-    IPad(int storage);
-    IPad(const IPad &);
-    ~IPad();
-    
-    // Sobrecarga de operadores
+    // Overload of operators
     const IPad &operator=(const IPad &);
     bool operator==(const IPad &) const;
     bool operator!=(const IPad &iPad) const
     {
         return ! (*this == iPad);
     }
-    
     bool operator>(const IPad &) const;
     bool operator<(const IPad &) const;
     bool operator>=(const IPad &) const;
     bool operator<=(const IPad &) const;
     
+    // Constructors
+    IPad();
+    IPad(int storage);
+    IPad(const IPad &);
+    ~IPad();
+    
+    // Methods
     void turnOn();
     void turnOff();
     

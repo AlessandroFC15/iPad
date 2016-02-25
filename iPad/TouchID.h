@@ -16,6 +16,7 @@ public:
     bool removeAllFingerPrints();
     bool unlockScreen(); 
     
+    // Overload of operators
     const TouchID &operator=(const TouchID &);
     bool operator==(const TouchID &) const;
     bool operator!=(const TouchID &touchID) const
