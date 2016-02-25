@@ -14,9 +14,9 @@ ostream &operator<<(ostream &output, const IPad &iPad)
     << "\n>> NUM OF ACTIVE APPS = " << iPad.activeApps.size()
     << "\n>> TYPE OF LOCK SCREEN = " << (iPad.typeOfLockScreen == iPad.TOUCH_ID? "TOUCH ID":"PASSWORD")
     << "\n>> SCREEN LOCKED = " << (iPad.screenLocked? "YES":"NO")
-    << "\n>> STATUS = " << (iPad.isTurnedOn? "ON":"OFF");
+    << "\n>> STATUS = " << (iPad.isTurnedOn? "ON":"OFF")
+    << iPad.InitialDate;
     
-    iPad.InitialDate.print();
     iPad.showAppsInstalled();
     
     return output;
@@ -68,6 +68,26 @@ bool IPad::operator==(const IPad &iPad) const
     return true;
 }
 
+/* The operators > and <  will compare the storage capacity of 2 givens iPads. */
+bool IPad::operator>(const IPad &iPad) const
+{
+    return storageCapacity > iPad.storageCapacity;
+}
+
+bool IPad::operator<(const IPad &iPad) const
+{
+    return storageCapacity < iPad.storageCapacity;
+}
+
+bool IPad::operator>=(const IPad &iPad) const
+{
+    return ((*this > iPad) || (storageCapacity == iPad.storageCapacity));
+}
+
+bool IPad::operator<=(const IPad &iPad) const
+{
+    return ((*this < iPad) || (storageCapacity == iPad.storageCapacity));
+}
 
 IPad::IPad()
 {

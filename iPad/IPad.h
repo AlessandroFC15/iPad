@@ -26,7 +26,11 @@ public:
         return ! (*this == iPad);
     }
     
-
+    bool operator>(const IPad &) const;
+    bool operator<(const IPad &) const;
+    bool operator>=(const IPad &) const;
+    bool operator<=(const IPad &) const;
+    
     void turnOn();
     void turnOff();
     

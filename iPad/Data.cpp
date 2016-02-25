@@ -3,6 +3,13 @@
 
 using namespace std;
 
+ostream &operator<<(ostream &output, const Data &data)
+{
+    output << "\n>> DATE OF CREATION = " << data.dia << "//" << data.mes << "//" << data.ano;
+    
+    return output;
+}
+
 const Data & Data::operator=(const Data &data)
 {
     dia = data.dia;
@@ -35,11 +42,6 @@ Data::Data(const Data &data)
 
 Data::~Data()
 {
-}
-
-void Data::print() const
-{
-    cout << "\n>> DATE OF CREATION = " << dia << "//" << mes << "//" << ano;
 }
 
 void Data::setDate(int day, int month, int year)
