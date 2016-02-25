@@ -3,11 +3,34 @@
 
 using namespace std;
 
+const Data & Data::operator=(const Data &data)
+{
+    dia = data.dia;
+    mes = data.mes;
+    ano = data.ano;
+    
+    return *this;
+}
+
+bool Data::operator==(const Data &data) const
+{
+    return (dia == data.dia) && (mes == data.mes) && (ano == data.ano);
+}
+
 Data::Data(int day, int month, int year)
 {
     dia = day;
     mes = month;
     ano = year;
+}
+
+// Construtor de cópia
+
+Data::Data(const Data &data)
+{
+    dia = data.dia;
+    mes = data.mes;
+    ano = data.ano;
 }
 
 Data::~Data()

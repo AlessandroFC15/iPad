@@ -9,40 +9,17 @@ ostream &operator<<(ostream &output, const IPad &iPad)
     output << "\n\n.: iPad Specs :.\n"
     << "\n>> STORAGE CAPACITY = " << iPad.storageCapacity << "GB"
     << "\n>> FREE MEMORY = " << iPad.freeMemory << "GB"
+    << "\n>> iOS VERSION = " << iPad.latestIOSVersion
     << "\n>> NUM OF APPS INSTALLED = " << iPad.appsInstalled.size()
-    << "\n>> NUM OF ACTIVE APPS = " << iPad.activeApps.size();
+    << "\n>> NUM OF ACTIVE APPS = " << iPad.activeApps.size()
+    << "\n>> TYPE OF LOCK SCREEN = " << (iPad.typeOfLockScreen == iPad.TOUCH_ID? "TOUCH ID":"PASSWORD")
+    << "\n>> SCREEN LOCKED = " << (iPad.screenLocked? "YES":"NO")
+    << "\n>> STATUS = " << (iPad.isTurnedOn? "ON":"OFF");
     
+    iPad.InitialDate.print();
     iPad.showAppsInstalled();
     
     return output;
-}
-
-bool IPad::operator==(const IPad &iPad) const
-{
-    // Must have the same storage capacity
-    if (storageCapacity != iPad.storageCapacity)
-        return false;
-        
-    // Must have the same security system
-    if ((typeOfLockScreen != iPad.typeOfLockScreen) || (lockScreenPassword != iPad.lockScreenPassword))
-        return false;
-        
-    if (compareAppsInstalled(iPad))
-        return false;
-        
-    //if (appsInstalled != iPad.appsInstalled)
-      //  return false;
-
-        
-    return true;
-}
-
-bool IPad::compareAppsInstalled(const IPad &iPad) const
-{
-    if (appsInstalled.size() != iPad.appsInstalled.size())
-        return false;
-    
-    return true;
 }
 
 const IPad & IPad::operator=(const IPad &iPad)
@@ -54,6 +31,7 @@ const IPad & IPad::operator=(const IPad &iPad)
     wiFiOn = iPad.wiFiOn;
     mobileDataOn = iPad.mobileDataOn;
     appsInstalled = iPad.appsInstalled;
+    Data InitialDate(iPad.InitialDate);
     activeApps = iPad.activeApps;
     typeOfLockScreen = iPad.typeOfLockScreen;
     lockScreenPassword = iPad.lockScreenPassword;
@@ -61,6 +39,35 @@ const IPad & IPad::operator=(const IPad &iPad)
     
     return *this;
 }
+
+
+bool IPad::operator==(const IPad &iPad) const
+{
+    // Must have the same storage capacity and free memory
+    if ((storageCapacity != iPad.storageCapacity) || (freeMemory != iPad.freeMemory))
+        return false;
+        
+    // Must have the same security system
+    if ((typeOfLockScreen != iPad.typeOfLockScreen) || (lockScreenPassword != iPad.lockScreenPassword) || (screenLocked != iPad.screenLocked))
+        return false;
+
+    // Must have the same configurations
+    if ((isTurnedOn != iPad.isTurnedOn) || (wiFiOn != iPad.wiFiOn) || (mobileDataOn != mobileDataOn))
+        return false;
+
+    // Comparison of unordered maps and active apps
+    if ((appsInstalled != iPad.appsInstalled) || (activeApps != iPad.activeApps))
+        return false;
+
+    if (touchID != iPad.touchID)
+        return false;
+        
+    if (InitialDate != iPad.InitialDate)
+        return false;
+
+    return true;
+}
+
 
 IPad::IPad()
 {
@@ -96,12 +103,14 @@ IPad::IPad(const IPad &oldIPad)
     isTurnedOn = oldIPad.isTurnedOn;
     storageCapacity = oldIPad.storageCapacity;
     freeMemory = oldIPad.freeMemory;
-    lockScreenPassword = oldIPad.lockScreenPassword;
     screenLocked = oldIPad.screenLocked;
     wiFiOn = oldIPad.wiFiOn;
     mobileDataOn = oldIPad.mobileDataOn;
     appsInstalled = oldIPad.appsInstalled;
     activeApps = oldIPad.activeApps;
+    typeOfLockScreen = oldIPad.typeOfLockScreen;
+    lockScreenPassword = oldIPad.lockScreenPassword;
+    touchID = oldIPad.touchID;
 
     numberOfiPads++;
 }
@@ -274,18 +283,6 @@ void IPad::showActiveApps() const
     }
 }
 
-void IPad::getInformation() const
-{
-    cout << "\n\n.: iPad Specs :.\n";
-    cout << "\n>> STORAGE CAPACITY = " << storageCapacity << "GB";
-    cout << "\n>> FREE MEMORY = " << freeMemory << "GB";
-    cout << "\n>> iOS VERSION = " << latestIOSVersion;
-    InitialDate.print();
-    cout << "\n>> NUM OF APPS INSTALLED = " << appsInstalled.size();
-    cout << "\n>> NUM OF ACTIVE APPS = " << activeApps.size();
-    cout << "\n\n";
-}
-
 bool IPad::closeAllApps()
 {
     // Check to see if there is any app open.
@@ -339,11 +336,10 @@ bool IPad::unlockScreen()
         {
             return unlockTouchID();
         }
-    } else
-    {
-        cout << "\n| Screen was already unlocked. |\n";
-        return false;
-    }
+    } 
+    
+    cout << "\n| Screen was already unlocked. |\n";
+    return false;
 }
 
 bool IPad::lockScreen()

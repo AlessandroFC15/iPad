@@ -2,29 +2,31 @@
 #define IPAD_H
 
 # include <string>
-# include <tr1/unordered_map>
+# include <unordered_map>
 # include <vector>
 # include "Data.h"
 # include "TouchID.h"
 
-using namespace std::tr1;
 using namespace std;
 
 class IPad
 {
     friend ostream &operator<<(ostream &, const IPad &);
-    
 public:
     IPad();
     IPad(int storage);
     IPad(const IPad &);
     ~IPad();
     
-    bool operator==(const IPad &) const;
+    // Sobrecarga de operadores
     const IPad &operator=(const IPad &);
+    bool operator==(const IPad &) const;
+    bool operator!=(const IPad &iPad) const
+    {
+        return ! (*this == iPad);
+    }
     
-    bool compareAppsInstalled(const IPad &) const;
-    
+
     void turnOn();
     void turnOff();
     
@@ -71,16 +73,6 @@ public:
     */
     void showActiveApps() const;
     
-    /**
-        Prints to the screen information about the iPad, including:
-         * storageCapacity
-         * freeMemory
-         * color
-         * num of apps installed
-         * num of apps open
-    */
-    void getInformation() const;
-
     /**
         Closes all active apps.
         

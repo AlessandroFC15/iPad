@@ -16,6 +16,11 @@ const TouchID & TouchID::operator=(const TouchID &touchID)
     return *this;
 }
 
+bool TouchID::operator==(const TouchID &touchID) const
+{
+    return registeredFingerprints == touchID.registeredFingerprints;
+}
+
 bool TouchID::addFingerPrint()
 {
     cin.ignore();

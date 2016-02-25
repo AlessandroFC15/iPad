@@ -1,10 +1,9 @@
 #ifndef TOUCHID_H
 #define TOUCHID_H
 
-# include <tr1/unordered_map>
+# include <unordered_map>
 # include <string>
 
-using namespace std::tr1;
 using namespace std;
 
 class TouchID
@@ -18,6 +17,12 @@ public:
     bool unlockScreen(); 
     
     const TouchID &operator=(const TouchID &);
+    bool operator==(const TouchID &) const;
+    bool operator!=(const TouchID &touchID) const
+    {
+        return ! (*this == touchID);
+    }
+    
 private:
     // unordered_map<string, pair <int, float >> registeredFingerprints;
     // string nameOfUser => pair <int fingerUsed, float timeToHold>

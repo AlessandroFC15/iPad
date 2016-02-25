@@ -17,23 +17,13 @@ int main(int argc, char **argv)
     
     IPad myiPad, iPad2;
     
-    if (myiPad == iPad2)
-    {
-        cout << "\n Equal to each other";
-    } else
-    {
-        cout << "\n NOT EQUAL";
-    }
-    
-    cout << myiPad;
+    menu(myiPad);
     
     iPad2 = myiPad;
     
-    cout << myiPad;
-    
-    cout << iPad2;
-    
     menu(myiPad);
+    
+    cout << (iPad2 == myiPad? "\nEQUAL":"\nDIFFERENT");
 
     return 0;
 }
@@ -100,7 +90,7 @@ void menu(IPad& iPad)
                             iPad.showAppsInstalled();
                             break;
                         case 5:
-                            iPad.getInformation();
+                            cout << iPad;
                             break;
                         case 6:
                             chooseAppToOpen(iPad);
