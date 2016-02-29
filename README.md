@@ -6,4 +6,4 @@ Obs:
 
 Para compilar no CodeLite:
 
-Settings => Build Settings => Compilers => Switches => Change source to "-c -std=c++11"
+Settings => Build Settings => Compilers => Tools => Add "-std=c++11" to the end of C++ Compiler.
