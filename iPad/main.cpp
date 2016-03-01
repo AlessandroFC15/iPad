@@ -2,6 +2,7 @@
 # include <iostream>
 # include "IPad.h"
 # include "TouchID.h"
+# include "Device.h"
 
 using namespace std;
 
@@ -13,7 +14,9 @@ void chooseAppToClose(IPad& iPad);
 
 int main(int argc, char **argv)
 {
-    IPad iPad1(64), iPad2(64);
+    IPad iPad;
+    
+    /*IPad iPad1(64), iPad2(64);
     
     // Uso do cout
     cout << iPad1;
@@ -27,7 +30,7 @@ int main(int argc, char **argv)
     // Teste de igualdade, novamente
     cout << (iPad1 == iPad2? "\nEQUAL":"\nDIFFERENT");
     
-    cout << (iPad1 <= iPad2? "\n1ST LOWER":"\n2ND LOWER");
+    cout << (iPad1 <= iPad2? "\n1ST LOWER":"\n2ND LOWER");*/
 
     return 0;
 }
@@ -157,6 +160,7 @@ void menu(IPad& iPad)
                     iPad.turnOn();
                     break;
                 case 17:
+                    iPad.closeAllApps();
                     iPad.turnOff();
                     break;
                 case 18:

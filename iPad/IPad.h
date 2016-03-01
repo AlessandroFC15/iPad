@@ -1,15 +1,12 @@
 #ifndef IPAD_H
 #define IPAD_H
 
-# include <string>
-# include <unordered_map>
-# include <vector>
-# include "Data.h"
 # include "TouchID.h"
+# include "Tablet.h"
 
 using namespace std;
 
-class IPad
+class IPad : public Tablet
 {
     friend ostream &operator<<(ostream &, const IPad &);
     friend float operator+(const IPad &, const IPad &);
@@ -32,42 +29,11 @@ public:
     IPad(const IPad &);
     ~IPad();
     
-    // Methods
-    void turnOn();
-    void turnOff();
     
-    /**
-        Installs an app in the iPad.
 
-        @param name of the app.
-        @param size of the app in MB.
-        @return boolean value, indicating if the app was successfully installed.
-    */
-    bool installApp(const string &, float);
-
-    /**
-        Uninstalls an app in the iPad.
-        
-        @param name of the app.
-        @return boolean value, indicating if the app was successfully uninstalled.
-    */
-    bool uninstallApp(const string &);
     
-     /**
-        Opens an specific app in the iPad.
-        
-        @param name of the app.
-        @return boolean value, indicating if the app was successfully opened.
-    */
-    bool openApp(const string &);
- 
-    /**
-        Closes an app in the iPad, given its name.
-        
-        @return boolean value, returning true only if the app was open and after the
-        function is closed. Any other case will return false.
-    */
-    bool closeApp(const string &);
+    
+    
     
     /**
         Prints a list of the apps installed in the iPad.
@@ -94,11 +60,9 @@ public:
         @return boolean value, returning true if the iPad wasn't empty and all apps were uninstalled.
         The function will return false if the iPad was empty before the execution.
     */
-    bool uninstallAllApps();
-    
     bool unlockScreen();
     
-    bool lockScreen();
+    bool uninstallAllApps();
     
     void turnWiFiOn();
     
@@ -108,13 +72,6 @@ public:
     
     void turnMobileDataOff();
     
-    /** HELPER FUNCTIONS
-     * 
-     * The following functions were designed to help the main functions perfomr
-     */
-     
-    bool isOn() const;
-    bool isScreenUnlocked() const;
     bool isInternetAvailable() const;
     bool isIPadEmpty() const;
     bool isAnyAppOpen() const;
@@ -123,17 +80,7 @@ public:
     static int getNumberOfiPads();
     
 private:
-    bool isTurnedOn;
-    float storageCapacity; // Measured in GB
-    float freeMemory; // Measured in GB
-    bool screenLocked;
-    bool wiFiOn;
-    bool mobileDataOn;
-    unordered_map<string, float> appsInstalled;
-    vector<string> activeApps;
-    const Data InitialDate;
     int typeOfLockScreen;
-    string lockScreenPassword;
     TouchID touchID;
     
     /* STATIC VARIABLES */
@@ -148,8 +95,8 @@ private:
      * 
      * The following functions were designed to help the main functions perfomr
      */
-    bool isAppInstalled(const string &) const;
-    bool isAppOpen(const string &) const;
+    
+    
     void setSpecsToDefault();
     void installDefaultApps();
     
