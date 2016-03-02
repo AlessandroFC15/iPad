@@ -23,7 +23,7 @@ Tablet::Tablet(int storage)
 {
     setSpecsToDefault();
     
-    storageCapacity = validateValue(storage, 16, 128, "storage capacity");
+    storageCapacity = validateValue(storage, 1, 128, "storage capacity");
     
     freeMemory = storageCapacity;
 }

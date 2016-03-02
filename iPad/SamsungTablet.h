@@ -11,9 +11,17 @@ public:
     SamsungTablet(int);
     SamsungTablet(const SamsungTablet &);
     ~SamsungTablet();
+    
+    bool insertSDCard();
+    bool removeSDCard();
+    bool changeSDCard();
+    
 private:
+    bool externalSDCard;
+    int sizeSDCard;
     bool penActive;
     bool activeNFC; // NFC = Near Field Communication
+    
     
     /** HELPER FUNCTIONS
      * 

@@ -43,15 +43,7 @@ public:
 private:
     int typeOfLockScreen;
     TouchID touchID;
-    
-    /* STATIC VARIABLES */
-    static float latestIOSVersion;
-    static int numberOfiPads;
-    
-    /* CONSTANTS */
-    const static int TOUCH_ID = 1;
-    const static int PASSWORD = 2;
-    
+
     /** HELPER FUNCTIONS
      * 
      * The following functions were designed to help the main functions perfomr
@@ -62,6 +54,14 @@ private:
     void setTouchID();
     bool unlockPassword();
     bool unlockTouchID();
+    
+     /* STATIC VARIABLES */
+    static float latestIOSVersion;
+    static int numberOfiPads;
+    
+    /* CONSTANTS */
+    const static int TOUCH_ID = 1;
+    const static int PASSWORD = 2;
 };
 
 #endif // IPAD_H

@@ -1,11 +1,27 @@
 #include "SamsungTablet.h"
 
+using namespace std;
+
+ostream &operator<<(ostream &output, const SamsungTablet &tablet)
+{
+    output << static_cast< Tablet > (tablet);
+    output << "\n\n.: SamsungTablet Specs :.\n"
+    << "\n>> PEN ACTIVE = " << (tablet.penActive? "YES":"NO")
+    << "\n>> NFC ACTIVE = " << (tablet.activeNFC? "YES":"NO");
+    
+    tablet.showAppsInstalled();
+    
+    return output;
+}
+
 SamsungTablet::SamsungTablet()
 {
     cout << ".:. Samsung Tablet Creation .:.\n";
 
     penActive = false;
     activeNFC = false;
+    externalSDCard = false;
+    sizeSDCard = 0;
 
     installDefaultApps();
     
@@ -19,6 +35,8 @@ SamsungTablet::SamsungTablet(int storage)
 
     penActive = false;
     activeNFC = false;
+    externalSDCard = false;
+    sizeSDCard = 0;
 
     installDefaultApps();
     
@@ -39,23 +57,33 @@ SamsungTablet::SamsungTablet(const SamsungTablet &oldTablet)
     activeApps = oldTablet.activeApps;
     penActive = oldTablet.penActive;
     activeNFC = oldTablet.activeNFC;
+    externalSDCard = oldTablet.externalSDCard;
+    sizeSDCard = oldTablet.sizeSDCard;
 }
 
 SamsungTablet::~SamsungTablet()
 {
 }
 
-ostream &operator<<(ostream &output, const SamsungTablet &tablet)
+bool SamsungTablet::insertSDCard()
 {
-    output << static_cast< Tablet > (tablet);
-    output << "\n\n.: SamsungTablet Specs :.\n"
-    << "\n>> PEN ACTIVE = " << (tablet.penActive? "YES":"NO")
-    << "\n>> NFC ACTIVE = " << (tablet.activeNFC? "YES":"NO");
+    // Check to see if there isn't already a SD Card on the tablet
+    if (not externalSDCard)
+    {
+        int storage;
+        cout << "\n>> Enter the size of the SD Card in GB: ";
+        //cin(storage);
+        
+        
+        
+    } else
+    {
+        cout << "\n# There is already a SD card inserted in the tablet. #\n";
+        cout << "\n# Remove it first and try again! #\n";
+    }
     
-    tablet.showAppsInstalled();
-    
-    return output;
 }
+
 
 void SamsungTablet::installDefaultApps()
 {
