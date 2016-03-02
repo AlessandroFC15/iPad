@@ -7,15 +7,8 @@ int IPad::numberOfiPads = 0;
 ostream &operator<<(ostream &output, const IPad &iPad)
 {
     output << "\n\n.: iPad Specs :\n"
-    << "\n>> STORAGE CAPACITY = " << iPad.storageCapacity << "GB"
-    << "\n>> FREE MEMORY = " << iPad.freeMemory << "GB"
     << "\n>> iOS VERSION = " << iPad.latestIOSVersion
-    << "\n>> NUM OF APPS INSTALLED = " << iPad.appsInstalled.size()
-    << "\n>> NUM OF ACTIVE APPS = " << iPad.activeApps.size()
-    << "\n>> TYPE OF LOCK SCREEN = " << (iPad.typeOfLockScreen == iPad.TOUCH_ID? "TOUCH ID":"PASSWORD")
-    << "\n>> SCREEN LOCKED = " << (iPad.screenLocked? "YES":"NO")
-    << "\n>> STATUS = " << (iPad.isTurnedOn? "ON":"OFF")
-    << iPad.InitialDate;
+    << "\n>> TYPE OF LOCK SCREEN = " << (iPad.typeOfLockScreen == iPad.TOUCH_ID? "TOUCH ID":"PASSWORD");
     
     iPad.showAppsInstalled();
     
@@ -102,9 +95,7 @@ bool IPad::operator<=(const IPad &iPad) const
 IPad::IPad()
 {
     cout << ".:. iPad Creation .:.\n";
-    
-    setSpecsToDefault();
-    
+
     installDefaultApps();
     
     setInitialSecuritySystem();
@@ -113,13 +104,10 @@ IPad::IPad()
 }
 
 IPad::IPad(int storage)
+:Tablet(storage)
 {
     cout << ".:. iPad Creation .:.\n";
     
-    storageCapacity = validateValue(storage, 16, 128, "storage capacity");
-    
-    freeMemory = storageCapacity;
-
     installDefaultApps();
     
     setInitialSecuritySystem();
@@ -131,6 +119,7 @@ IPad::IPad(int storage)
 IPad::IPad(const IPad &oldIPad)
 {
     isTurnedOn = oldIPad.isTurnedOn;
+    InitialDate = oldIPad.InitialDate;
     storageCapacity = oldIPad.storageCapacity;
     freeMemory = oldIPad.freeMemory;
     screenLocked = oldIPad.screenLocked;
@@ -190,26 +179,6 @@ void IPad::installDefaultApps()
     freeMemory -= 100/1000.0;
 }
 
-float IPad::validateValue(float value, float min, float max, const string &name) const
-{
-    while (true)
-    {
-        if (value >= min && value <= max)
-        {
-            break;
-        }
-        
-        cout << "\n>> Invalid value for " << name << ". Must be between " << min << " and " << max << ".";
-        cout << "\n>> Enter a new value: ";
-        cin >> (value);
-    }
-    
-    return value;
-}
-
-
-
-
 
 int IPad::getNumberOfiPads()
 {
@@ -249,8 +218,6 @@ void IPad::setInitialSecuritySystem()
         }
     }
 }
-
-
 
 void IPad::setTouchID()
 {

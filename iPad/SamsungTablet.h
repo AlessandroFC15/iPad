@@ -5,9 +5,11 @@
 
 class SamsungTablet : public Tablet
 {
+    friend ostream &operator<<(ostream &, const SamsungTablet &);
 public:
     SamsungTablet();
     SamsungTablet(int);
+    SamsungTablet(const SamsungTablet &);
     ~SamsungTablet();
 private:
     bool penActive;
@@ -18,7 +20,6 @@ private:
      * The following functions were designed to help the main functions perfomr
      */
     
-    void setSpecsToDefault();
     void installDefaultApps();
 };
 

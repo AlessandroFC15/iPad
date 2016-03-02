@@ -1,22 +1,23 @@
 # include <string>
 # include <iostream>
 # include "IPad.h"
-# include "TouchID.h"
-# include "Device.h"
+# include "SamsungTablet.h"
 
 using namespace std;
 
-void menu(IPad& iPad);
-void chooseAppToInstall(IPad& iPad);
-void chooseAppToUninstall(IPad& iPad);
-void chooseAppToOpen(IPad& iPad);
-void chooseAppToClose(IPad& iPad);
+void menu(SamsungTablet& iPad);
+void chooseAppToInstall(SamsungTablet& iPad);
+void chooseAppToUninstall(SamsungTablet& iPad);
+void chooseAppToOpen(SamsungTablet& iPad);
+void chooseAppToClose(SamsungTablet& iPad);
 
 int main(int argc, char **argv)
 {
-    Device iPad;
+    SamsungTablet iPad;
     
     cout << iPad;
+    
+    menu(iPad);
     
     /*IPad iPad1(64), iPad2(64);
     
@@ -37,7 +38,7 @@ int main(int argc, char **argv)
     return 0;
 }
 
-void menu(IPad& iPad)
+void menu(SamsungTablet& iPad)
 {
     int op;
     
@@ -185,7 +186,7 @@ void menu(IPad& iPad)
 
 // FUNCTIONS
 
-void chooseAppToInstall(IPad& iPad)
+void chooseAppToInstall(SamsungTablet& iPad)
 {
     // Array of pairs to hold the apps to be presented in App Store
     pair<string, float> appsToInstall[10] = {{"Instagram", 23}, {"Facebook", 108},
@@ -261,7 +262,7 @@ void chooseAppToInstall(IPad& iPad)
     } while (op != 12);
 }
 
-void chooseAppToUninstall(IPad& iPad)
+void chooseAppToUninstall(SamsungTablet& iPad)
 {
     cin.ignore();
     
@@ -293,7 +294,7 @@ void chooseAppToUninstall(IPad& iPad)
     }
 }
 
-void chooseAppToOpen(IPad& iPad)
+void chooseAppToOpen(SamsungTablet& iPad)
 {
     cin.ignore();
     
@@ -324,7 +325,7 @@ void chooseAppToOpen(IPad& iPad)
     }
 }
 
-void chooseAppToClose(IPad& iPad)
+void chooseAppToClose(SamsungTablet& iPad)
 {
     cin.ignore();
     

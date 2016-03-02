@@ -5,6 +5,30 @@ Tablet::Tablet()
     setSpecsToDefault();
 }
 
+Tablet::Tablet(int storage)
+{
+    setSpecsToDefault();
+    
+    storageCapacity = validateValue(storage, 16, 128, "storage capacity");
+    
+    freeMemory = storageCapacity;
+}
+
+// Construtor de cópia
+Tablet::Tablet(const Tablet &oldTablet)
+{
+    isTurnedOn = oldTablet.isTurnedOn;
+    InitialDate = oldTablet.InitialDate;
+    storageCapacity = oldTablet.storageCapacity;
+    freeMemory = oldTablet.freeMemory;
+    screenLocked = oldTablet.screenLocked;
+    lockScreenPassword = oldTablet.lockScreenPassword;
+    wiFiOn = oldTablet.wiFiOn;
+    mobileDataOn = oldTablet.mobileDataOn;
+    appsInstalled = oldTablet.appsInstalled;
+    activeApps = oldTablet.activeApps;
+}
+
 Tablet::~Tablet()
 {
 }
@@ -18,8 +42,6 @@ ostream &operator<<(ostream &output, const Tablet &tablet)
     << "\n>> NUM OF APPS INSTALLED = " << tablet.appsInstalled.size()
     << "\n>> NUM OF ACTIVE APPS = " << tablet.activeApps.size()
     << "\n>> SCREEN LOCKED = " << (tablet.screenLocked? "YES":"NO");
-    
-    tablet.showAppsInstalled();
     
     return output;
 }
@@ -89,6 +111,7 @@ void Tablet::setSpecsToDefault()
     screenLocked = false;
     wiFiOn = true;
     mobileDataOn = false;
+    lockScreenPassword = "";
 }
 
 bool Tablet::installApp(const string &name, float sizeOfApp)
@@ -373,4 +396,21 @@ void Tablet::setLockScreenPassword()
         
         cout << "\n# Password must be 4 to 32 chars. Try again. #\n";
     }
+}
+
+float Tablet::validateValue(float value, float min, float max, const string &name) const
+{
+    while (true)
+    {
+        if (value >= min && value <= max)
+        {
+            break;
+        }
+        
+        cout << "\n>> Invalid value for " << name << ". Must be between " << min << " and " << max << ".";
+        cout << "\n>> Enter a new value: ";
+        cin >> (value);
+    }
+    
+    return value;
 }

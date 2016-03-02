@@ -58,21 +58,6 @@ private:
      */
     
     void installDefaultApps();
-    
-    /**
-        Helper function designed to validate the values passed as parameters to the constructor.
-        
-        @param value: value to be validated.
-               min: The value to be analyzed can't be lower than the mininum.
-               max: The value to be analyzed can't be higher than the maximum.
-               name: String to help identify which attribute is being validated.
-        @return float value already validated acording to the max and min limits provided in the arguments.
-    */
-    float validateValue(float, float, float, const string &) const;
-
-    /*
-     * Make a choice if your system of lock screen will be through Touch ID or regular password
-     * */
     void setInitialSecuritySystem();
     void setTouchID();
     bool unlockPassword();
