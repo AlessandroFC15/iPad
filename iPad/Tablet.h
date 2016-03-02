@@ -8,6 +8,8 @@
 
 class Tablet : public Device
 {
+    friend ostream &operator<<(ostream &, const Tablet &);
+    
 public:
     Tablet();
     Tablet(int);
@@ -85,6 +87,8 @@ public:
     
     void setLockScreenPassword();
     
+    void setSpecsToDefault();
+    
 protected:
     bool screenLocked;
     string lockScreenPassword;
@@ -96,7 +100,6 @@ protected:
     vector<string> activeApps;
     
 private:
-    void setSpecsToDefault();
     bool isAppInstalled(const string &) const;
     bool isAppOpen(const string &) const;
     

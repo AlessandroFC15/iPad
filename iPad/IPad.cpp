@@ -103,10 +103,6 @@ IPad::IPad()
 {
     cout << ".:. iPad Creation .:.\n";
     
-    storageCapacity = 32;
-    
-    freeMemory = storageCapacity;
-    
     setSpecsToDefault();
     
     installDefaultApps();
@@ -174,18 +170,6 @@ bool IPad::unlockScreen()
 }
 
 /* HELPERS */
-
-void IPad::setSpecsToDefault()
-{
-    // The following values were chosen arbitrarily.
-    isTurnedOn = true;
-    storageCapacity = 32;
-    freeMemory = storageCapacity;
-    screenLocked = false;
-    wiFiOn = true;
-    mobileDataOn = false;
-    Data InitialDate(17, 2, 2016);
-}
 
 void IPad::installDefaultApps()
 {

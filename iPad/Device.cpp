@@ -12,6 +12,21 @@ Device::Device(bool state)
     Data InitialDate(17, 2, 2016);
 }
 
+Device::Device(const Device &oldDevice)
+{
+    isTurnedOn = oldDevice.isTurnedOn;
+    InitialDate = oldDevice.InitialDate;
+}
+
+ostream &operator<<(ostream &output, const Device &device)
+{
+    output << "\n\n.: Device Specs :.\n"
+    << "\n>> STATUS = " << (device.isTurnedOn? "ON":"OFF")
+    << device.InitialDate;
+    
+    return output;
+}
+
 Device::~Device()
 {
 }

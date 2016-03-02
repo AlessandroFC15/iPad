@@ -5,9 +5,12 @@
 
 class Device
 {
+    friend ostream &operator<<(ostream &, const Device &);
+    
 public:
     Device();
     Device(bool);
+    Device(const Device &);
     ~Device();
 
     void turnOn();
@@ -15,7 +18,7 @@ public:
     bool isOn() const;
 protected:
     bool isTurnedOn;
-    const Data InitialDate;
+    Data InitialDate;
 };
 
 #endif // DEVICE_H

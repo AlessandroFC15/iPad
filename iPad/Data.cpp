@@ -53,7 +53,7 @@ int Data::checarDia(int dia) const
 
 ostream &operator<<(ostream &output, const Data &data)
 {
-    output << "\n>> DATE OF CREATION = " << data.dia << "//" << data.mes << "//" << data.ano;
+    output << "\n>> DATE OF CREATION = " << data.dia << "/" << data.mes << "/" << data.ano;
     
     return output;
 }

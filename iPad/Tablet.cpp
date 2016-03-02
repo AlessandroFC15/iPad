@@ -2,10 +2,26 @@
 
 Tablet::Tablet()
 {
+    setSpecsToDefault();
 }
 
 Tablet::~Tablet()
 {
+}
+
+ostream &operator<<(ostream &output, const Tablet &tablet)
+{
+    output << static_cast< Device > (tablet);
+    output << "\n\n.: Tablet Specs :.\n"
+    << "\n>> STORAGE CAPACITY = " << tablet.storageCapacity << "GB"
+    << "\n>> FREE MEMORY = " << tablet.freeMemory << "GB"
+    << "\n>> NUM OF APPS INSTALLED = " << tablet.appsInstalled.size()
+    << "\n>> NUM OF ACTIVE APPS = " << tablet.activeApps.size()
+    << "\n>> SCREEN LOCKED = " << (tablet.screenLocked? "YES":"NO");
+    
+    tablet.showAppsInstalled();
+    
+    return output;
 }
 
 bool Tablet::unlockScreen()
@@ -68,6 +84,8 @@ bool Tablet::isScreenUnlocked() const
 
 void Tablet::setSpecsToDefault()
 {
+    storageCapacity = 32;
+    freeMemory = storageCapacity;
     screenLocked = false;
     wiFiOn = true;
     mobileDataOn = false;

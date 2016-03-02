@@ -57,7 +57,6 @@ private:
      * The following functions were designed to help the main functions perfomr
      */
     
-    void setSpecsToDefault();
     void installDefaultApps();
     
     /**

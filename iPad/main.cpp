@@ -14,7 +14,9 @@ void chooseAppToClose(IPad& iPad);
 
 int main(int argc, char **argv)
 {
-    IPad iPad;
+    Device iPad;
+    
+    cout << iPad;
     
     /*IPad iPad1(64), iPad2(64);
     
