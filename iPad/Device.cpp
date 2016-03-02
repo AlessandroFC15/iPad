@@ -1,22 +1,6 @@
 #include "Device.h"
 
-Device::Device()
-{
-    isTurnedOn = true;
-    Data InitialDate(17, 2, 2016);
-}
-
-Device::Device(bool state)
-{
-    isTurnedOn = state;
-    Data InitialDate(17, 2, 2016);
-}
-
-Device::Device(const Device &oldDevice)
-{
-    isTurnedOn = oldDevice.isTurnedOn;
-    InitialDate = oldDevice.InitialDate;
-}
+// Overload of operator
 
 ostream &operator<<(ostream &output, const Device &device)
 {
@@ -25,6 +9,26 @@ ostream &operator<<(ostream &output, const Device &device)
     << device.InitialDate;
     
     return output;
+}
+
+// CONSTRUTORES
+
+Device::Device()
+{
+    isTurnedOn = true;
+    Data InitialDate(02, 3, 2016);
+}
+
+Device::Device(bool state)
+{
+    isTurnedOn = state;
+    Data InitialDate(02, 3, 2016);
+}
+
+Device::Device(const Device &oldDevice)
+{
+    isTurnedOn = oldDevice.isTurnedOn;
+    InitialDate = oldDevice.InitialDate;
 }
 
 Device::~Device()

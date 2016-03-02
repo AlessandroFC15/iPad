@@ -15,10 +15,6 @@ public:
     Tablet(const Tablet &);
     ~Tablet();
     
-    bool unlockScreen();
-    bool lockScreen();
-    bool isScreenUnlocked() const;
-    
     /**
         Installs an app in the iPad.
 
@@ -73,6 +69,12 @@ public:
     
     bool uninstallAllApps();
     
+    bool unlockScreen();
+    
+    bool lockScreen();
+    
+    bool isScreenUnlocked() const;
+    
     void turnWiFiOn();
     
     void turnWiFiOff();
@@ -85,20 +87,6 @@ public:
     bool isDeviceEmpty() const;
     bool isAnyAppOpen() const;
     
-    void setLockScreenPassword();
-    
-    void setSpecsToDefault();
-    
-     /**
-        Helper function designed to validate the values passed as parameters to the constructor.
-        
-        @param value: value to be validated.
-               min: The value to be analyzed can't be lower than the mininum.
-               max: The value to be analyzed can't be higher than the maximum.
-               name: String to help identify which attribute is being validated.
-        @return float value already validated acording to the max and min limits provided in the arguments.
-    */
-    float validateValue(float, float, float, const string &) const;
     
 protected:
     float storageCapacity; // Measured in GB
@@ -110,9 +98,22 @@ protected:
     unordered_map<string, float> appsInstalled;
     vector<string> activeApps;
     
+    /**
+        Helper function designed to validate the values passed as parameters to the constructor.
+        
+        @param value: value to be validated.
+               min: The value to be analyzed can't be lower than the mininum.
+               max: The value to be analyzed can't be higher than the maximum.
+               name: String to help identify which attribute is being validated.
+        @return float value already validated acording to the max and min limits provided in the arguments.
+    */
+    float validateValue(float, float, float, const string &) const;
+    void setLockScreenPassword();
+    
 private:
-    bool isAppInstalled(const string &) const;
     bool isAppOpen(const string &) const;
+    bool isAppInstalled(const string &) const;
+    void setSpecsToDefault();
 };
 
 #endif // TABLET_H

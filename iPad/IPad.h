@@ -35,7 +35,7 @@ public:
         @return boolean value, returning true if the iPad wasn't empty and all apps were uninstalled.
         The function will return false if the iPad was empty before the execution.
     */
-    bool unlockScreen();
+    bool unlockiPadScreen();
     
     static void updateIOSVersion();
     static int getNumberOfiPads();

@@ -6,6 +6,7 @@ int IPad::numberOfiPads = 0;
 
 ostream &operator<<(ostream &output, const IPad &iPad)
 {
+    output << static_cast< Tablet > (iPad);
     output << "\n\n.: iPad Specs :\n"
     << "\n>> iOS VERSION = " << iPad.latestIOSVersion
     << "\n>> TYPE OF LOCK SCREEN = " << (iPad.typeOfLockScreen == iPad.TOUCH_ID? "TOUCH ID":"PASSWORD");
@@ -138,7 +139,7 @@ IPad::~IPad()
 {
 }
 
-bool IPad::unlockScreen()
+bool IPad::unlockiPadScreen()
 {
     // Check to see if the screen is indeed locked
     if (not isScreenUnlocked())
@@ -226,33 +227,10 @@ void IPad::setTouchID()
 
 bool IPad::unlockPassword()
 {
-    string password;
-    while (true)
-    {
-        cout << "\n>> Enter password to unlock screen (0 to Quit): ";
-        
-        getline(cin, password);
-        
-        if (password == "0")
-        {
-            cout << "\n|| Unlock process was cancelled. iPad remains locked. ||\n";
-            return false;
-        } else if ((password.length() >= 4) & (password.length() <= 32))
-        {
-            if (password == lockScreenPassword)
-            {
-                screenLocked = false;
-                cout << "\n|| Screen is now unlocked ||\n";
-                return true;
-            } else 
-            {
-                cout << "\n# Wrong password. Try again #\n";
-            }
-        } else 
-        {
-            cout << "\n# Password must be 4 to 32 chars. Try again #\n";
-        }
-    }
+    // The process of unlocking the screen by password of the iPad
+    // is the same of a generic Tablet. For that reason, we simply
+    // use the method to unlock the screen of the class Tablet
+    Tablet::unlockScreen();
 }
 
 bool IPad::unlockTouchID()
