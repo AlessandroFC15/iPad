@@ -6,7 +6,7 @@ int IPad::numberOfiPads = 0;
 
 ostream &operator<<(ostream &output, const IPad &iPad)
 {
-    output << "\n\n.: iPad Specs :.\n"
+    output << "\n\n.: iPad Specs :\n"
     << "\n>> STORAGE CAPACITY = " << iPad.storageCapacity << "GB"
     << "\n>> FREE MEMORY = " << iPad.freeMemory << "GB"
     << "\n>> iOS VERSION = " << iPad.latestIOSVersion
