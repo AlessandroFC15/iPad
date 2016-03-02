@@ -29,31 +29,6 @@ public:
     IPad(const IPad &);
     ~IPad();
     
-    
-
-    
-    
-    
-    
-    /**
-        Prints a list of the apps installed in the iPad.
-    */
-    void showAppsInstalled() const;
-    
-    /**
-        Prints a list of the apps open in the iPad.
-    */
-    void showActiveApps() const;
-    
-    /**
-        Closes all active apps.
-        
-        @return boolean value, returning true if there was n (n > 0) apps open and
-        now there are 0 apps open. The function will return false if there were no 
-        apps open before its execution.
-    */
-    bool closeAllApps(); 
-    
     /**
         Uninstall all apps.
         
@@ -61,16 +36,6 @@ public:
         The function will return false if the iPad was empty before the execution.
     */
     bool unlockScreen();
-    
-    bool uninstallAllApps();
-    
-    void turnWiFiOn();
-    
-    void turnWiFiOff();
-    
-    void turnMobileDataOn();
-    
-    void turnMobileDataOff();
     
     bool isInternetAvailable() const;
     bool isIPadEmpty() const;

@@ -200,3 +200,125 @@ bool Tablet::isAppOpen(const string &name) const
     
     return false;
 }
+
+void Tablet::showAppsInstalled() const
+{
+    // Check to see if the iPad isn't empty.
+    if (not appsInstalled.empty())
+    {
+        cout << "\n\n.: APPS INSTALLED :.\n";
+        
+        // Iterate through appsInstalled.
+        // app holds the pair <name, sizeOfApp>
+        for (auto app : appsInstalled)
+        {
+            cout << "\nName: " << app.first << " | " << app.second << "MB" << endl;
+        }
+    } else 
+    {
+        cout << "\n>> There are no apps installed <<\n";
+    }
+}
+
+void Tablet::showActiveApps() const
+{
+    // Check to see if there is any active app.
+    if (not activeApps.empty())
+    {
+        cout << "\n\n.: ACTIVE APPS :.\n";
+        for (string nameOfApp : activeApps)
+        {
+            cout << "\n>> " << nameOfApp;
+        }
+    } else
+    {
+        cout << "\n>> There are no apps open <<\n";
+    }
+}
+
+bool Tablet::closeAllApps()
+{
+    // Check to see if there is any app open.
+    if (not activeApps.empty())
+    {
+        // Clear the vector that holds the name of the active apps.
+        activeApps.clear();
+        cout << "\n|| All apps were closed. ||\n";
+        return true;
+    } else
+    {
+        cout << "\n|| All apps were already closed. ||\n";
+        return false;
+    }
+}
+
+bool Tablet::uninstallAllApps()
+{
+    // Check to see if there is any app in the device
+    if (not appsInstalled.empty())
+    {
+        // Close all apps
+        activeApps.clear();
+        
+        // Uninstall all apps
+        appsInstalled.clear();
+        
+        // Reset memory to its initial state.
+        freeMemory = storageCapacity;
+        
+        cout << "\n\n|| All apps were uninstalled ||\n\n";
+        return true;
+    } else
+    {
+        cout << "\n\n|| There are no apps in the iPad. ||\n\n";
+        return false;
+    }
+}
+
+void Tablet::turnWiFiOn()
+{
+    if (wiFiOn)
+    {
+        cout << "\n# WiFi is already turned on.\n";
+    } else
+    {
+        wiFiOn = true;
+        cout << "\n# WiFi is now turned on.\n";
+    }
+}
+
+void Tablet::turnWiFiOff()
+{
+    if (not wiFiOn)
+    {
+        cout << "\n# WiFi is already turned off.\n";
+    } else
+    {
+        wiFiOn = false;
+        cout << "\n# WiFi is now turned off.\n";
+    }
+}
+
+void Tablet::turnMobileDataOn()
+{
+    if (mobileDataOn)
+    {
+        cout << "\n# Mobile data network is already turned on.\n";
+    } else
+    {
+        mobileDataOn = true;
+        cout << "\n# Mobile data network is now turned on.\n";
+    }
+}
+    
+void Tablet::turnMobileDataOff()
+{
+    if (not mobileDataOn)
+    {
+        cout << "\n# Mobile data network is already turned off.\n";
+    } else
+    {
+        mobileDataOn = false;
+        cout << "\n# Mobile data network is now turned off.\n";
+    }
+}
