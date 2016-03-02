@@ -37,10 +37,6 @@ public:
     */
     bool unlockScreen();
     
-    bool isInternetAvailable() const;
-    bool isIPadEmpty() const;
-    bool isAnyAppOpen() const;
-    
     static void updateIOSVersion();
     static int getNumberOfiPads();
     
@@ -61,7 +57,6 @@ private:
      * The following functions were designed to help the main functions perfomr
      */
     
-    
     void setSpecsToDefault();
     void installDefaultApps();
     
@@ -80,7 +75,6 @@ private:
      * Make a choice if your system of lock screen will be through Touch ID or regular password
      * */
     void setInitialSecuritySystem();
-    void setLockScreenPassword();
     void setTouchID();
     bool unlockPassword();
     bool unlockTouchID();

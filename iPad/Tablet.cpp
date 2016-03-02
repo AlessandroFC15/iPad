@@ -322,3 +322,37 @@ void Tablet::turnMobileDataOff()
         cout << "\n# Mobile data network is now turned off.\n";
     }
 }
+
+bool Tablet::isInternetAvailable() const
+{
+    return wiFiOn || mobileDataOn;
+}
+
+bool Tablet::isDeviceEmpty() const
+{
+    return appsInstalled.empty();
+}
+
+bool Tablet::isAnyAppOpen() const
+{
+    return not activeApps.empty();
+}
+
+void Tablet::setLockScreenPassword()
+{
+    string password;
+    while (true)
+    {
+        cout << "\n>> Set initial password to lock screen (4-32 chars): ";
+        getline(cin, password);
+        
+        if ((password.length() >= 4) && (password.length() <= 32))
+        {
+            lockScreenPassword = password;
+            cout << "\n|| Lock screen password set successfully ||\n";
+            break;
+        }
+        
+        cout << "\n# Password must be 4 to 32 chars. Try again. #\n";
+    }
+}

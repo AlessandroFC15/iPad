@@ -264,7 +264,7 @@ void chooseAppToUninstall(IPad& iPad)
     cin.ignore();
     
     // Check to see if the iPad is not empty
-    if (not iPad.isIPadEmpty())
+    if (not iPad.isDeviceEmpty())
     {
         // Show a list of installed apps
         iPad.showAppsInstalled();
@@ -296,7 +296,7 @@ void chooseAppToOpen(IPad& iPad)
     cin.ignore();
     
     // Check to see there are apps installed to open
-    if (not iPad.isIPadEmpty())
+    if (not iPad.isDeviceEmpty())
     {
         // Show a list of installed apps
         iPad.showAppsInstalled();

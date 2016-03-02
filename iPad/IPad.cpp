@@ -175,18 +175,6 @@ bool IPad::unlockScreen()
 
 /* HELPERS */
 
-
-
-bool IPad::isIPadEmpty() const
-{
-    return appsInstalled.empty();
-}
-
-bool IPad::isAnyAppOpen() const
-{
-    return not activeApps.empty();
-}
-
 void IPad::setSpecsToDefault()
 {
     // The following values were chosen arbitrarily.
@@ -237,10 +225,7 @@ float IPad::validateValue(float value, float min, float max, const string &name)
 
 
 
-bool IPad::isInternetAvailable() const
-{
-    return wiFiOn || mobileDataOn;
-}
+
 
 int IPad::getNumberOfiPads()
 {
@@ -281,24 +266,7 @@ void IPad::setInitialSecuritySystem()
     }
 }
 
-void IPad::setLockScreenPassword()
-{
-    string password;
-    while (true)
-    {
-        cout << "\n>> Set initial password to lock screen (4-32 chars): ";
-        getline(cin, password);
-        
-        if ((password.length() >= 4) && (password.length() <= 32))
-        {
-            lockScreenPassword = password;
-            cout << "\n|| Lock screen password set successfully ||\n";
-            break;
-        }
-        
-        cout << "\n# Password must be 4 to 32 chars. Try again. #\n";
-    }
-}
+
 
 void IPad::setTouchID()
 {

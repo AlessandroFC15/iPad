@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Alessandro
-Date                   :=01/03/2016
+Date                   :=02/03/2016
 CodeLitePath           :="C:\Program Files\CodeLite"
 LinkerName             :=C:/TDM-GCC-64/bin/g++.exe
 SharedObjectLinkerName :=C:/TDM-GCC-64/bin/g++.exe -shared -fPIC
@@ -62,7 +62,7 @@ AS       := C:/TDM-GCC-64/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) $(IntermediateDirectory)/Data.cpp$(ObjectSuffix) $(IntermediateDirectory)/TouchID.cpp$(ObjectSuffix) $(IntermediateDirectory)/Device.cpp$(ObjectSuffix) $(IntermediateDirectory)/Tablet.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/IPad.cpp$(ObjectSuffix) $(IntermediateDirectory)/Data.cpp$(ObjectSuffix) $(IntermediateDirectory)/TouchID.cpp$(ObjectSuffix) $(IntermediateDirectory)/Device.cpp$(ObjectSuffix) $(IntermediateDirectory)/Tablet.cpp$(ObjectSuffix) $(IntermediateDirectory)/SamsungTablet.cpp$(ObjectSuffix) 
 
 
 
@@ -140,6 +140,14 @@ $(IntermediateDirectory)/Tablet.cpp$(DependSuffix): Tablet.cpp
 
 $(IntermediateDirectory)/Tablet.cpp$(PreprocessSuffix): Tablet.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Tablet.cpp$(PreprocessSuffix) "Tablet.cpp"
+
+$(IntermediateDirectory)/SamsungTablet.cpp$(ObjectSuffix): SamsungTablet.cpp $(IntermediateDirectory)/SamsungTablet.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Alessandro/Documents/GitHub/iPad/iPad/SamsungTablet.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/SamsungTablet.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/SamsungTablet.cpp$(DependSuffix): SamsungTablet.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/SamsungTablet.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/SamsungTablet.cpp$(DependSuffix) -MM "SamsungTablet.cpp"
+
+$(IntermediateDirectory)/SamsungTablet.cpp$(PreprocessSuffix): SamsungTablet.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/SamsungTablet.cpp$(PreprocessSuffix) "SamsungTablet.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

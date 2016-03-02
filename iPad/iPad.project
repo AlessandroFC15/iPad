@@ -102,5 +102,7 @@
     <File Name="Device.cpp"/>
     <File Name="Tablet.h"/>
     <File Name="Tablet.cpp"/>
+    <File Name="SamsungTablet.h"/>
+    <File Name="SamsungTablet.cpp"/>
   </VirtualDirectory>
 </CodeLite_Project>

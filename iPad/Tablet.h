@@ -79,6 +79,12 @@ public:
     
     void turnMobileDataOff();
     
+    bool isInternetAvailable() const;
+    bool isDeviceEmpty() const;
+    bool isAnyAppOpen() const;
+    
+    void setLockScreenPassword();
+    
 protected:
     bool screenLocked;
     string lockScreenPassword;
@@ -93,6 +99,7 @@ private:
     void setSpecsToDefault();
     bool isAppInstalled(const string &) const;
     bool isAppOpen(const string &) const;
+    
 };
 
 #endif // TABLET_H
