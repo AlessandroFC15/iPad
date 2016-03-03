@@ -22,7 +22,6 @@ private:
     bool penActive;
     bool activeNFC; // NFC = Near Field Communication
     
-    
     /** HELPER FUNCTIONS
      * 
      * The following functions were designed to help the main functions perfomr

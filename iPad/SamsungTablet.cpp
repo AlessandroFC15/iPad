@@ -6,7 +6,9 @@ ostream &operator<<(ostream &output, const SamsungTablet &tablet)
 {
     output << static_cast< Tablet > (tablet);
     output << "\n\n.: SamsungTablet Specs :.\n"
-    << "\n>> PEN ACTIVE = " << (tablet.penActive? "YES":"NO")
+    << "\n>> SD CARD INSERTED = " << (tablet.externalSDCard? "YES":"NO");
+    if (tablet.externalSDCard) output << "\n>> SIZE OF SD CARD: " << tablet.sizeSDCard << "GB";
+    output << "\n>> PEN ACTIVE = " << (tablet.penActive? "YES":"NO")
     << "\n>> NFC ACTIVE = " << (tablet.activeNFC? "YES":"NO");
     
     tablet.showAppsInstalled();
@@ -72,18 +74,109 @@ bool SamsungTablet::insertSDCard()
     {
         int storage;
         cout << "\n>> Enter the size of the SD Card in GB: ";
-        //cin(storage);
+        cin >> storage;
         
+        sizeSDCard = validateValue(storage, 2, 128, "SD card size");
         
+        externalSDCard = true;
         
+        storageCapacity += sizeSDCard;
+        freeMemory += sizeSDCard;
+        
+        cout << "\n|| SD Card successfully inserted ||\n";
+        
+        return true;
     } else
     {
         cout << "\n# There is already a SD card inserted in the tablet. #\n";
         cout << "\n# Remove it first and try again! #\n";
+        
+        return false;
+    }
+}
+
+bool SamsungTablet::removeSDCard()
+{
+    if (externalSDCard)
+    {       
+        string choice;
+         
+        cout << "\n>> Are you sure you want to remove your SD Card (" << sizeSDCard << "GB) (Y or N): ";
+        cin >> choice;
+        
+        if (choice == "Y" || choice == "y")
+        {
+            externalSDCard = false;
+            storageCapacity -= sizeSDCard;
+            
+            // If there isn't enough space in the tablet without the SD card,
+            // then all the apps will be uninstalled.
+            if (freeMemory - sizeSDCard < 0)
+            {
+                appsInstalled.clear();
+                activeApps.clear();
+                freeMemory = storageCapacity;
+            } else 
+            {
+                freeMemory -= sizeSDCard;
+            }
+            
+            sizeSDCard = 0;
+            
+            cout << "\n|| SD Card successfully removed ||\n";
+            
+            return true;
+        } else
+        {
+            cout << "\n# SD Card wasn't removed #\n";
+            return false;
+        }
+    } else
+    {
+        cout << "\n# No SD card to remove in the tablet. #\n";
+        return false;
+    }
+}
+
+bool SamsungTablet::changeSDCard()
+{
+    if (externalSDCard)
+    {
+        float storage;
+        cout << "\n>> Enter the size of the new SD Card (in GB): ";
+        cin >> storage;
+        
+        if (not removeSDCard())
+        {
+            return false;
+        }
+        
+        sizeSDCard = validateValue(storage, 2, 128, "SD card size");
+        
+        externalSDCard = true;
+        
+        storageCapacity += sizeSDCard;
+        freeMemory += sizeSDCard;
+        
+        cout << "\n|| SD Card successfully changed. ||\n";
+        
+        return true;
+    } else 
+    {
+        string choice;
+        cout << "\n# No SD card to perfom change in the tablet. #";
+        cout << "\n>> Would you like to insert a SD Card? (Y or N): ";
+        cin >> choice;
+        
+        if (choice == "Y" || choice == "y")
+        {
+            return insertSDCard();
+        }
+        
+        return false;
     }
     
 }
-
 
 void SamsungTablet::installDefaultApps()
 {

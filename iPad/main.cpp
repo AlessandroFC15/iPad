@@ -13,26 +13,25 @@ void chooseAppToClose(IPad& iPad);
 
 int main(int argc, char **argv)
 {
-    IPad iPad;
+    SamsungTablet iPad;
     
     cout << iPad;
     
-    /*IPad iPad1(64), iPad2(64);
+    iPad.insertSDCard();
     
-    // Uso do cout
-    cout << iPad1;
+    cout << iPad;
     
-    // Teste da igualdade
-    cout << (iPad1 == iPad2? "\nEQUAL":"\nDIFFERENT");
+    iPad.removeSDCard();
     
-    // Atribuição
-    iPad2 = iPad1;
+    iPad.removeSDCard();
     
-    // Teste de igualdade, novamente
-    cout << (iPad1 == iPad2? "\nEQUAL":"\nDIFFERENT");
+    cout << iPad;
     
-    cout << (iPad1 <= iPad2? "\n1ST LOWER":"\n2ND LOWER");*/
-
+    iPad.insertSDCard();
+    iPad.changeSDCard();
+    
+    cout << iPad;
+    
     return 0;
 }
 
