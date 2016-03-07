@@ -19,8 +19,6 @@ public:
 private:
     bool externalSDCard;
     int sizeSDCard;
-    bool penActive;
-    bool activeNFC; // NFC = Near Field Communication
     
     /** HELPER FUNCTIONS
      * 
