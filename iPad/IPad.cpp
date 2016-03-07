@@ -118,18 +118,9 @@ IPad::IPad(int storage)
 
 // Construtor de cópia
 IPad::IPad(const IPad &oldIPad)
+:Tablet(static_cast< Tablet > (oldIPad))
 {
-    isTurnedOn = oldIPad.isTurnedOn;
-    InitialDate = oldIPad.InitialDate;
-    storageCapacity = oldIPad.storageCapacity;
-    freeMemory = oldIPad.freeMemory;
-    screenLocked = oldIPad.screenLocked;
-    wiFiOn = oldIPad.wiFiOn;
-    mobileDataOn = oldIPad.mobileDataOn;
-    appsInstalled = oldIPad.appsInstalled;
-    activeApps = oldIPad.activeApps;
     typeOfLockScreen = oldIPad.typeOfLockScreen;
-    lockScreenPassword = oldIPad.lockScreenPassword;
     touchID = oldIPad.touchID;
 
     numberOfiPads++;

@@ -16,7 +16,7 @@ ostream &operator<<(ostream &output, const Device &device)
 Device::Device()
 {
     isTurnedOn = true;
-    Data InitialDate(02, 3, 2016);
+    Data InitialDate(02, 3, 2016);  
 }
 
 Device::Device(bool state)

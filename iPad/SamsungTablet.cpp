@@ -8,8 +8,6 @@ ostream &operator<<(ostream &output, const SamsungTablet &tablet)
     output << "\n\n.: SamsungTablet Specs :.\n"
     << "\n>> SD CARD INSERTED = " << (tablet.externalSDCard? "YES":"NO");
     if (tablet.externalSDCard) output << "\n>> SIZE OF SD CARD: " << tablet.sizeSDCard << "GB";
-    output << "\n>> PEN ACTIVE = " << (tablet.penActive? "YES":"NO")
-    << "\n>> NFC ACTIVE = " << (tablet.activeNFC? "YES":"NO");
     
     tablet.showAppsInstalled();
     
@@ -19,9 +17,7 @@ ostream &operator<<(ostream &output, const SamsungTablet &tablet)
 SamsungTablet::SamsungTablet()
 {
     cout << ".:. Samsung Tablet Creation .:.\n";
-
-    penActive = false;
-    activeNFC = false;
+    
     externalSDCard = false;
     sizeSDCard = 0;
 
@@ -35,8 +31,6 @@ SamsungTablet::SamsungTablet(int storage)
 {
     cout << ".:. Samsung Tablet Creation .:.\n";
 
-    penActive = false;
-    activeNFC = false;
     externalSDCard = false;
     sizeSDCard = 0;
 
@@ -46,19 +40,8 @@ SamsungTablet::SamsungTablet(int storage)
 }
 
 SamsungTablet::SamsungTablet(const SamsungTablet &oldTablet)
+:Tablet(static_cast< Tablet > (oldTablet))
 {
-    isTurnedOn = oldTablet.isTurnedOn;
-    InitialDate = oldTablet.InitialDate;
-    storageCapacity = oldTablet.storageCapacity;
-    freeMemory = oldTablet.freeMemory;
-    screenLocked = oldTablet.screenLocked;
-    lockScreenPassword = oldTablet.lockScreenPassword;
-    wiFiOn = oldTablet.wiFiOn;
-    mobileDataOn = oldTablet.mobileDataOn;
-    appsInstalled = oldTablet.appsInstalled;
-    activeApps = oldTablet.activeApps;
-    penActive = oldTablet.penActive;
-    activeNFC = oldTablet.activeNFC;
     externalSDCard = oldTablet.externalSDCard;
     sizeSDCard = oldTablet.sizeSDCard;
 }

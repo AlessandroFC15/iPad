@@ -30,9 +30,8 @@ Tablet::Tablet(int storage)
 
 // Construtor de cópia
 Tablet::Tablet(const Tablet &oldTablet)
+:Device(static_cast< Device > (oldTablet))
 {
-    isTurnedOn = oldTablet.isTurnedOn;
-    InitialDate = oldTablet.InitialDate;
     storageCapacity = oldTablet.storageCapacity;
     freeMemory = oldTablet.freeMemory;
     screenLocked = oldTablet.screenLocked;

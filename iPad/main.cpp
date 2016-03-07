@@ -13,24 +13,15 @@ void chooseAppToClose(IPad& iPad);
 
 int main(int argc, char **argv)
 {
-    SamsungTablet iPad;
+    IPad iPad;
     
     cout << iPad;
     
-    iPad.insertSDCard();
+    iPad.installApp("Ale", 500);
     
     cout << iPad;
     
-    iPad.removeSDCard();
-    
-    iPad.removeSDCard();
-    
-    cout << iPad;
-    
-    iPad.insertSDCard();
-    iPad.changeSDCard();
-    
-    cout << iPad;
+    iPad.turnOff();
     
     return 0;
 }
