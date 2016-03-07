@@ -4,95 +4,6 @@
 float IPad::latestIOSVersion = 9;
 int IPad::numberOfiPads = 0;
 
-ostream &operator<<(ostream &output, const IPad &iPad)
-{
-    output << static_cast< Tablet > (iPad);
-    output << "\n\n.: iPad Specs :\n"
-    << "\n>> iOS VERSION = " << iPad.latestIOSVersion
-    << "\n>> TYPE OF LOCK SCREEN = " << (iPad.typeOfLockScreen == iPad.TOUCH_ID? "TOUCH ID":"PASSWORD");
-    
-    iPad.showAppsInstalled();
-    
-    return output;
-}
-
-// The + operator will sum the storage capacities of iPads
-
-float operator+(const IPad &iPad1, const IPad &iPad)
-{
-    return iPad1.storageCapacity + iPad.storageCapacity;
-}
-
-const IPad & IPad::operator=(const IPad &iPad)
-{
-    isTurnedOn = iPad.isTurnedOn;
-    storageCapacity = iPad.storageCapacity;
-    freeMemory = iPad.freeMemory;
-    screenLocked = iPad.screenLocked;
-    wiFiOn = iPad.wiFiOn;
-    mobileDataOn = iPad.mobileDataOn;
-    appsInstalled = iPad.appsInstalled;
-    Data InitialDate(iPad.InitialDate);
-    activeApps = iPad.activeApps;
-    typeOfLockScreen = iPad.typeOfLockScreen;
-    lockScreenPassword = iPad.lockScreenPassword;
-    touchID = iPad.touchID;
-    
-    return *this;
-}
-
-/* For the equality operator, every single attribute must be equal to each other. Any difference will result in returning false. */
-
-bool IPad::operator==(const IPad &iPad) const
-{
-    // Must have the same storage capacity and free memory
-    if ((storageCapacity != iPad.storageCapacity) || (freeMemory != iPad.freeMemory))
-        return false;
-        
-    // Must have the same security system
-    if ((typeOfLockScreen != iPad.typeOfLockScreen) || (lockScreenPassword != iPad.lockScreenPassword) || (screenLocked != iPad.screenLocked))
-        return false;
-
-    // Must have the same configurations
-    if ((isTurnedOn != iPad.isTurnedOn) || (wiFiOn != iPad.wiFiOn) || (mobileDataOn != mobileDataOn))
-        return false;
-
-    // Comparison of unordered maps and active apps
-    if ((appsInstalled != iPad.appsInstalled) || (activeApps != iPad.activeApps))
-        return false;
-
-    if (touchID != iPad.touchID)
-        return false;
-        
-    if (InitialDate != iPad.InitialDate)
-        return false;
-
-    return true;
-}
-
-/* The operators > and <  will compare the storage capacity of 2 givens iPads. */
-bool IPad::operator>(const IPad &iPad) const
-{
-    return storageCapacity > iPad.storageCapacity;
-}
-
-bool IPad::operator<(const IPad &iPad) const
-{
-    return storageCapacity < iPad.storageCapacity;
-}
-
-bool IPad::operator>=(const IPad &iPad) const
-{
-    return ((*this > iPad) || (storageCapacity == iPad.storageCapacity));
-}
-
-bool IPad::operator<=(const IPad &iPad) const
-{
-    return ((*this < iPad) || (storageCapacity == iPad.storageCapacity));
-}
-
-// END OF OVERLOADING OPERATORS
-
 IPad::IPad()
 {
     cout << ".:. iPad Creation .:.\n";
@@ -234,3 +145,94 @@ bool IPad::unlockTouchID()
     
     return false;
 }
+
+// OVERLOAD OF OPERATORS
+
+ostream &operator<<(ostream &output, const IPad &iPad)
+{
+    output << static_cast< Tablet > (iPad);
+    output << "\n\n.: iPad Specs :\n"
+    << "\n>> iOS VERSION = " << iPad.latestIOSVersion
+    << "\n>> TYPE OF LOCK SCREEN = " << (iPad.typeOfLockScreen == iPad.TOUCH_ID? "TOUCH ID":"PASSWORD");
+    
+    iPad.showAppsInstalled();
+    
+    return output;
+}
+
+// The + operator will sum the storage capacities of iPads
+
+float operator+(const IPad &iPad1, const IPad &iPad)
+{
+    return iPad1.storageCapacity + iPad.storageCapacity;
+}
+
+const IPad & IPad::operator=(const IPad &iPad)
+{
+    isTurnedOn = iPad.isTurnedOn;
+    storageCapacity = iPad.storageCapacity;
+    freeMemory = iPad.freeMemory;
+    screenLocked = iPad.screenLocked;
+    wiFiOn = iPad.wiFiOn;
+    mobileDataOn = iPad.mobileDataOn;
+    appsInstalled = iPad.appsInstalled;
+    Data InitialDate(iPad.InitialDate);
+    activeApps = iPad.activeApps;
+    typeOfLockScreen = iPad.typeOfLockScreen;
+    lockScreenPassword = iPad.lockScreenPassword;
+    touchID = iPad.touchID;
+    
+    return *this;
+}
+
+/* For the equality operator, every single attribute must be equal to each other. Any difference will result in returning false. */
+
+bool IPad::operator==(const IPad &iPad) const
+{
+    // Must have the same storage capacity and free memory
+    if ((storageCapacity != iPad.storageCapacity) || (freeMemory != iPad.freeMemory))
+        return false;
+        
+    // Must have the same security system
+    if ((typeOfLockScreen != iPad.typeOfLockScreen) || (lockScreenPassword != iPad.lockScreenPassword) || (screenLocked != iPad.screenLocked))
+        return false;
+
+    // Must have the same configurations
+    if ((isTurnedOn != iPad.isTurnedOn) || (wiFiOn != iPad.wiFiOn) || (mobileDataOn != mobileDataOn))
+        return false;
+
+    // Comparison of unordered maps and active apps
+    if ((appsInstalled != iPad.appsInstalled) || (activeApps != iPad.activeApps))
+        return false;
+
+    if (touchID != iPad.touchID)
+        return false;
+        
+    if (InitialDate != iPad.InitialDate)
+        return false;
+
+    return true;
+}
+
+/* The operators > and <  will compare the storage capacity of 2 givens iPads. */
+bool IPad::operator>(const IPad &iPad) const
+{
+    return storageCapacity > iPad.storageCapacity;
+}
+
+bool IPad::operator<(const IPad &iPad) const
+{
+    return storageCapacity < iPad.storageCapacity;
+}
+
+bool IPad::operator>=(const IPad &iPad) const
+{
+    return ((*this > iPad) || (storageCapacity == iPad.storageCapacity));
+}
+
+bool IPad::operator<=(const IPad &iPad) const
+{
+    return ((*this < iPad) || (storageCapacity == iPad.storageCapacity));
+}
+
+// END OF OVERLOADING OPERATORS

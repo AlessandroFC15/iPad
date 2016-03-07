@@ -1,16 +1,5 @@
 #include "Device.h"
 
-// Overload of operator
-
-ostream &operator<<(ostream &output, const Device &device)
-{
-    output << "\n\n.: Device Specs :.\n"
-    << "\n>> STATUS = " << (device.isTurnedOn? "ON":"OFF")
-    << device.InitialDate;
-    
-    return output;
-}
-
 // CONSTRUTORES
 
 Device::Device()
@@ -66,4 +55,23 @@ void Device::turnOff()
 bool Device::isOn() const
 {
     return isTurnedOn;
+}
+
+// Overload of operator
+
+ostream &operator<<(ostream &output, const Device &device)
+{
+    output << "\n\n.: Device Specs :.\n"
+    << "\n>> STATUS = " << (device.isTurnedOn? "ON":"OFF")
+    << device.InitialDate;
+    
+    return output;
+}
+
+const Device & Device::operator=(const Device &device)
+{
+    isTurnedOn = device.isTurnedOn;
+    InitialDate = device.InitialDate;
+    
+    return *this;
 }

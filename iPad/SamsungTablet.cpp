@@ -1,19 +1,5 @@
 #include "SamsungTablet.h"
 
-using namespace std;
-
-ostream &operator<<(ostream &output, const SamsungTablet &tablet)
-{
-    output << static_cast< Tablet > (tablet);
-    output << "\n\n.: SamsungTablet Specs :.\n"
-    << "\n>> SD CARD INSERTED = " << (tablet.externalSDCard? "YES":"NO");
-    if (tablet.externalSDCard) output << "\n>> SIZE OF SD CARD: " << tablet.sizeSDCard << "GB";
-    
-    tablet.showAppsInstalled();
-    
-    return output;
-}
-
 SamsungTablet::SamsungTablet()
 {
     cout << ".:. Samsung Tablet Creation .:.\n";
@@ -178,4 +164,36 @@ void SamsungTablet::installDefaultApps()
     // Installing iTunes
     appsInstalled["Google Play Store"] = 98;
     freeMemory -= 98/1000.0;
+}
+
+// OVERLOAD OF OPERATORS
+
+ostream &operator<<(ostream &output, const SamsungTablet &tablet)
+{
+    output << static_cast< Tablet > (tablet);
+    output << "\n\n.: SamsungTablet Specs :.\n"
+    << "\n>> SD CARD INSERTED = " << (tablet.externalSDCard? "YES":"NO");
+    if (tablet.externalSDCard) output << "\n>> SIZE OF SD CARD: " << tablet.sizeSDCard << "GB";
+    
+    tablet.showAppsInstalled();
+    
+    return output;
+}
+
+const SamsungTablet & SamsungTablet::operator=(const SamsungTablet &tablet)
+{
+    isTurnedOn = tablet.isTurnedOn;
+    storageCapacity = tablet.storageCapacity;
+    freeMemory = tablet.freeMemory;
+    screenLocked = tablet.screenLocked;
+    wiFiOn = tablet.wiFiOn;
+    mobileDataOn = tablet.mobileDataOn;
+    appsInstalled = tablet.appsInstalled;
+    Data InitialDate(tablet.InitialDate);
+    activeApps = tablet.activeApps;
+    lockScreenPassword = tablet.lockScreenPassword;
+    externalSDCard = tablet.externalSDCard;
+    sizeSDCard = tablet.sizeSDCard;
+    
+    return *this;
 }

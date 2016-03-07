@@ -1,19 +1,5 @@
 #include "Tablet.h"
 
-// Overload of operators
-ostream &operator<<(ostream &output, const Tablet &tablet)
-{
-    output << static_cast< Device > (tablet);
-    output << "\n\n.: Tablet Specs :.\n"
-    << "\n>> STORAGE CAPACITY = " << tablet.storageCapacity << "GB"
-    << "\n>> FREE MEMORY = " << tablet.freeMemory << "GB"
-    << "\n>> NUM OF APPS INSTALLED = " << tablet.appsInstalled.size()
-    << "\n>> NUM OF ACTIVE APPS = " << tablet.activeApps.size()
-    << "\n>> SCREEN LOCKED = " << (tablet.screenLocked? "YES":"NO");
-    
-    return output;
-}
-
 Tablet::Tablet()
 {
     setSpecsToDefault();
@@ -415,4 +401,33 @@ void Tablet::setSpecsToDefault()
     wiFiOn = true;
     mobileDataOn = false;
     lockScreenPassword = "";
+}
+
+// Overload of operators
+ostream &operator<<(ostream &output, const Tablet &tablet)
+{
+    output << static_cast< Device > (tablet);
+    output << "\n\n.: Tablet Specs :.\n"
+    << "\n>> STORAGE CAPACITY = " << tablet.storageCapacity << "GB"
+    << "\n>> FREE MEMORY = " << tablet.freeMemory << "GB"
+    << "\n>> NUM OF APPS INSTALLED = " << tablet.appsInstalled.size()
+    << "\n>> NUM OF ACTIVE APPS = " << tablet.activeApps.size()
+    << "\n>> SCREEN LOCKED = " << (tablet.screenLocked? "YES":"NO");
+    
+    return output;
+}
+
+const Tablet & Tablet::operator=(const Tablet &oldTablet)
+{
+    //static_cast<Device> (*this) = static_cast<Device> (oldTablet);
+    isTurnedOn = oldTablet.isTurnedOn;
+    InitialDate = oldTablet.InitialDate;
+    storageCapacity = oldTablet.storageCapacity;
+    freeMemory = oldTablet.freeMemory;
+    screenLocked = oldTablet.screenLocked;
+    lockScreenPassword = oldTablet.lockScreenPassword;
+    wiFiOn = oldTablet.wiFiOn;
+    mobileDataOn = oldTablet.mobileDataOn;
+    appsInstalled = oldTablet.appsInstalled;
+    activeApps = oldTablet.activeApps;
 }

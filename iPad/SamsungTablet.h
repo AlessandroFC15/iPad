@@ -7,6 +7,8 @@ class SamsungTablet : public Tablet
 {
     friend ostream &operator<<(ostream &, const SamsungTablet &);
 public:
+    const SamsungTablet &operator=(const SamsungTablet &);
+
     SamsungTablet();
     SamsungTablet(int);
     SamsungTablet(const SamsungTablet &);

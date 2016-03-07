@@ -13,15 +13,21 @@ void chooseAppToClose(IPad& iPad);
 
 int main(int argc, char **argv)
 {
-    IPad iPad;
+    Tablet tablet1, tablet2;
     
-    cout << iPad;
+    tablet1.installApp("A", 500);
     
-    iPad.installApp("Ale", 500);
+    tablet1.installApp("B", 400);
     
-    cout << iPad;
+    cout << "\n || TABLET 1 ||" << tablet1;
+    cout << "\n || TABLET 2 ||" << tablet2;
     
-    iPad.turnOff();
+    tablet1.turnOff();
+    
+    tablet2 = tablet1;
+    
+    cout << "\n || TABLET 2 || \n" << tablet2;
+    
     
     return 0;
 }

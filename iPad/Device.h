@@ -7,6 +7,8 @@ class Device
 {
     friend ostream &operator<<(ostream &, const Device &);
 public:
+    const Device &operator=(const Device &);
+
     Device();
     Device(bool);
     Device(const Device &);

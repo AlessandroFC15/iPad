@@ -10,6 +10,8 @@ class Tablet : public Device
 {
     friend ostream &operator<<(ostream &, const Tablet &);
 public:
+    const Tablet &operator=(const Tablet &);
+
     Tablet();
     Tablet(int);
     Tablet(const Tablet &);
