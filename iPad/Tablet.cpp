@@ -419,9 +419,8 @@ ostream &operator<<(ostream &output, const Tablet &tablet)
 
 const Tablet & Tablet::operator=(const Tablet &oldTablet)
 {
-    //static_cast<Device> (*this) = static_cast<Device> (oldTablet);
-    isTurnedOn = oldTablet.isTurnedOn;
-    InitialDate = oldTablet.InitialDate;
+    static_cast <Device&> (*this) = static_cast <Device> (oldTablet);
+    
     storageCapacity = oldTablet.storageCapacity;
     freeMemory = oldTablet.freeMemory;
     screenLocked = oldTablet.screenLocked;
@@ -430,4 +429,6 @@ const Tablet & Tablet::operator=(const Tablet &oldTablet)
     mobileDataOn = oldTablet.mobileDataOn;
     appsInstalled = oldTablet.appsInstalled;
     activeApps = oldTablet.activeApps;
+    
+    return *this;
 }

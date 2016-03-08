@@ -169,17 +169,9 @@ float operator+(const IPad &iPad1, const IPad &iPad)
 
 const IPad & IPad::operator=(const IPad &iPad)
 {
-    isTurnedOn = iPad.isTurnedOn;
-    storageCapacity = iPad.storageCapacity;
-    freeMemory = iPad.freeMemory;
-    screenLocked = iPad.screenLocked;
-    wiFiOn = iPad.wiFiOn;
-    mobileDataOn = iPad.mobileDataOn;
-    appsInstalled = iPad.appsInstalled;
-    Data InitialDate(iPad.InitialDate);
-    activeApps = iPad.activeApps;
+    static_cast <Tablet&> (*this) = static_cast <Tablet> (iPad);
+    
     typeOfLockScreen = iPad.typeOfLockScreen;
-    lockScreenPassword = iPad.lockScreenPassword;
     touchID = iPad.touchID;
     
     return *this;

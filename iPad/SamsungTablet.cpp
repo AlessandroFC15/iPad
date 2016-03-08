@@ -182,16 +182,8 @@ ostream &operator<<(ostream &output, const SamsungTablet &tablet)
 
 const SamsungTablet & SamsungTablet::operator=(const SamsungTablet &tablet)
 {
-    isTurnedOn = tablet.isTurnedOn;
-    storageCapacity = tablet.storageCapacity;
-    freeMemory = tablet.freeMemory;
-    screenLocked = tablet.screenLocked;
-    wiFiOn = tablet.wiFiOn;
-    mobileDataOn = tablet.mobileDataOn;
-    appsInstalled = tablet.appsInstalled;
-    Data InitialDate(tablet.InitialDate);
-    activeApps = tablet.activeApps;
-    lockScreenPassword = tablet.lockScreenPassword;
+    static_cast <Tablet&> (*this) = static_cast <Tablet> (tablet);
+
     externalSDCard = tablet.externalSDCard;
     sizeSDCard = tablet.sizeSDCard;
     
