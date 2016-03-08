@@ -5,62 +5,49 @@
 
 using namespace std;
 
-void menu(IPad& iPad);
-void chooseAppToInstall(IPad& iPad);
-void chooseAppToUninstall(IPad& iPad);
-void chooseAppToOpen(IPad& iPad);
-void chooseAppToClose(IPad& iPad);
+void menu(Tablet& iPad);
+void chooseAppToInstall(Tablet& iPad);
+void chooseAppToUninstall(Tablet& iPad);
+void chooseAppToOpen(Tablet& iPad);
+void chooseAppToClose(Tablet& iPad);
 
 int main(int argc, char **argv)
 {
-    SamsungTablet tablet1, tablet2;
+    IPad tablet1;
     
-    tablet1.installApp("A", 500);
-    
-    tablet1.installApp("B", 400);
-    
-    cout << "\n || TABLET 1 ||" << tablet1;
-    cout << "\n || TABLET 2 ||" << tablet2;
-    
-    tablet1.turnOff();
-    
-    tablet2 = tablet1;
-    
-    cout << "\n || TABLET 1 || \n" << tablet1;
-    
-    cout << "\n || TABLET 2 || \n" << tablet2;
+    menu(tablet1);
     
     return 0;
 }
 
-void menu(IPad& iPad)
+void menu(Tablet& iPad)
 {
     int op;
     
     do 
     {
-        cout << "\n\t\t|| iPad Control Center ||\n";
-        cout << "\n1 => Show Open Apps";
-        cout << "\t\t2 => Install App";
-        cout << "\n\n3 => Uninstall App";
-        cout << "\t\t4 => Show Apps Installed";
-        cout << "\n\n5 => Get iPad Specs";
-        cout << "\t\t6 => Open App";
-        cout << "\n\n7 => Close App";
-        cout << "\t\t\t8 => Close All Apps";
-        cout << "\n\n9 => Uninstall All Apps";
-        cout << "\t\t10 => Turn Wi-Fi On";
-        cout << "\n\n11 => Turn Wi-Fi Off";
-        cout << "\t\t12 => Turn Mobile Data On";
-        cout << "\n\n13 => Turn Mobile Data Off";
-        cout << "\t14 => Unlock Screen";
-        cout << "\n\n15 => Lock Screen";
-        cout << "\t\t16 => Turn On";
-        cout << "\n\n17 => Turn Off";
-        cout << "\t\t\t18 => Get Number of iPads Created";
-        cout << "\n\n19 => Update iOS Version";
-        cout << "\t20 => Quit";
-        cout << "\n\n>> Enter your option: ";
+        cout << "\n\t\t|| iPad Control Center ||\n"
+        << "\n1 => Show Open Apps"
+        << "\t\t2 => Install App"
+        << "\n\n3 => Uninstall App"
+        << "\t\t4 => Show Apps Installed"
+        << "\n\n5 => Get iPad Specs"
+        << "\t\t6 => Open App"
+        << "\n\n7 => Close App"
+        << "\t\t\t8 => Close All Apps"
+        << "\n\n9 => Uninstall All Apps"
+        << "\t\t10 => Turn Wi-Fi On"
+        << "\n\n11 => Turn Wi-Fi Off"
+        << "\t\t12 => Turn Mobile Data On"
+        << "\n\n13 => Turn Mobile Data Off"
+        << "\t14 => Unlock Screen"
+        << "\n\n15 => Lock Screen"
+        << "\t\t16 => Turn On"
+        << "\n\n17 => Turn Off"
+        << "\t\t\t18 => Get Number of iPads Created"
+        << "\n\n19 => Update iOS Version"
+        << "\t20 => Quit"
+        << "\n\n>> Enter your option: ";
         cin >> op;
         
         // For the options between 1 and 13, the program will only proceed if the iPad is turned on 
@@ -181,7 +168,7 @@ void menu(IPad& iPad)
 
 // FUNCTIONS
 
-void chooseAppToInstall(IPad& iPad)
+void chooseAppToInstall(Tablet& iPad)
 {
     // Array of pairs to hold the apps to be presented in App Store
     pair<string, float> appsToInstall[10] = {{"Instagram", 23}, {"Facebook", 108},
@@ -257,7 +244,7 @@ void chooseAppToInstall(IPad& iPad)
     } while (op != 12);
 }
 
-void chooseAppToUninstall(IPad& iPad)
+void chooseAppToUninstall(Tablet& iPad)
 {
     cin.ignore();
     
@@ -289,7 +276,7 @@ void chooseAppToUninstall(IPad& iPad)
     }
 }
 
-void chooseAppToOpen(IPad& iPad)
+void chooseAppToOpen(Tablet& iPad)
 {
     cin.ignore();
     
@@ -320,7 +307,7 @@ void chooseAppToOpen(IPad& iPad)
     }
 }
 
-void chooseAppToClose(IPad& iPad)
+void chooseAppToClose(Tablet& iPad)
 {
     cin.ignore();
     

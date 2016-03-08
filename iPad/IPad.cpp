@@ -132,7 +132,7 @@ bool IPad::unlockPassword()
     // The process of unlocking the screen by password of the iPad
     // is the same of a generic Tablet. For that reason, we simply
     // use the method to unlock the screen of the class Tablet
-    Tablet::unlockScreen();
+    return Tablet::unlockScreen();
 }
 
 bool IPad::unlockTouchID()
@@ -150,8 +150,7 @@ bool IPad::unlockTouchID()
 
 ostream &operator<<(ostream &output, const IPad &iPad)
 {
-    output << static_cast< Tablet > (iPad);
-    output << "\n\n.: iPad Specs :\n"
+    output << static_cast< Tablet > (iPad)
     << "\n>> iOS VERSION = " << iPad.latestIOSVersion
     << "\n>> TYPE OF LOCK SCREEN = " << (iPad.typeOfLockScreen == iPad.TOUCH_ID? "TOUCH ID":"PASSWORD");
     

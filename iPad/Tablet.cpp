@@ -406,8 +406,7 @@ void Tablet::setSpecsToDefault()
 // Overload of operators
 ostream &operator<<(ostream &output, const Tablet &tablet)
 {
-    output << static_cast< Device > (tablet);
-    output << "\n\n.: Tablet Specs :.\n"
+    output << static_cast< Device > (tablet)
     << "\n>> STORAGE CAPACITY = " << tablet.storageCapacity << "GB"
     << "\n>> FREE MEMORY = " << tablet.freeMemory << "GB"
     << "\n>> NUM OF APPS INSTALLED = " << tablet.appsInstalled.size()

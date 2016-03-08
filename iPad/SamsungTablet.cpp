@@ -170,8 +170,7 @@ void SamsungTablet::installDefaultApps()
 
 ostream &operator<<(ostream &output, const SamsungTablet &tablet)
 {
-    output << static_cast< Tablet > (tablet);
-    output << "\n\n.: SamsungTablet Specs :.\n"
+    output << static_cast< Tablet > (tablet)
     << "\n>> SD CARD INSERTED = " << (tablet.externalSDCard? "YES":"NO");
     if (tablet.externalSDCard) output << "\n>> SIZE OF SD CARD: " << tablet.sizeSDCard << "GB";
     
