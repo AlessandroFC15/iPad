@@ -41,7 +41,7 @@ IPad::~IPad()
 {
 }
 
-bool IPad::unlockiPadScreen()
+bool IPad::unlockScreen()
 {
     // Check to see if the screen is indeed locked
     if (not isScreenUnlocked())
