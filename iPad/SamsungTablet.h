@@ -17,16 +17,11 @@ public:
     bool insertSDCard();
     bool removeSDCard();
     bool changeSDCard();
-    
 private:
     bool externalSDCard;
     int sizeSDCard;
     
-    /** HELPER FUNCTIONS
-     * 
-     * The following functions were designed to help the main functions perfomr
-     */
-    
+    // HELPER FUNCTION
     void installDefaultApps();
 };
 

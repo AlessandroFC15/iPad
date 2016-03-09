@@ -11,44 +11,19 @@ class IPad : public Tablet
     friend ostream &operator<<(ostream &, const IPad &);
     friend float operator+(const IPad &, const IPad &);
 public:
-    // Overload of operators
-    const IPad &operator=(const IPad &);
-    bool operator==(const IPad &) const;
-    bool operator!=(const IPad &iPad) const
-    {
-        return ! (*this == iPad);
-    }
-    bool operator>(const IPad &) const;
-    bool operator<(const IPad &) const;
-    bool operator>=(const IPad &) const;
-    bool operator<=(const IPad &) const;
-    
-    // Constructors
     IPad();
     IPad(int storage);
     IPad(const IPad &);
     ~IPad();
     
-    /**
-        Uninstall all apps.
-        
-        @return boolean value, returning true if the iPad wasn't empty and all apps were uninstalled.
-        The function will return false if the iPad was empty before the execution.
-    */
     bool unlockScreen();
-    
     static void updateIOSVersion();
     static int getNumberOfiPads();
-    
 private:
     int typeOfLockScreen;
     TouchID touchID;
 
-    /** HELPER FUNCTIONS
-     * 
-     * The following functions were designed to help the main functions perfomr
-     */
-    
+    // HELPER FUNCTIONS
     void installDefaultApps();
     void setInitialSecuritySystem();
     void setTouchID();
