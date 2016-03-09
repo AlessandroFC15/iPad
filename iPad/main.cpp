@@ -167,7 +167,7 @@ void menu(IPad& iPad)
     } while (op != 20);
 }
 
-void menu(SamsungTablet& iPad)
+void menu(SamsungTablet& tablet)
 {
     int op;
     
@@ -203,107 +203,107 @@ void menu(SamsungTablet& iPad)
         
         if (op >= 1 && op <= 13)
         {
-            if (iPad.isOn())
+            if (tablet.isOn())
             {
-                if (iPad.isScreenUnlocked())
+                if (tablet.isScreenUnlocked())
                 {
-                    // With the iPad on and unlocked, we can proceed to perform the option choosen.
+                    // With the tablet on and unlocked, we can proceed to perform the option choosen.
                     switch (op)
                     {
                         case 1:
-                            iPad.showActiveApps();
+                            tablet.showActiveApps();
                             break;
                         case 2:
                             // To download any app, internet must be available
-                            if (iPad.isInternetAvailable())
+                            if (tablet.isInternetAvailable())
                             {
-                                chooseAppToInstall(iPad);
+                                chooseAppToInstall(tablet);
                             } else
                             {
                                 cout << "\n# There is no internet connection to download apps. \n# Turn WiFi or mobile data on. \n";
                             }
                             break;
                         case 3:
-                            chooseAppToUninstall(iPad);
+                            chooseAppToUninstall(tablet);
                             break;
                         case 4:
-                            iPad.showAppsInstalled();
+                            tablet.showAppsInstalled();
                             break;
                         case 5:
-                            cout << iPad;
+                            cout << tablet;
                             break;
                         case 6:
-                            chooseAppToOpen(iPad);
+                            chooseAppToOpen(tablet);
                             break;
                         case 7:
-                            chooseAppToClose(iPad);
+                            chooseAppToClose(tablet);
                             break;
                         case 8:
-                            iPad.closeAllApps();
+                            tablet.closeAllApps();
                             break;
                         case 9:
-                            iPad.uninstallAllApps();
+                            tablet.uninstallAllApps();
                             break;
                         case 10:
-                            iPad.turnWiFiOn();
+                            tablet.turnWiFiOn();
                             break;
                         case 11:
-                            iPad.turnWiFiOff();
+                            tablet.turnWiFiOff();
                             break;
                         case 12:
-                            iPad.turnMobileDataOn();
+                            tablet.turnMobileDataOn();
                             break;
                         case 13:
-                            iPad.turnMobileDataOff();
+                            tablet.turnMobileDataOff();
                             break;
                     }
                 } else 
                 {
-                    cout << "\n# Unlock the iPad screen first #\n";
+                    cout << "\n# Unlock the tablet screen first #\n";
                 }
             } else 
             {
-                cout << "\n# Turn the iPad on first #\n";
+                cout << "\n# Turn the tablet on first #\n";
             }
             
         } else if (op >= 14 && op <= 15)
         {
-            // For the options 14 and 15, we will only check if the iPad is on.
-            if (iPad.isOn())
+            // For the options 14 and 15, we will only check if the tablet is on.
+            if (tablet.isOn())
             {
                 switch (op)
                 {
                     case 14:
-                        iPad.unlockScreen();
+                        tablet.unlockScreen();
                         break;
                     case 15:
-                        iPad.lockScreen();
+                        tablet.lockScreen();
                         break;
                 }
             } else 
             {
-                 cout << "\n# Turn the iPad on first #\n";
+                 cout << "\n# Turn the tablet on first #\n";
             }
         } else 
         {
-            // For the other options, there are no pre-conditions that the iPad must be in.
+            // For the other options, there are no pre-conditions that the tablet must be in.
             switch (op)
             {
                 case 16:
-                    iPad.turnOn();
+                    tablet.turnOn();
                     break;
                 case 17:
-                    iPad.closeAllApps();
-                    iPad.turnOff();
+                    tablet.closeAllApps();
+                    tablet.turnOff();
                     break;
                 case 18:
-                    iPad.insertSDCard();
+                    tablet.insertSDCard();
                     break;
                 case 19:
-                    iPad.removeSDCard();
+                    tablet.removeSDCard();
                     break;
                 case 20:
-                    iPad.changeSDCard();
+                    tablet.changeSDCard();
                 case 21:
                     cout << "\n# PROGRAM FINISHED #\n";
                     break;
