@@ -7,8 +7,6 @@ class SamsungTablet : public Tablet
 {
     friend ostream &operator<<(ostream &, const SamsungTablet &);
 public:
-    const SamsungTablet &operator=(const SamsungTablet &);
-
     SamsungTablet();
     SamsungTablet(int);
     SamsungTablet(const SamsungTablet &);
@@ -17,6 +15,9 @@ public:
     bool insertSDCard();
     bool removeSDCard();
     bool changeSDCard();
+    
+    const SamsungTablet &operator=(const SamsungTablet &);
+    bool operator==(const SamsungTablet &) const;
 private:
     bool externalSDCard;
     int sizeSDCard;

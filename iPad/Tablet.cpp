@@ -431,3 +431,8 @@ const Tablet & Tablet::operator=(const Tablet &oldTablet)
     
     return *this;
 }
+
+bool Tablet::operator==(const Tablet &tablet) const
+{
+    return (static_cast <Device> (*this) == static_cast <Device> (tablet));
+}

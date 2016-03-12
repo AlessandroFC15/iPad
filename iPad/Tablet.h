@@ -10,8 +10,6 @@ class Tablet : public Device
 {
     friend ostream &operator<<(ostream &, const Tablet &);
 public:
-    const Tablet &operator=(const Tablet &);
-
     Tablet();
     Tablet(int);
     Tablet(const Tablet &);
@@ -89,7 +87,8 @@ public:
     bool isDeviceEmpty() const;
     bool isAnyAppOpen() const;
     
-    
+    const Tablet &operator=(const Tablet &);
+    bool operator==(const Tablet &) const;
 protected:
     float storageCapacity; // Measured in GB
     float freeMemory; // Measured in GB

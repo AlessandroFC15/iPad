@@ -19,6 +19,18 @@ public:
     bool unlockScreen();
     static void updateIOSVersion();
     static int getNumberOfiPads();
+    
+    // Overload of operators
+    const IPad &operator=(const IPad &);
+    bool operator==(const IPad &) const;
+    bool operator!=(const IPad &iPad) const
+    {
+        return ! (*this == iPad);
+    }
+    bool operator>(const IPad &) const;
+    bool operator<(const IPad &) const;
+    bool operator>=(const IPad &) const;
+    bool operator<=(const IPad &) const;
 private:
     int typeOfLockScreen;
     TouchID touchID;

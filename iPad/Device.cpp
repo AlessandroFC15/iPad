@@ -75,3 +75,8 @@ const Device & Device::operator=(const Device &device)
     
     return *this;
 }
+
+bool Device::operator==(const Device &device) const
+{
+    return (isTurnedOn == device.isTurnedOn) && (InitialDate == device.InitialDate);
+}

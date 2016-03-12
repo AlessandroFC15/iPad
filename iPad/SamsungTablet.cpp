@@ -38,7 +38,6 @@ SamsungTablet::~SamsungTablet()
 
 bool SamsungTablet::insertSDCard()
 {
-    // Check to see if there isn't already a SD Card on the tablet
     if (not externalSDCard)
     {
         int storage;
@@ -48,7 +47,6 @@ bool SamsungTablet::insertSDCard()
         sizeSDCard = validateValue(storage, 2, 128, "SD card size");
         
         externalSDCard = true;
-        
         storageCapacity += sizeSDCard;
         freeMemory += sizeSDCard;
         
@@ -172,7 +170,10 @@ ostream &operator<<(ostream &output, const SamsungTablet &tablet)
 {
     output << static_cast< Tablet > (tablet)
     << "\n>> SD CARD INSERTED = " << (tablet.externalSDCard? "YES":"NO");
-    if (tablet.externalSDCard) output << "\n>> SIZE OF SD CARD: " << tablet.sizeSDCard << "GB";
+    if (tablet.externalSDCard) 
+    {
+        output << "\n>> SIZE OF SD CARD: " << tablet.sizeSDCard << "GB";
+    }
     
     tablet.showAppsInstalled();
     
@@ -187,4 +188,15 @@ const SamsungTablet & SamsungTablet::operator=(const SamsungTablet &tablet)
     sizeSDCard = tablet.sizeSDCard;
     
     return *this;
+}
+
+bool SamsungTablet::operator==(const SamsungTablet &tablet) const
+{
+    if (static_cast <Tablet> (*this) != static_cast <Tablet> (tablet))
+        return false;
+        
+    if ((externalSDCard != tablet.externalSDCard) || (sizeSDCard != tablet.sizeSDCard))
+        return false;
+        
+    return true;
 }
