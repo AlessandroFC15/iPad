@@ -117,9 +117,11 @@ void IPad::setInitialSecuritySystem()
             break;
         } else
         {
-            cout << "\n# Invalid choice. Try again! #";
+            cout << "\n# Invalid choice. Try again! #\n";
         }
     }
+    
+    cin.ignore();
 }
 
 void IPad::setTouchID()

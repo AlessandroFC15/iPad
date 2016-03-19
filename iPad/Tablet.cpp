@@ -276,6 +276,7 @@ void Tablet::setLockScreenPassword()
         
         cout << "\n# Password must be 4 to 32 chars. Try again. #\n";
     }
+
 }
 
 bool Tablet::isScreenUnlocked() const
@@ -397,7 +398,7 @@ void Tablet::setSpecsToDefault()
 {
     storageCapacity = 32;
     freeMemory = storageCapacity;
-    screenLocked = false;
+    screenLocked = true;
     wiFiOn = true;
     mobileDataOn = false;
     lockScreenPassword = "";

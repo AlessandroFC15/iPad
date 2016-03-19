@@ -62,7 +62,7 @@ bool TouchID::addFingerPrint()
         cout << "\n# Enter a valid number (1 to 10). #\n";
     }
     
-    cout << "\n|| Fingerprint successfully registered ||\n";
+    cout << "\n|| Fingerprint successfully registered ||\n\n";
     // 3st Step = Add data to the data structure
     registeredFingerprints[nameOfUser] = fingerUsed;
     
@@ -87,13 +87,12 @@ bool TouchID::checkForFingerPrint(const string &name) const
 
 bool TouchID::unlockScreen()
 {
-    cin.ignore();
     string nameOfUser;
     int fingerUsed;
     
     cout << "\n>> To unlock the screen, please enter your name: ";
     getline(cin, nameOfUser);
-    
+
     // Check to see if there is a user with this name in the database
     if (checkForFingerPrint(nameOfUser))
     {
@@ -113,15 +112,18 @@ bool TouchID::unlockScreen()
         if (fingerUsed == registeredFingerprints[nameOfUser])
         {
             cout << "\n|| THE SCREEN IS NOW UNLOCKED ||\n";
+            cin.ignore();
             return true;
         } else 
         {
             cout << "\n# Sorry! We couldn't match your fingerprint! #";
+            cin.ignore();
             return false;
         }
     } else
     {
         cout << "\n# There are no fingerprints registered in your name #\n";
+        cin.ignore();
         return false;
     }
 }
