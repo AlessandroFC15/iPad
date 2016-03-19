@@ -16,6 +16,8 @@ public:
     bool removeSDCard();
     bool changeSDCard();
     
+    virtual void installDefaultApps();
+    
     const SamsungTablet &operator=(const SamsungTablet &);
     bool operator==(const SamsungTablet &) const;
 private:
@@ -23,7 +25,7 @@ private:
     int sizeSDCard;
     
     // HELPER FUNCTION
-    void installDefaultApps();
+    
 };
 
 #endif // SAMSUNGTABLET_H

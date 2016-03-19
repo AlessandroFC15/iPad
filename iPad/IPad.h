@@ -20,6 +20,8 @@ public:
     static void updateIOSVersion();
     static int getNumberOfiPads();
     
+    virtual void installDefaultApps();
+    
     // Overload of operators
     const IPad &operator=(const IPad &);
     bool operator==(const IPad &) const;
@@ -36,7 +38,7 @@ private:
     TouchID touchID;
 
     // HELPER FUNCTIONS
-    void installDefaultApps();
+    
     void setInitialSecuritySystem();
     void setTouchID();
     bool unlockPassword();

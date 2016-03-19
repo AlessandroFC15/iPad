@@ -111,6 +111,8 @@ protected:
     float validateValue(float, float, float, const string &) const;
     void setLockScreenPassword();
     
+    virtual void installDefaultApps();
+    
 private:
     bool isAppOpen(const string &) const;
     bool isAppInstalled(const string &) const;

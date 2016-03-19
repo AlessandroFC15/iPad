@@ -16,7 +16,9 @@ int main(int argc, char **argv)
 {
     SamsungTablet tablet1;
     
-    menu(tablet1);
+    IPad iPad;
+    
+    //menu(tablet1);
     
     return 0;
 }
