@@ -16,13 +16,13 @@ int main(int argc, char **argv)
 {
     Tablet* tabletPt;
     
-    SamsungTablet iPad;
+    IPad iPad;
     
     tabletPt = &iPad;
     
-    menu(iPad);
-    
     tabletPt->unlockScreen();
+    
+    menu(iPad);
     
     return 0;
 }
