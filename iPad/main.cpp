@@ -14,15 +14,16 @@ void chooseAppToClose(Tablet& iPad);
 
 int main(int argc, char **argv)
 {
-    IPad iPad, copy(iPad);
+    Tablet* tabletPt;
+    
+    SamsungTablet iPad;
+    
+    tabletPt = &iPad;
     
     menu(iPad);
     
-    if (iPad == copy)
-    {
-        cout << "\n\nEQUAL";
-    }
-
+    tabletPt->unlockScreen();
+    
     return 0;
 }
 
