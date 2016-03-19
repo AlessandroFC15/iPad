@@ -1,5 +1,7 @@
 # include <string>
 # include <iostream>
+# include <vector>
+# include "Tablet.h"
 # include "IPad.h"
 # include "SamsungTablet.h"
 
@@ -14,17 +16,19 @@ void chooseAppToClose(Tablet& iPad);
 
 int main(int argc, char **argv)
 {
-    Tablet* tabletPt;
-    
     IPad iPad;
+    SamsungTablet samsung;
     
-    tabletPt = &iPad;
+    vector<Tablet*> tablet;
     
-    tabletPt->unlockScreen();
+    tablet.push_back(&iPad);
+    tablet.push_back(&samsung);
     
-    menu(iPad);
+    for (size_t i = 0; i < tablet.size(); i++)
+    {
+        tablet[i]->unlockScreen();
+    }
     
-    return 0;
 }
 
 void menu(IPad& iPad)
