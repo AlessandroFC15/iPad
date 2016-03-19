@@ -69,7 +69,7 @@ public:
     
     bool uninstallAllApps();
     
-    bool unlockScreen();
+    virtual bool unlockScreen();
     
     bool lockScreen();
     
@@ -89,6 +89,10 @@ public:
     
     const Tablet &operator=(const Tablet &);
     bool operator==(const Tablet &) const;
+    bool operator!=(const Tablet &tablet) const
+    {
+        return ! (*this == tablet);
+    }
 protected:
     float storageCapacity; // Measured in GB
     float freeMemory; // Measured in GB
@@ -110,13 +114,12 @@ protected:
     */
     float validateValue(float, float, float, const string &) const;
     void setLockScreenPassword();
-    
-    virtual void installDefaultApps();
-    
 private:
     bool isAppOpen(const string &) const;
     bool isAppInstalled(const string &) const;
     void setSpecsToDefault();
+    
+    virtual void installDefaultApps() = 0;
 };
 
 #endif // TABLET_H
