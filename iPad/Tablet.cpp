@@ -434,5 +434,24 @@ const Tablet & Tablet::operator=(const Tablet &oldTablet)
 
 bool Tablet::operator==(const Tablet &tablet) const
 {
-    return (static_cast <Device> (*this) == static_cast <Device> (tablet));
+    if (static_cast <Device> (*this) != static_cast <Device> (tablet))
+        return false;
+    
+    // Must have the same storage capacity and free memory
+    if ((storageCapacity != tablet.storageCapacity) || (freeMemory != tablet.freeMemory))
+        return false;
+        
+    // Must have the same security system
+    if ((lockScreenPassword != tablet.lockScreenPassword) || (screenLocked != tablet.screenLocked))
+        return false;
+
+    // Must have the same configurations
+    if ((wiFiOn != tablet.wiFiOn) || (mobileDataOn != mobileDataOn))
+        return false;
+
+    // Comparison of unordered maps and active apps
+    if ((appsInstalled != tablet.appsInstalled) || (activeApps != tablet.activeApps))
+        return false;
+
+    return true;
 }
