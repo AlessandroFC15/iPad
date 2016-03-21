@@ -1,6 +1,7 @@
 # include <string>
 # include <iostream>
 # include <vector>
+# include <typeinfo>
 # include "Tablet.h"
 # include "IPad.h"
 # include "SamsungTablet.h"
@@ -16,18 +17,46 @@ void chooseAppToClose(Tablet& iPad);
 
 int main(int argc, char **argv)
 {
-    IPad iPad;
-    SamsungTablet samsung;
-    
     vector<Tablet*> tablet;
     
-    tablet.push_back(&iPad);
-    tablet.push_back(&samsung);
+    IPad tablet1;
+    IPad tablet2(128);
+    SamsungTablet tablet3;
+    SamsungTablet tablet4;
     
-    for (size_t i = 0; i < tablet.size(); i++)
+    tablet.push_back(&tablet1);
+    tablet.push_back(&tablet2);
+    tablet.push_back(&tablet3);
+    tablet.push_back(&tablet4);
+    /*tablet[1] = new SamsungTablet();
+    tablet[2] = new IPad(64);
+    tablet[3] = new SamsungTablet(128);*/
+    
+    //tablet.push_back(&iPad);
+    //tablet.push_back(&samsung);
+    
+   for (size_t i = 0; i < tablet.size(); i++)
     {
-        tablet[i]->unlockScreen();
+        // downcast pointer
+        IPad *iPadPtr = dynamic_cast < IPad * > ( tablet[ i ] );
+        
+        if (iPadPtr != 0)
+        {
+            // We will print only the iPad objects
+            cout << *iPadPtr;
+            
+            // We procceed then to try to unlock the iPad's screens.
+            iPadPtr->unlockScreen();
+        }
     }
+    
+    // Show the type of all tablet objects
+    for (size_t j = 0; j < tablet.size(); j++)
+    {
+        cout << "\nObject of class: " << typeid(*tablet[j]).name();
+    }
+    
+    tablet.clear();
     
 }
 
