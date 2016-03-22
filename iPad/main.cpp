@@ -20,44 +20,49 @@ const static int IPAD = 0;
 const static int SAMSUNG = 1;
 
 int main(int argc, char **argv)
-{
-    newMenu(new IPad());
+{    
+    vector<Tablet*> tablets;
     
-    /*
-    vector<Tablet*> tablet;
+    tablets.push_back(new IPad());
+    tablets.push_back(new SamsungTablet());
+    tablets.push_back(new IPad(128));
+    tablets.push_back(new SamsungTablet(64));
     
-    tablet.push_back(new IPad());
-    tablet.push_back(new SamsungTablet());
-    tablet.push_back(new IPad(128));
-    tablet.push_back(new SamsungTablet(64));
-    
-    for (Tablet *tabletPt : tablet)
-    {
-        cout << *tabletPt;
-    }
-
-    for (size_t i = 0; i < tablet.size(); i++)
+    for (Tablet *tablet : tablets)
     {
         // downcast pointer
-        IPad *iPadPtr = dynamic_cast < IPad * > ( tablet[ i ] );
+        IPad *iPad = dynamic_cast < IPad * > (tablet);
         
-        if (iPadPtr != 0)
+        if (iPad != 0)
         {
-            // We will print only the iPad objects
-            cout << *iPadPtr;
+            // We proceed then to try to unlock the iPad's screens.
+            iPad->unlockScreen();
+        } else
+        {
+            // downcast pointer
+            SamsungTablet *samsung = dynamic_cast < SamsungTablet * > (tablet);
             
-            // We procceed then to try to unlock the iPad's screens.
-            iPadPtr->unlockScreen();
+            if (samsung != 0)
+            {
+                samsung->insertSDCard();
+            }
         }
     }
-    
+
     // Show the type of all tablet objects
-    for (size_t j = 0; j < tablet.size(); j++)
+    for (size_t j = 0; j < tablets.size(); j++)
     {
-        cout << "\nObject of class: " << typeid(*tablet[j]).name();
+        cout << "\nObject of class: " << typeid(*tablets[j]).name();
     }
     
-    tablet.clear();*/
+    // Dealocate 
+    
+    for (Tablet* tablet : tablets)
+    {
+        delete tablet;
+    }
+    
+    tablets.clear();
     
 }
 
