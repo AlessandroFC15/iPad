@@ -13,7 +13,7 @@ public:
     Tablet();
     Tablet(int);
     Tablet(const Tablet &);
-    ~Tablet();
+    virtual ~Tablet();
     
     /**
         Installs an app in the iPad.
