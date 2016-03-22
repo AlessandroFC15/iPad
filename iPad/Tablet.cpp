@@ -208,12 +208,14 @@ bool Tablet::uninstallAllApps()
 
 bool Tablet::unlockScreen()
 {
+    cin.ignore();
     // Check to see if the screen is indeed locked
     if (not isScreenUnlocked())
     {
         string password;
         while (true)
         {
+            
             cout << "\n>> Enter password to unlock screen (0 to Quit): ";
             
             getline(cin, password);

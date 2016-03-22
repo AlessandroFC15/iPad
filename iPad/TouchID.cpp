@@ -62,7 +62,7 @@ bool TouchID::addFingerPrint()
         cout << "\n# Enter a valid number (1 to 10). #\n";
     }
     
-    cout << "\n|| Fingerprint successfully registered ||\n\n";
+    cout << "\n|| Fingerprint successfully registered ||\n";
     // 3st Step = Add data to the data structure
     registeredFingerprints[nameOfUser] = fingerUsed;
     
@@ -90,6 +90,7 @@ bool TouchID::unlockScreen()
     string nameOfUser;
     int fingerUsed;
     
+    cin.ignore();
     cout << "\n>> To unlock the screen, please enter your name: ";
     getline(cin, nameOfUser);
 
