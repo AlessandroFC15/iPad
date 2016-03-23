@@ -9,6 +9,8 @@ SamsungTablet::SamsungTablet()
 
     installDefaultApps();
     
+    openDefaultApps();
+    
     setLockScreenPassword();
 }
 
@@ -21,6 +23,8 @@ SamsungTablet::SamsungTablet(int storage)
     sizeSDCard = 0;
 
     installDefaultApps();
+    
+    openDefaultApps();
     
     setLockScreenPassword();
 }
@@ -162,6 +166,28 @@ void SamsungTablet::installDefaultApps()
     // Installing iTunes
     appsInstalled["Google Play Store"] = 98;
     freeMemory -= 98/1000.0;
+}
+
+void SamsungTablet::turnOn()
+{
+    if (isOn())
+    {
+        cout << "\n# SamsungTablet is already turned on.\n";
+    } else
+    {
+        isTurnedOn = true;
+        openDefaultApps();
+        cout << "\n# Samsung is now turned on.\n";
+    }
+}
+
+void SamsungTablet::openDefaultApps()
+{
+    if (isAppInstalled("Google"))
+        openApp("Google");
+        
+    if (isAppInstalled("Google Play Store"))
+        openApp("Google Play Store");
 }
 
 // OVERLOAD OF OPERATORS

@@ -12,11 +12,10 @@ public:
     SamsungTablet(const SamsungTablet &);
     ~SamsungTablet();
     
+    virtual void turnOn();
     bool insertSDCard();
     bool removeSDCard();
     bool changeSDCard();
-    
-    virtual void installDefaultApps();
     
     const SamsungTablet &operator=(const SamsungTablet &);
     bool operator==(const SamsungTablet &) const;
@@ -25,7 +24,8 @@ private:
     int sizeSDCard;
     
     // HELPER FUNCTION
-    
+    virtual void installDefaultApps();
+    void openDefaultApps();
 };
 
 #endif // SAMSUNGTABLET_H

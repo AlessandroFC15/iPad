@@ -24,18 +24,6 @@ Device::~Device()
 {
 }
 
-void Device::turnOn()
-{
-    if (isTurnedOn)
-    {
-        cout << "\n# Device is already turned on.\n";
-    } else
-    {
-        isTurnedOn = true;
-        cout << "\n# Device is now turned on.\n";
-    }
-}
-
 void Device::turnOff()
 {
     // Check to see if the iPad isn't already turned off.

@@ -10,6 +10,8 @@ IPad::IPad()
 
     installDefaultApps();
     
+    openDefaultApps();
+    
     setInitialSecuritySystem();
     
     numberOfiPads++;
@@ -21,6 +23,8 @@ IPad::IPad(int storage)
     cout << ".:. iPad Creation .:.\n";
     
     installDefaultApps();
+    
+    openDefaultApps();
     
     setInitialSecuritySystem();
     
@@ -146,6 +150,28 @@ bool IPad::unlockTouchID()
     }
     
     return false;
+}
+
+void IPad::turnOn()
+{
+    if (isOn())
+    {
+        cout << "\n# iPad is already turned on.\n";
+    } else
+    {
+        isTurnedOn = true;
+        openDefaultApps();
+        cout << "\n# iPad is now turned on.\n";
+    }
+}
+
+void IPad::openDefaultApps()
+{
+    if (isAppInstalled("Google"))
+        openApp("Google");
+        
+    if (isAppInstalled("iTunes"))
+        openApp("iTunes");
 }
 
 // OVERLOAD OF OPERATORS
