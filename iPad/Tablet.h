@@ -114,9 +114,9 @@ protected:
     */
     float validateValue(float, float, float, const string &) const;
     void setLockScreenPassword();
+    bool isAppInstalled(const string &) const;
 private:
     bool isAppOpen(const string &) const;
-    bool isAppInstalled(const string &) const;
     void setSpecsToDefault();
     
     virtual void installDefaultApps() = 0;
