@@ -23,11 +23,15 @@ int main(int argc, char **argv)
 {    
     vector<Tablet*> tablets;
     
-    tablets.push_back(new IPad());
-    tablets.push_back(new SamsungTablet());
-    tablets.push_back(new IPad(128));
-    tablets.push_back(new SamsungTablet(64));
+    //tablets.push_back(new IPad());
+    //tablets.push_back(new SamsungTablet());
+    //tablets.push_back(new IPad(128));
+    //tablets.push_back(new SamsungTablet(64));
     
+    newMenu(new SamsungTablet());
+    newMenu(new IPad());
+    
+    /*
     for (Tablet *tablet : tablets)
     {
         // downcast pointer
@@ -62,7 +66,7 @@ int main(int argc, char **argv)
         delete tablet;
     }
     
-    tablets.clear();
+    tablets.clear();*/
     
 }
 
@@ -283,14 +287,20 @@ void chooseAppToInstall(Tablet& iPad)
         cout << "\n\n>> Enter your choice: ";
         cin >> op;
         
+        string nameOfApp;
+        float sizeOfApp;
+        
         if (op >= 1 && op <= 10)
         {
-            iPad.installApp(appsToInstall[op - 1].first, appsToInstall[op - 1].second);
+            nameOfApp = appsToInstall[op - 1].first;
+            sizeOfApp = appsToInstall[op - 1].second;
+            
+            if (iPad.installApp(nameOfApp, sizeOfApp))
+            {
+                cout << "\n|| App " << nameOfApp << " was successfully opened. ||\n";;
+            }
         } else if (op == 11)
         {
-            string nameOfApp;
-            float sizeOfApp;
-            
             // Validate the name of the app.
             while (true)
             {
