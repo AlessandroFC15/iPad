@@ -6,14 +6,20 @@
 class Device
 {
     friend ostream &operator<<(ostream &, const Device &);
-    
 public:
+    const Device &operator=(const Device &);
+    bool operator==(const Device &) const;
+    bool operator!=(const Device &device) const
+    {
+        return ! (*this == device);
+    }
+
     Device();
     Device(bool);
     Device(const Device &);
-    ~Device();
+    virtual ~Device();
 
-    void turnOn();
+    virtual void turnOn() = 0;
     void turnOff();
     bool isOn() const;
 protected:

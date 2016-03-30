@@ -5,21 +5,27 @@
 
 class SamsungTablet : public Tablet
 {
+    friend ostream &operator<<(ostream &, const SamsungTablet &);
 public:
     SamsungTablet();
     SamsungTablet(int);
+    SamsungTablet(const SamsungTablet &);
     ~SamsungTablet();
+    
+    virtual void turnOn();
+    bool insertSDCard();
+    bool removeSDCard();
+    bool changeSDCard();
+    
+    const SamsungTablet &operator=(const SamsungTablet &);
+    bool operator==(const SamsungTablet &) const;
 private:
-    bool penActive;
-    bool activeNFC; // NFC = Near Field Communication
+    bool externalSDCard;
+    int sizeSDCard;
     
-    /** HELPER FUNCTIONS
-     * 
-     * The following functions were designed to help the main functions perfomr
-     */
-    
-    void setSpecsToDefault();
-    void installDefaultApps();
+    // HELPER FUNCTION
+    virtual void installDefaultApps();
+    void openDefaultApps();
 };
 
 #endif // SAMSUNGTABLET_H

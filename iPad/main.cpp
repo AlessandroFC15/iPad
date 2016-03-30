@@ -1,157 +1,209 @@
 # include <string>
 # include <iostream>
+# include <vector>
+# include <typeinfo>
+# include "Tablet.h"
 # include "IPad.h"
-# include "TouchID.h"
-# include "Device.h"
+# include "SamsungTablet.h"
 
 using namespace std;
 
-void menu(IPad& iPad);
-void chooseAppToInstall(IPad& iPad);
-void chooseAppToUninstall(IPad& iPad);
-void chooseAppToOpen(IPad& iPad);
-void chooseAppToClose(IPad& iPad);
+void newMenu(Tablet *tablet);
+void chooseAppToInstall(Tablet& iPad);
+void chooseAppToUninstall(Tablet& iPad);
+void chooseAppToOpen(Tablet& iPad);
+void chooseAppToClose(Tablet& iPad);
+bool isInstanceOfIPad(Tablet *tablet);
+bool isInstanceOfSamsung(Tablet *tablet);
+
+const static int IPAD = 0;
+const static int SAMSUNG = 1;
 
 int main(int argc, char **argv)
-{
-    Device iPad;
+{    
+    vector<Tablet*> tablets;
     
-    cout << iPad;
+    //tablets.push_back(new IPad());
+    //tablets.push_back(new SamsungTablet());
+    //tablets.push_back(new IPad(128));
+    //tablets.push_back(new SamsungTablet(64));
     
-    /*IPad iPad1(64), iPad2(64);
+    newMenu(new SamsungTablet());
+    newMenu(new IPad());
     
-    // Uso do cout
-    cout << iPad1;
-    
-    // Teste da igualdade
-    cout << (iPad1 == iPad2? "\nEQUAL":"\nDIFFERENT");
-    
-    // Atribuição
-    iPad2 = iPad1;
-    
-    // Teste de igualdade, novamente
-    cout << (iPad1 == iPad2? "\nEQUAL":"\nDIFFERENT");
-    
-    cout << (iPad1 <= iPad2? "\n1ST LOWER":"\n2ND LOWER");*/
+    /*
+    for (Tablet *tablet : tablets)
+    {
+        // downcast pointer
+        IPad *iPad = dynamic_cast < IPad * > (tablet);
+        
+        if (iPad != 0)
+        {
+            // We proceed then to try to unlock the iPad's screens.
+            iPad->unlockScreen();
+        } else
+        {
+            // downcast pointer
+            SamsungTablet *samsung = dynamic_cast < SamsungTablet * > (tablet);
+            
+            if (samsung != 0)
+            {
+                samsung->insertSDCard();
+            }
+        }
+    }
 
-    return 0;
+    // Show the type of all tablet objects
+    for (size_t j = 0; j < tablets.size(); j++)
+    {
+        cout << "\nObject of class: " << typeid(*tablets[j]).name();
+    }
+    
+    // Dealocate 
+    
+    for (Tablet* tablet : tablets)
+    {
+        delete tablet;
+    }
+    
+    tablets.clear();*/
+    
 }
 
-void menu(IPad& iPad)
+void newMenu(Tablet *tablet)
 {
+    // Downcast pointer that will be used if the tablet is a Samsung.
+    SamsungTablet *samsungPtr = dynamic_cast < SamsungTablet * > (tablet);
+    
+    int typeOfObject;
+    
+    if (isInstanceOfIPad(tablet))
+    {
+        typeOfObject = IPAD;
+    } else if (isInstanceOfSamsung(tablet))
+    {
+        typeOfObject = SAMSUNG;
+    } else
+    {
+        return;
+    }
+    
     int op;
     
     do 
     {
-        cout << "\n\t\t|| iPad Control Center ||\n";
-        cout << "\n1 => Show Open Apps";
-        cout << "\t\t2 => Install App";
-        cout << "\n\n3 => Uninstall App";
-        cout << "\t\t4 => Show Apps Installed";
-        cout << "\n\n5 => Get iPad Specs";
-        cout << "\t\t6 => Open App";
-        cout << "\n\n7 => Close App";
-        cout << "\t\t\t8 => Close All Apps";
-        cout << "\n\n9 => Uninstall All Apps";
-        cout << "\t\t10 => Turn Wi-Fi On";
-        cout << "\n\n11 => Turn Wi-Fi Off";
-        cout << "\t\t12 => Turn Mobile Data On";
-        cout << "\n\n13 => Turn Mobile Data Off";
-        cout << "\t14 => Unlock Screen";
-        cout << "\n\n15 => Lock Screen";
-        cout << "\t\t16 => Turn On";
-        cout << "\n\n17 => Turn Off";
-        cout << "\t\t\t18 => Get Number of iPads Created";
-        cout << "\n\n19 => Update iOS Version";
-        cout << "\t20 => Quit";
-        cout << "\n\n>> Enter your option: ";
+        // The options will change accordingly to the type of object.
+        
+        cout << "\n\t\t|| " << (typeOfObject == IPAD? "iPad" : "Samsung") << " Control Center ||\n"
+        << "\n1 => Show Open Apps"
+        << "\t\t2 => Install App"
+        << "\n\n3 => Uninstall App"
+        << "\t\t4 => Show Apps Installed"
+        << "\n\n5 => Get " << (typeOfObject == IPAD? "iPad" : "Samsung") << " Specs"
+        << "\t\t6 => Open App"
+        << "\n\n7 => Close App"
+        << "\t\t\t8 => Close All Apps"
+        << "\n\n9 => Uninstall All Apps"
+        << "\t\t10 => Turn Wi-Fi On"
+        << "\n\n11 => Turn Wi-Fi Off"
+        << "\t\t12 => Turn Mobile Data On"
+        << "\n\n13 => Turn Mobile Data Off"
+        << "\t14 => Unlock Screen"
+        << "\n\n15 => Lock Screen"
+        << "\t\t16 => Turn On"
+        << "\n\n17 => Turn Off"
+        << "\t\t\t18 => " << (typeOfObject == IPAD? "Get Number of iPads Created" : "Insert SD Card")
+        << "\n\n19 => " << (typeOfObject == IPAD? "Update iOS Version" : "Remove SD Card")
+        << (typeOfObject == SAMSUNG? "\t\t20 => Change SD Card\n\n" : "\t")
+        << "-1 => Quit"
+        << "\n\n>> Enter your option: ";
         cin >> op;
         
-        // For the options between 1 and 13, the program will only proceed if the iPad is turned on 
+        // For the options between 1 and 13, the program will only proceed if the tablet turned on 
         // and also if it is unlocked.
         
         if (op >= 1 && op <= 13)
         {
-            if (iPad.isOn())
+            if (tablet->isOn())
             {
-                if (iPad.isScreenUnlocked())
+                if (tablet->isScreenUnlocked())
                 {
-                    // With the iPad on and unlocked, we can proceed to perform the option choosen.
+                    // With the tablet on and unlocked, we can proceed to perform the option choosen.
                     switch (op)
                     {
                         case 1:
-                            iPad.showActiveApps();
+                            tablet->showActiveApps();
                             break;
                         case 2:
                             // To download any app, internet must be available
-                            if (iPad.isInternetAvailable())
+                            if (tablet->isInternetAvailable())
                             {
-                                chooseAppToInstall(iPad);
+                                chooseAppToInstall(*tablet);
                             } else
                             {
                                 cout << "\n# There is no internet connection to download apps. \n# Turn WiFi or mobile data on. \n";
                             }
                             break;
                         case 3:
-                            chooseAppToUninstall(iPad);
+                            chooseAppToUninstall(*tablet);
                             break;
                         case 4:
-                            iPad.showAppsInstalled();
+                            tablet->showAppsInstalled();
                             break;
                         case 5:
-                            cout << iPad;
+                            cout << *tablet;
                             break;
                         case 6:
-                            chooseAppToOpen(iPad);
+                            chooseAppToOpen(*tablet);
                             break;
                         case 7:
-                            chooseAppToClose(iPad);
+                            chooseAppToClose(*tablet);
                             break;
                         case 8:
-                            iPad.closeAllApps();
+                            tablet->closeAllApps();
                             break;
                         case 9:
-                            iPad.uninstallAllApps();
+                            tablet->uninstallAllApps();
                             break;
                         case 10:
-                            iPad.turnWiFiOn();
+                            tablet->turnWiFiOn();
                             break;
                         case 11:
-                            iPad.turnWiFiOff();
+                            tablet->turnWiFiOff();
                             break;
                         case 12:
-                            iPad.turnMobileDataOn();
+                            tablet->turnMobileDataOn();
                             break;
                         case 13:
-                            iPad.turnMobileDataOff();
+                            tablet->turnMobileDataOff();
                             break;
                     }
                 } else 
                 {
-                    cout << "\n# Unlock the iPad screen first #\n";
+                    cout << "\n# Unlock the tablet sreen first #\n";
                 }
             } else 
             {
-                cout << "\n# Turn the iPad on first #\n";
+                cout << "\n# Turn the tablet on first #\n";
             }
             
         } else if (op >= 14 && op <= 15)
         {
-            // For the options 14 and 15, we will only check if the iPad is on.
-            if (iPad.isOn())
+            // For the options 14 and 15, we will only check if the tablet is on.
+            if (tablet->isOn())
             {
                 switch (op)
                 {
                     case 14:
-                        iPad.unlockScreen();
+                        tablet->unlockScreen();
                         break;
                     case 15:
-                        iPad.lockScreen();
+                        tablet->lockScreen();
                         break;
                 }
             } else 
             {
-                 cout << "\n# Turn the iPad on first #\n";
+                 cout << "\n# Turn the tablet on first #\n";
             }
         } else 
         {
@@ -159,20 +211,44 @@ void menu(IPad& iPad)
             switch (op)
             {
                 case 16:
-                    iPad.turnOn();
+                    tablet->turnOn();
                     break;
                 case 17:
-                    iPad.closeAllApps();
-                    iPad.turnOff();
+                    tablet->closeAllApps();
+                    tablet->turnOff();
                     break;
                 case 18:
-                    cout << ">> NUMBER OF IPADS = " << IPad::getNumberOfiPads();
+                    if (typeOfObject == IPAD)
+                    {
+                        cout << ">> NUMBER OF IPADS = " << IPad::getNumberOfiPads();
+                    } else
+                    {
+                        samsungPtr->insertSDCard();
+                    }
+                    
                     break;
                 case 19:
-                    IPad::updateIOSVersion();
-                    cout << ">> IOS Version update for all iPads. ";
+                    if (typeOfObject == IPAD)
+                    {
+                        IPad::updateIOSVersion();
+                        cout << ">> IOS Version update for all iPads. ";
+                    } else
+                    {
+                        samsungPtr->removeSDCard();
+                    }
+                    
                     break;
                 case 20:
+                    if (typeOfObject == IPAD)
+                    {
+                        cout <<"\n\n# Invalid option. Try again.";
+                    } else
+                    {
+                        samsungPtr->changeSDCard();
+                    }
+                    
+                    break;
+                case -1:
                     cout << "\n# PROGRAM FINISHED #\n";
                     break;
                 default:
@@ -180,12 +256,12 @@ void menu(IPad& iPad)
                     break;
             }
         }
-    } while (op != 20);
+    } while (op != -1); 
 }
 
 // FUNCTIONS
 
-void chooseAppToInstall(IPad& iPad)
+void chooseAppToInstall(Tablet& iPad)
 {
     // Array of pairs to hold the apps to be presented in App Store
     pair<string, float> appsToInstall[10] = {{"Instagram", 23}, {"Facebook", 108},
@@ -211,14 +287,20 @@ void chooseAppToInstall(IPad& iPad)
         cout << "\n\n>> Enter your choice: ";
         cin >> op;
         
+        string nameOfApp;
+        float sizeOfApp;
+        
         if (op >= 1 && op <= 10)
         {
-            iPad.installApp(appsToInstall[op - 1].first, appsToInstall[op - 1].second);
+            nameOfApp = appsToInstall[op - 1].first;
+            sizeOfApp = appsToInstall[op - 1].second;
+            
+            if (iPad.installApp(nameOfApp, sizeOfApp))
+            {
+                cout << "\n|| App " << nameOfApp << " was successfully opened. ||\n";;
+            }
         } else if (op == 11)
         {
-            string nameOfApp;
-            float sizeOfApp;
-            
             // Validate the name of the app.
             while (true)
             {
@@ -261,7 +343,7 @@ void chooseAppToInstall(IPad& iPad)
     } while (op != 12);
 }
 
-void chooseAppToUninstall(IPad& iPad)
+void chooseAppToUninstall(Tablet& iPad)
 {
     cin.ignore();
     
@@ -293,7 +375,7 @@ void chooseAppToUninstall(IPad& iPad)
     }
 }
 
-void chooseAppToOpen(IPad& iPad)
+void chooseAppToOpen(Tablet& iPad)
 {
     cin.ignore();
     
@@ -324,7 +406,7 @@ void chooseAppToOpen(IPad& iPad)
     }
 }
 
-void chooseAppToClose(IPad& iPad)
+void chooseAppToClose(Tablet& iPad)
 {
     cin.ignore();
     
@@ -352,4 +434,14 @@ void chooseAppToClose(IPad& iPad)
     {
         cout << "\n|| There are no apps open ||\n";
     }
+}
+
+bool isInstanceOfIPad(Tablet *tablet)
+{
+    return typeid(*tablet).name() == typeid(IPad).name();
+}
+
+bool isInstanceOfSamsung(Tablet *tablet)
+{
+    return typeid(*tablet).name() == typeid(SamsungTablet).name();
 }

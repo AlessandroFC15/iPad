@@ -1,15 +1,17 @@
 #include "Device.h"
 
+// CONSTRUTORES
+
 Device::Device()
 {
     isTurnedOn = true;
-    Data InitialDate(17, 2, 2016);
+    Data InitialDate(02, 3, 2016);  
 }
 
 Device::Device(bool state)
 {
     isTurnedOn = state;
-    Data InitialDate(17, 2, 2016);
+    Data InitialDate(02, 3, 2016);
 }
 
 Device::Device(const Device &oldDevice)
@@ -18,29 +20,8 @@ Device::Device(const Device &oldDevice)
     InitialDate = oldDevice.InitialDate;
 }
 
-ostream &operator<<(ostream &output, const Device &device)
-{
-    output << "\n\n.: Device Specs :.\n"
-    << "\n>> STATUS = " << (device.isTurnedOn? "ON":"OFF")
-    << device.InitialDate;
-    
-    return output;
-}
-
 Device::~Device()
 {
-}
-
-void Device::turnOn()
-{
-    if (isTurnedOn)
-    {
-        cout << "\n# Device is already turned on.\n";
-    } else
-    {
-        isTurnedOn = true;
-        cout << "\n# Device is now turned on.\n";
-    }
 }
 
 void Device::turnOff()
@@ -62,4 +43,28 @@ void Device::turnOff()
 bool Device::isOn() const
 {
     return isTurnedOn;
+}
+
+// Overload of operator
+
+ostream &operator<<(ostream &output, const Device &device)
+{
+    output << "\n\n.: Device Specs :.\n"
+    << "\n>> STATUS = " << (device.isTurnedOn? "ON":"OFF")
+    << device.InitialDate;
+    
+    return output;
+}
+
+const Device & Device::operator=(const Device &device)
+{
+    isTurnedOn = device.isTurnedOn;
+    InitialDate = device.InitialDate;
+    
+    return *this;
+}
+
+bool Device::operator==(const Device &device) const
+{
+    return (isTurnedOn == device.isTurnedOn) && (InitialDate == device.InitialDate);
 }

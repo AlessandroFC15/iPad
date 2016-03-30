@@ -9,15 +9,11 @@
 class Tablet : public Device
 {
     friend ostream &operator<<(ostream &, const Tablet &);
-    
 public:
     Tablet();
     Tablet(int);
-    ~Tablet();
-    
-    bool unlockScreen();
-    bool lockScreen();
-    bool isScreenUnlocked() const;
+    Tablet(const Tablet &);
+    virtual ~Tablet();
     
     /**
         Installs an app in the iPad.
@@ -73,6 +69,12 @@ public:
     
     bool uninstallAllApps();
     
+    virtual bool unlockScreen();
+    
+    bool lockScreen();
+    
+    bool isScreenUnlocked() const;
+    
     void turnWiFiOn();
     
     void turnWiFiOff();
@@ -85,24 +87,39 @@ public:
     bool isDeviceEmpty() const;
     bool isAnyAppOpen() const;
     
-    void setLockScreenPassword();
-    
-    void setSpecsToDefault();
-    
+    const Tablet &operator=(const Tablet &);
+    bool operator==(const Tablet &) const;
+    bool operator!=(const Tablet &tablet) const
+    {
+        return ! (*this == tablet);
+    }
 protected:
+    float storageCapacity; // Measured in GB
+    float freeMemory; // Measured in GB
     bool screenLocked;
     string lockScreenPassword;
     bool wiFiOn;
     bool mobileDataOn;
-    float storageCapacity; // Measured in GB
-    float freeMemory; // Measured in GB
     unordered_map<string, float> appsInstalled;
     vector<string> activeApps;
     
-private:
+    /**
+        Helper function designed to validate the values passed as parameters to the constructor.
+        
+        @param value: value to be validated.
+               min: The value to be analyzed can't be lower than the mininum.
+               max: The value to be analyzed can't be higher than the maximum.
+               name: String to help identify which attribute is being validated.
+        @return float value already validated acording to the max and min limits provided in the arguments.
+    */
+    float validateValue(float, float, float, const string &) const;
+    void setLockScreenPassword();
     bool isAppInstalled(const string &) const;
+private:
     bool isAppOpen(const string &) const;
+    void setSpecsToDefault();
     
+    virtual void installDefaultApps() = 0;
 };
 
 #endif // TABLET_H

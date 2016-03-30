@@ -5,90 +5,31 @@ Tablet::Tablet()
     setSpecsToDefault();
 }
 
+Tablet::Tablet(int storage)
+{
+    setSpecsToDefault();
+    
+    storageCapacity = validateValue(storage, 1, 128, "storage capacity");
+    
+    freeMemory = storageCapacity;
+}
+
+// Construtor de cópia
+Tablet::Tablet(const Tablet &oldTablet)
+:Device(oldTablet)
+{
+    storageCapacity = oldTablet.storageCapacity;
+    freeMemory = oldTablet.freeMemory;
+    screenLocked = oldTablet.screenLocked;
+    lockScreenPassword = oldTablet.lockScreenPassword;
+    wiFiOn = oldTablet.wiFiOn;
+    mobileDataOn = oldTablet.mobileDataOn;
+    appsInstalled = oldTablet.appsInstalled;
+    activeApps = oldTablet.activeApps;
+}
+
 Tablet::~Tablet()
 {
-}
-
-ostream &operator<<(ostream &output, const Tablet &tablet)
-{
-    output << static_cast< Device > (tablet);
-    output << "\n\n.: Tablet Specs :.\n"
-    << "\n>> STORAGE CAPACITY = " << tablet.storageCapacity << "GB"
-    << "\n>> FREE MEMORY = " << tablet.freeMemory << "GB"
-    << "\n>> NUM OF APPS INSTALLED = " << tablet.appsInstalled.size()
-    << "\n>> NUM OF ACTIVE APPS = " << tablet.activeApps.size()
-    << "\n>> SCREEN LOCKED = " << (tablet.screenLocked? "YES":"NO");
-    
-    tablet.showAppsInstalled();
-    
-    return output;
-}
-
-bool Tablet::unlockScreen()
-{
-    // Check to see if the screen is indeed locked
-    if (not isScreenUnlocked())
-    {
-        string password;
-        while (true)
-        {
-            cout << "\n>> Enter password to unlock screen (0 to Quit): ";
-            
-            getline(cin, password);
-            
-            if (password == "0")
-            {
-                cout << "\n|| Unlock process was cancelled. iPad remains locked. ||\n";
-                return false;
-            } else if ((password.length() >= 4) & (password.length() <= 32))
-            {
-                if (password == lockScreenPassword)
-                {
-                    screenLocked = false;
-                    cout << "\n|| Screen is now unlocked ||\n";
-                    return true;
-                } else 
-                {
-                    cout << "\n# Wrong password. Try again #\n";
-                }
-            } else 
-            {
-                cout << "\n# Password must be 4 to 32 chars. Try again #\n";
-            }
-        }
-    } 
-    
-    cout << "\n| Screen was already unlocked. |\n";
-    return false;
-}
-
-bool Tablet::lockScreen()
-{
-    // Check to see if the screen is indeed unlocked.
-    if (isScreenUnlocked())
-    {
-        screenLocked = true;
-        cout << "\n|| Screen is now locked ||\n";
-        return true;
-    } else 
-    {
-        cout << "\n| Screen was already locked. |\n";
-        return false;
-    }
-}
-
-bool Tablet::isScreenUnlocked() const
-{
-    return not screenLocked;
-}
-
-void Tablet::setSpecsToDefault()
-{
-    storageCapacity = 32;
-    freeMemory = storageCapacity;
-    screenLocked = false;
-    wiFiOn = true;
-    mobileDataOn = false;
 }
 
 bool Tablet::installApp(const string &name, float sizeOfApp)
@@ -122,7 +63,7 @@ bool Tablet::uninstallApp(const string &name)
     {
         cout << "\n|| Uninstalling " << name << "... ||\n";
         // Close the app, in case it is open
-        //closeApp(name);
+        closeApp(name);
         
         // The memory the app held is set free. Needs to convert to GB.
         freeMemory += appsInstalled[name]/1000;
@@ -149,7 +90,6 @@ bool Tablet::openApp(const string &name)
         {
             activeApps.push_back(name);
             
-            cout << "\n|| App " << name << " was successfully opened. ||\n";
             return true;
         } else
         {
@@ -188,34 +128,6 @@ bool Tablet::closeApp(const string &name)
     } 
     
     cout << "\n# App " << name <<" isn't even installed. #\n";
-    return false;
-}
-
-bool Tablet::isAppInstalled(const string &name) const
-{
-    // Find the app in the unordered map appsInstalled.
-    auto lookup = appsInstalled.find(name);
-
-    // If the function "find" above returns something other than an iterator to the end of the map,
-    // that means the element was found and therefore, is installed.
-    if (lookup != appsInstalled.end())
-    {
-        return true;
-    }
-    
-    return false;
-}
-
-bool Tablet::isAppOpen(const string &name) const
-{
-    for (string nameOfApp : activeApps)
-    {
-        if (nameOfApp == name)
-        {
-            return true;
-        }
-    }
-    
     return false;
 }
 
@@ -293,6 +205,86 @@ bool Tablet::uninstallAllApps()
     }
 }
 
+bool Tablet::unlockScreen()
+{
+    cin.ignore();
+    // Check to see if the screen is indeed locked
+    if (not isScreenUnlocked())
+    {
+        string password;
+        while (true)
+        {
+            
+            cout << "\n>> Enter password to unlock screen (0 to Quit): ";
+            
+            getline(cin, password);
+            
+            if (password == "0")
+            {
+                cout << "\n|| Unlock process was cancelled. iPad remains locked. ||\n";
+                return false;
+            } else if ((password.length() >= 4) & (password.length() <= 32))
+            {
+                if (password == lockScreenPassword)
+                {
+                    screenLocked = false;
+                    cout << "\n|| Screen is now unlocked ||\n";
+                    return true;
+                } else 
+                {
+                    cout << "\n# Wrong password. Try again #\n";
+                }
+            } else 
+            {
+                cout << "\n# Password must be 4 to 32 chars. Try again #\n";
+            }
+        }
+    } 
+    
+    cout << "\n| Screen was already unlocked. |\n";
+    return false;
+}
+
+bool Tablet::lockScreen()
+{
+    // Check to see if the screen is indeed unlocked.
+    if (isScreenUnlocked())
+    {
+        screenLocked = true;
+        cout << "\n|| Screen is now locked ||\n";
+        return true;
+    } else 
+    {
+        cout << "\n| Screen was already locked. |\n";
+        return false;
+    }
+}
+
+void Tablet::setLockScreenPassword()
+{
+    string password;
+    while (true)
+    {
+        cout << "\n>> Set initial password to lock screen (4-32 chars): ";
+        getline(cin, password);
+        
+        if ((password.length() >= 4) && (password.length() <= 32))
+        {
+            lockScreenPassword = password;
+            cout << "\n|| Lock screen password set successfully ||\n";
+            break;
+        }
+        
+        cout << "\n# Password must be 4 to 32 chars. Try again. #\n";
+    }
+
+}
+
+bool Tablet::isScreenUnlocked() const
+{
+    return not screenLocked;
+}
+
 void Tablet::turnWiFiOn()
 {
     if (wiFiOn)
@@ -356,21 +348,114 @@ bool Tablet::isAnyAppOpen() const
     return not activeApps.empty();
 }
 
-void Tablet::setLockScreenPassword()
+float Tablet::validateValue(float value, float min, float max, const string &name) const
 {
-    string password;
     while (true)
     {
-        cout << "\n>> Set initial password to lock screen (4-32 chars): ";
-        getline(cin, password);
-        
-        if ((password.length() >= 4) && (password.length() <= 32))
+        if (value >= min && value <= max)
         {
-            lockScreenPassword = password;
-            cout << "\n|| Lock screen password set successfully ||\n";
             break;
         }
         
-        cout << "\n# Password must be 4 to 32 chars. Try again. #\n";
+        cout << "\n>> Invalid value for " << name << ". Must be between " << min << " and " << max << ".";
+        cout << "\n>> Enter a new value: ";
+        cin >> (value);
     }
+    
+    return value;
+}
+
+/* HELPER FUNCTIONS | PRIVATE FUNCTION */
+
+bool Tablet::isAppOpen(const string &name) const
+{
+    for (string nameOfApp : activeApps)
+    {
+        if (nameOfApp == name)
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+bool Tablet::isAppInstalled(const string &name) const
+{
+    // Find the app in the unordered map appsInstalled.
+    auto lookup = appsInstalled.find(name);
+
+    // If the function "find" above returns something other than an iterator to the end of the map,
+    // that means the element was found and therefore, is installed.
+    if (lookup != appsInstalled.end())
+    {
+        return true;
+    }
+    
+    return false;
+}
+
+void Tablet::setSpecsToDefault()
+{
+    storageCapacity = 32;
+    freeMemory = storageCapacity;
+    screenLocked = true;
+    wiFiOn = true;
+    mobileDataOn = false;
+    lockScreenPassword = "";
+}
+
+// Overload of operators
+ostream &operator<<(ostream &output, const Tablet &tablet)
+{
+    output << "\n\n.: Tablet Specs :.\n"
+    << "\n>> STATUS = " << (tablet.isTurnedOn? "ON":"OFF")
+    << tablet.InitialDate
+    << "\n>> STORAGE CAPACITY = " << tablet.storageCapacity << "GB"
+    << "\n>> FREE MEMORY = " << tablet.freeMemory << "GB"
+    << "\n>> NUM OF APPS INSTALLED = " << tablet.appsInstalled.size()
+    << "\n>> NUM OF ACTIVE APPS = " << tablet.activeApps.size()
+    << "\n>> SCREEN LOCKED = " << (tablet.screenLocked? "YES":"NO");
+    
+    return output;
+}
+
+const Tablet & Tablet::operator=(const Tablet &oldTablet)
+{
+    Device::operator=(oldTablet);
+    
+    storageCapacity = oldTablet.storageCapacity;
+    freeMemory = oldTablet.freeMemory;
+    screenLocked = oldTablet.screenLocked;
+    lockScreenPassword = oldTablet.lockScreenPassword;
+    wiFiOn = oldTablet.wiFiOn;
+    mobileDataOn = oldTablet.mobileDataOn;
+    appsInstalled = oldTablet.appsInstalled;
+    activeApps = oldTablet.activeApps;
+    
+    return *this;
+}
+
+bool Tablet::operator==(const Tablet &tablet) const
+{
+    if (Device::operator !=(tablet))
+        return false;
+
+    // Must have the same storage capacity and free memory
+    if ((storageCapacity != tablet.storageCapacity) || (freeMemory != tablet.freeMemory))
+        return false;
+        
+    // Must have the same security system
+    if ((lockScreenPassword != tablet.lockScreenPassword) || (screenLocked != tablet.screenLocked))
+        return false;
+
+    // Must have the same configurations
+    if ((wiFiOn != tablet.wiFiOn) || (mobileDataOn != mobileDataOn))
+        return false;
+
+    // Comparison of unordered maps and active apps
+    if ((appsInstalled != tablet.appsInstalled) || (activeApps != tablet.activeApps))
+        return false;
+
+    return true;
 }
