@@ -16,7 +16,7 @@ Tablet::Tablet(int storage)
 
 // Construtor de cópia
 Tablet::Tablet(const Tablet &oldTablet)
-:Device(static_cast< Device > (oldTablet))
+:Device(oldTablet)
 {
     storageCapacity = oldTablet.storageCapacity;
     freeMemory = oldTablet.freeMemory;
@@ -63,7 +63,7 @@ bool Tablet::uninstallApp(const string &name)
     {
         cout << "\n|| Uninstalling " << name << "... ||\n";
         // Close the app, in case it is open
-        //closeApp(name);
+        closeApp(name);
         
         // The memory the app held is set free. Needs to convert to GB.
         freeMemory += appsInstalled[name]/1000;
@@ -90,7 +90,6 @@ bool Tablet::openApp(const string &name)
         {
             activeApps.push_back(name);
             
-            cout << "\n|| App " << name << " was successfully opened. ||\n";
             return true;
         } else
         {
@@ -208,12 +207,14 @@ bool Tablet::uninstallAllApps()
 
 bool Tablet::unlockScreen()
 {
+    cin.ignore();
     // Check to see if the screen is indeed locked
     if (not isScreenUnlocked())
     {
         string password;
         while (true)
         {
+            
             cout << "\n>> Enter password to unlock screen (0 to Quit): ";
             
             getline(cin, password);
@@ -276,6 +277,7 @@ void Tablet::setLockScreenPassword()
         
         cout << "\n# Password must be 4 to 32 chars. Try again. #\n";
     }
+
 }
 
 bool Tablet::isScreenUnlocked() const
@@ -397,7 +399,7 @@ void Tablet::setSpecsToDefault()
 {
     storageCapacity = 32;
     freeMemory = storageCapacity;
-    screenLocked = false;
+    screenLocked = true;
     wiFiOn = true;
     mobileDataOn = false;
     lockScreenPassword = "";
@@ -406,7 +408,9 @@ void Tablet::setSpecsToDefault()
 // Overload of operators
 ostream &operator<<(ostream &output, const Tablet &tablet)
 {
-    output << static_cast< Device > (tablet)
+    output << "\n\n.: Tablet Specs :.\n"
+    << "\n>> STATUS = " << (tablet.isTurnedOn? "ON":"OFF")
+    << tablet.InitialDate
     << "\n>> STORAGE CAPACITY = " << tablet.storageCapacity << "GB"
     << "\n>> FREE MEMORY = " << tablet.freeMemory << "GB"
     << "\n>> NUM OF APPS INSTALLED = " << tablet.appsInstalled.size()
@@ -418,7 +422,7 @@ ostream &operator<<(ostream &output, const Tablet &tablet)
 
 const Tablet & Tablet::operator=(const Tablet &oldTablet)
 {
-    static_cast <Device&> (*this) = static_cast <Device> (oldTablet);
+    Device::operator=(oldTablet);
     
     storageCapacity = oldTablet.storageCapacity;
     freeMemory = oldTablet.freeMemory;
@@ -434,5 +438,24 @@ const Tablet & Tablet::operator=(const Tablet &oldTablet)
 
 bool Tablet::operator==(const Tablet &tablet) const
 {
-    return (static_cast <Device> (*this) == static_cast <Device> (tablet));
+    if (Device::operator !=(tablet))
+        return false;
+
+    // Must have the same storage capacity and free memory
+    if ((storageCapacity != tablet.storageCapacity) || (freeMemory != tablet.freeMemory))
+        return false;
+        
+    // Must have the same security system
+    if ((lockScreenPassword != tablet.lockScreenPassword) || (screenLocked != tablet.screenLocked))
+        return false;
+
+    // Must have the same configurations
+    if ((wiFiOn != tablet.wiFiOn) || (mobileDataOn != mobileDataOn))
+        return false;
+
+    // Comparison of unordered maps and active apps
+    if ((appsInstalled != tablet.appsInstalled) || (activeApps != tablet.activeApps))
+        return false;
+
+    return true;
 }

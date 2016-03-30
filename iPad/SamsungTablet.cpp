@@ -9,6 +9,8 @@ SamsungTablet::SamsungTablet()
 
     installDefaultApps();
     
+    openDefaultApps();
+    
     setLockScreenPassword();
 }
 
@@ -22,11 +24,13 @@ SamsungTablet::SamsungTablet(int storage)
 
     installDefaultApps();
     
+    openDefaultApps();
+    
     setLockScreenPassword();
 }
 
 SamsungTablet::SamsungTablet(const SamsungTablet &oldTablet)
-:Tablet(static_cast< Tablet > (oldTablet))
+:Tablet(oldTablet)
 {
     externalSDCard = oldTablet.externalSDCard;
     sizeSDCard = oldTablet.sizeSDCard;
@@ -164,11 +168,40 @@ void SamsungTablet::installDefaultApps()
     freeMemory -= 98/1000.0;
 }
 
+void SamsungTablet::turnOn()
+{
+    if (isOn())
+    {
+        cout << "\n# SamsungTablet is already turned on.\n";
+    } else
+    {
+        isTurnedOn = true;
+        openDefaultApps();
+        cout << "\n# Samsung is now turned on.\n";
+    }
+}
+
+void SamsungTablet::openDefaultApps()
+{
+    if (isAppInstalled("Google"))
+        openApp("Google");
+        
+    if (isAppInstalled("Google Play Store"))
+        openApp("Google Play Store");
+}
+
 // OVERLOAD OF OPERATORS
 
 ostream &operator<<(ostream &output, const SamsungTablet &tablet)
 {
-    output << static_cast< Tablet > (tablet)
+    output << "\n\n.: SamsungTablet Specs :.\n"
+    << "\n>> STATUS = " << (tablet.isTurnedOn? "ON":"OFF")
+    << tablet.InitialDate
+    << "\n>> STORAGE CAPACITY = " << tablet.storageCapacity << "GB"
+    << "\n>> FREE MEMORY = " << tablet.freeMemory << "GB"
+    << "\n>> NUM OF APPS INSTALLED = " << tablet.appsInstalled.size()
+    << "\n>> NUM OF ACTIVE APPS = " << tablet.activeApps.size()
+    << "\n>> SCREEN LOCKED = " << (tablet.screenLocked? "YES":"NO")
     << "\n>> SD CARD INSERTED = " << (tablet.externalSDCard? "YES":"NO");
     if (tablet.externalSDCard) 
     {
@@ -182,7 +215,7 @@ ostream &operator<<(ostream &output, const SamsungTablet &tablet)
 
 const SamsungTablet & SamsungTablet::operator=(const SamsungTablet &tablet)
 {
-    static_cast <Tablet&> (*this) = static_cast <Tablet> (tablet);
+    Tablet::operator = (tablet);
 
     externalSDCard = tablet.externalSDCard;
     sizeSDCard = tablet.sizeSDCard;
@@ -192,9 +225,10 @@ const SamsungTablet & SamsungTablet::operator=(const SamsungTablet &tablet)
 
 bool SamsungTablet::operator==(const SamsungTablet &tablet) const
 {
-    if (static_cast <Tablet> (*this) != static_cast <Tablet> (tablet))
+    if (Tablet::operator !=(tablet))
         return false;
-        
+    
+    
     if ((externalSDCard != tablet.externalSDCard) || (sizeSDCard != tablet.sizeSDCard))
         return false;
         

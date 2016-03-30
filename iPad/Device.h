@@ -17,9 +17,9 @@ public:
     Device();
     Device(bool);
     Device(const Device &);
-    ~Device();
+    virtual ~Device();
 
-    void turnOn();
+    virtual void turnOn() = 0;
     void turnOff();
     bool isOn() const;
 protected:

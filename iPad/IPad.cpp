@@ -10,6 +10,8 @@ IPad::IPad()
 
     installDefaultApps();
     
+    openDefaultApps();
+    
     setInitialSecuritySystem();
     
     numberOfiPads++;
@@ -22,6 +24,8 @@ IPad::IPad(int storage)
     
     installDefaultApps();
     
+    openDefaultApps();
+    
     setInitialSecuritySystem();
     
     numberOfiPads++;
@@ -29,7 +33,7 @@ IPad::IPad(int storage)
 
 // Construtor de cópia
 IPad::IPad(const IPad &oldIPad)
-:Tablet(static_cast< Tablet > (oldIPad))
+:Tablet(oldIPad)
 {
     typeOfLockScreen = oldIPad.typeOfLockScreen;
     touchID = oldIPad.touchID;
@@ -117,9 +121,11 @@ void IPad::setInitialSecuritySystem()
             break;
         } else
         {
-            cout << "\n# Invalid choice. Try again! #";
+            cout << "\n# Invalid choice. Try again! #\n";
         }
     }
+    
+    cin.ignore();
 }
 
 void IPad::setTouchID()
@@ -146,11 +152,40 @@ bool IPad::unlockTouchID()
     return false;
 }
 
+void IPad::turnOn()
+{
+    if (isOn())
+    {
+        cout << "\n# iPad is already turned on.\n";
+    } else
+    {
+        isTurnedOn = true;
+        openDefaultApps();
+        cout << "\n# iPad is now turned on.\n";
+    }
+}
+
+void IPad::openDefaultApps()
+{
+    if (isAppInstalled("Google"))
+        openApp("Google");
+        
+    if (isAppInstalled("iTunes"))
+        openApp("iTunes");
+}
+
 // OVERLOAD OF OPERATORS
 
 ostream &operator<<(ostream &output, const IPad &iPad)
 {
-    output << static_cast< Tablet > (iPad)
+    output << "\n\n.: iPad Specs :.\n"
+    << "\n>> STATUS = " << (iPad.isTurnedOn? "ON":"OFF")
+    << iPad.InitialDate
+    << "\n>> STORAGE CAPACITY = " << iPad.storageCapacity << "GB"
+    << "\n>> FREE MEMORY = " << iPad.freeMemory << "GB"
+    << "\n>> NUM OF APPS INSTALLED = " << iPad.appsInstalled.size()
+    << "\n>> NUM OF ACTIVE APPS = " << iPad.activeApps.size()
+    << "\n>> SCREEN LOCKED = " << (iPad.screenLocked? "YES":"NO")
     << "\n>> iOS VERSION = " << iPad.latestIOSVersion
     << "\n>> TYPE OF LOCK SCREEN = " 
     << (iPad.typeOfLockScreen == iPad.TOUCH_ID? "TOUCH ID":"PASSWORD");
@@ -162,14 +197,13 @@ ostream &operator<<(ostream &output, const IPad &iPad)
 
 const IPad & IPad::operator=(const IPad &iPad)
 {
-    static_cast <Tablet&> (*this) = static_cast <Tablet> (iPad);
+    Tablet::operator=(iPad);
     
     typeOfLockScreen = iPad.typeOfLockScreen;
     touchID = iPad.touchID;
     
     return *this;
 }
-
 
 float operator+(const IPad &iPad1, const IPad &iPad)
 {
@@ -181,11 +215,9 @@ float operator+(const IPad &iPad1, const IPad &iPad)
 
 bool IPad::operator==(const IPad &iPad) const
 {
-    // Must have the same storage capacity and free memory
-    if (static_cast <Tablet> (*this) != static_cast <Tablet> (iPad))
+    if (Tablet::operator!=(iPad))
         return false;
         
-    // Must have the same security system
     if ((typeOfLockScreen != iPad.typeOfLockScreen) || (touchID != iPad.touchID))
         return false;
         

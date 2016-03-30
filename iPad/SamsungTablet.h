@@ -12,6 +12,7 @@ public:
     SamsungTablet(const SamsungTablet &);
     ~SamsungTablet();
     
+    virtual void turnOn();
     bool insertSDCard();
     bool removeSDCard();
     bool changeSDCard();
@@ -23,7 +24,8 @@ private:
     int sizeSDCard;
     
     // HELPER FUNCTION
-    void installDefaultApps();
+    virtual void installDefaultApps();
+    void openDefaultApps();
 };
 
 #endif // SAMSUNGTABLET_H

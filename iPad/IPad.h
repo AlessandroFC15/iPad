@@ -16,7 +16,8 @@ public:
     IPad(const IPad &);
     ~IPad();
     
-    bool unlockScreen();
+    virtual void turnOn();
+    virtual bool unlockScreen();
     static void updateIOSVersion();
     static int getNumberOfiPads();
     
@@ -36,11 +37,12 @@ private:
     TouchID touchID;
 
     // HELPER FUNCTIONS
-    void installDefaultApps();
     void setInitialSecuritySystem();
     void setTouchID();
     bool unlockPassword();
     bool unlockTouchID();
+    virtual void installDefaultApps();
+    void openDefaultApps();
     
      /* STATIC VARIABLES */
     static float latestIOSVersion;
